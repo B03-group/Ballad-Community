@@ -1,6 +1,29 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
+const Header = () => {
+  const boardTitles = ['최신글', '국내', '추천음악', '자유'];
+  return (
+    <StHeader>
+      <div>
+        <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
+          <H1>발라드 음악 추천 커뮤니티</H1>
+        </Link>
+      </div>
+      <nav>
+        {boardTitles.map((boardTitle) => (
+          <Link to={`/board/${boardTitle}`} key={boardTitle}>
+            <Button>{boardTitle}</Button>
+          </Link>
+        ))}
+      </nav>
+    </StHeader>
+  );
+};
+
+export default Header;
+
+// 스타일드 컴포넌트
 const StHeader = styled.header`
   padding: 1rem;
   display: flex;
@@ -33,25 +56,3 @@ const Button = styled.button`
   font-size: 20px;
   font-weight: 600;
 `;
-
-const Header = () => {
-  const boardTitles = ["최신글", "국내", "추천음악", "자유"];
-  return (
-    <StHeader>
-      <div>
-        <Link to={`/`} style={{ textDecoration: "none", color: "black" }}>
-          <H1>발라드 음악 추천 커뮤니티</H1>
-        </Link>
-      </div>
-      <nav>
-        {boardTitles.map((boardTitle) => (
-          <Link to={`/board/${boardTitle}`} key={boardTitle}>
-            <Button>{boardTitle}</Button>
-          </Link>
-        ))}
-      </nav>
-    </StHeader>
-  );
-};
-
-export default Header;

@@ -1,8 +1,8 @@
-import React from "react";
-import { Link, useParams } from "react-router-dom";
-import styled from "styled-components";
-import Post from "../components/Post";
-import { useSelector } from "react-redux";
+import React from 'react';
+import { Link, useParams } from 'react-router-dom';
+import styled from 'styled-components';
+import Post from '../components/Post/Post';
+import { useSelector } from 'react-redux';
 
 const Board = () => {
   const boardTitle = useParams().id;
@@ -15,16 +15,16 @@ const Board = () => {
       <H2>{boardTitle}</H2>
       <Postcontainer>
         <PostInfoWrapper>
-          <p>
+          <div>
             <PostInfo>날짜</PostInfo>
             <PostInfo>추천수</PostInfo>
             <PostInfo></PostInfo>
-          </p>
+          </div>
           <PostInfo>작성자</PostInfo>
         </PostInfoWrapper>
-        {filteredPosts.map((post) => (
-          <Post key={post.id} post={post} />
-        ))}
+        {boardTitle === '최신글'
+          ? posts.map((post) => <Post key={post.id} post={post} />)
+          : filteredPosts.map((post) => <Post key={post.id} post={post} />)}
       </Postcontainer>
       <ButtonWrapper>
         <Link to={`/board/${boardTitle}`}>

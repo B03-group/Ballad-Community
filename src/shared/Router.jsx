@@ -1,13 +1,11 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Layout from "../components/layout/Layout";
-import Home from "../pages/Home";
-import GlobalStyle from "../styles/GlobalStyle";
-import Board from "../pages/Board";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Layout from '../components/Layout/Layout';
+import Home from '../pages/Home';
+import Board from '../pages/Board';
 
 const Router = () => {
   return (
     <>
-      <GlobalStyle />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>

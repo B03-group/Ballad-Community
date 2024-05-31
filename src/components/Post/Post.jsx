@@ -1,7 +1,9 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
 const Post = ({ post }) => {
+  const parms = useParams().id;
   return (
     <>
       {" "}
@@ -9,7 +11,10 @@ const Post = ({ post }) => {
         <p>
           <PostInfo>{post.date}</PostInfo>
           <PostInfo>{post.like}</PostInfo>
-          <PostTitle>{post.title}</PostTitle>
+          <PostTitle>
+            {parms === "최신글" ? `[${post.category}] ` : ""}
+            {post.title}
+          </PostTitle>
         </p>
         <PostInfo>{post.writer}</PostInfo>
       </StPost>

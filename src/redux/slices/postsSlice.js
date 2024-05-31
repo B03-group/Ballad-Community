@@ -1,12 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
-import dummyData from "../../assets/dummyData";
+import { createSlice } from '@reduxjs/toolkit';
+import dummyData from '../../assets/dummyData';
 
 const initialState = dummyData;
 
 const postsSlice = createSlice({
-  name: "posts",
+  name: 'posts',
   initialState,
-  reducers: {},
+  reducers: {}
 });
 
 export const {} = postsSlice.actions;

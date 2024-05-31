@@ -60,9 +60,27 @@ export const dummyData = [
     category: "추천음악",
     date: new Date().toLocaleDateString(),
     like: 0,
-    title: "비비 - 밤양갱",
+    title: "IU - love wins all",
     description: "내용 예시.",
     writer: "7",
+  },
+  {
+    id: uuidv4(),
+    category: "추천음악",
+    date: new Date().toLocaleDateString(),
+    like: 0,
+    title: "M.C the MAX",
+    description: "내용 예시.",
+    writer: "8",
+  },
+  {
+    id: uuidv4(),
+    category: "추천음악",
+    date: new Date().toLocaleDateString(),
+    like: 0,
+    title: "에일리 - 첫눈처럼 너에게 가겠다",
+    description: "내용 예시.",
+    writer: "9",
   },
 ];
 

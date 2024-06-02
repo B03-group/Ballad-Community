@@ -1,7 +1,8 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Layout from '../components/Layout/Layout';
-import Home from '../pages/Home';
 import Board from '../pages/Board';
+import Detail from '../pages/Detail';
+import Home from '../pages/Home';
 
 const Router = () => {
   return (
@@ -11,6 +12,7 @@ const Router = () => {
           <Route path="/" element={<Layout />}>
             <Route path="/" element={<Home />} />
             <Route path="/board/:id" element={<Board />} />
+            <Route path="/board/:id/:detailId" element={<Detail />} />
           </Route>
         </Routes>
       </BrowserRouter>

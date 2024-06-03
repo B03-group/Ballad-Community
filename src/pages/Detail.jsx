@@ -27,8 +27,9 @@ const MainWrapper = styled.main`
 
 const CategoryName = styled.h4`
   padding-left: 5px;
-  margin-bottom: 8px;
-  font-size: 13px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-size: 20px;
 `;
 
 const Hr = styled.hr`

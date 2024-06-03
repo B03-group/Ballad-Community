@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 // Import Swiper React components
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 import { FaBookmark, FaRegBookmark } from 'react-icons/fa';
 import { MdFavorite } from 'react-icons/md';
+import { GrFormPrevious, GrFormNext } from 'react-icons/gr';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -19,8 +20,15 @@ export const Carousel = ({ data }) => {
 
   return (
     <>
-      <StH1>인기글</StH1>
-      <Swiper
+      <StSlideHeader>
+        <span>인기글</span>
+        <StSlideButtonBox>
+          <StPreviousBtn className="swiper-prev" />
+          <StNextBtn className="swiper-next" />
+        </StSlideButtonBox>
+      </StSlideHeader>
+
+      <StSwiper
         onSwiper={setSwiperRef}
         slidesPerView={4}
         slidesPerGroup={1}
@@ -28,10 +36,11 @@ export const Carousel = ({ data }) => {
         centeredSlidesBounds={true}
         slidesOffsetBefore={50}
         slidesOffsetAfter={50}
-        navigation={true}
+        navigation={{
+          nextEl: '.swiper-next',
+          prevEl: '.swiper-prev'
+        }}
         modules={[Pagination, Navigation]}
-        rewind={true}
-        style={{ border: '2px solid black', padding: '20px' }}
         breakpoints={{
           0: {
             slidesPerView: 1
@@ -47,9 +56,9 @@ export const Carousel = ({ data }) => {
           }
         }}
       >
-        {data.map((item, i) => {
+        {data.map((item) => {
           return (
-            <SwiperSlide key={item.id} className={i === 0 ? 'swiper-slide-active' : ''}>
+            <SwiperSlide key={item.id}>
               <StCardDiv>
                 <StImgDiv>
                   <StImg src={sample1} alt="" />
@@ -71,14 +80,62 @@ export const Carousel = ({ data }) => {
             </SwiperSlide>
           );
         })}
-      </Swiper>
+      </StSwiper>
     </>
   );
 };
 
-const StH1 = styled.div`
+const StSlideHeader = styled.div`
   font-size: 40px;
-  margin: 10px 40px;
+  margin: 10px 100px;
+`;
+
+const StSlideButtonBox = styled.div`
+  display: inline-flex;
+  margin: 0 15px;
+  width: 75px;
+  justify-content: space-between;
+`;
+const StPreviousBtn = styled(GrFormPrevious)`
+  box-sizing: border-box;
+  width: 34px;
+  height: 34px;
+  border: 2px solid black;
+  border-radius: 17px;
+  text-align: center;
+  align-content: center;
+  font-size: 40px;
+  &:active {
+    color: white;
+    background-color: black;
+  }
+`;
+
+const StNextBtn = styled(GrFormNext)`
+  box-sizing: border-box;
+  width: 34px;
+  height: 34px;
+  border: 2px solid black;
+  border-radius: 17px;
+  text-align: center;
+  align-content: center;
+  font-size: 40px;
+  &:active {
+    color: white;
+    background-color: black;
+  }
+`;
+
+const StSwiper = styled(Swiper)`
+  border: 2px solid black;
+  padding: 20px 0;
+`;
+
+const StCardDiv = styled.div`
+  width: 300px;
+  height: 300px;
+  border: 2px solid black;
+  border-radius: 20px;
 `;
 
 const StH2 = styled.div`
@@ -137,11 +194,4 @@ const StImgDiv = styled.div`
 `;
 const StImg = styled.img`
   border-radius: 20px 20px 0 0;
-`;
-
-const StCardDiv = styled.div`
-  width: 300px;
-  height: 300px;
-  border: 2px solid black;
-  border-radius: 20px;
 `;

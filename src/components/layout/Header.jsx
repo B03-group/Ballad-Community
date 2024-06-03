@@ -1,20 +1,20 @@
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Header = () => {
   const boardTitles = ['최신글', '국내', '추천음악', '자유'];
+  const navigate = useNavigate();
+
   return (
     <StHeader>
       <div>
-        <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
-          <H1>발라드 음악 추천 커뮤니티</H1>
-        </Link>
+        <H1 onClick={() => navigate(`/`)}>발라드 음악 추천 커뮤니티</H1>
       </div>
       <nav>
         {boardTitles.map((boardTitle) => (
-          <Link to={`/board/${boardTitle}`} key={boardTitle}>
-            <Button>{boardTitle}</Button>
-          </Link>
+          <Button key={boardTitle} onClick={() => navigate(`/board/${boardTitle}?page=1`)}>
+            {boardTitle}
+          </Button>
         ))}
       </nav>
     </StHeader>
@@ -45,6 +45,7 @@ const H1 = styled.h1`
   font-weight: 700;
 
   margin: 0px 20px;
+  cursor: pointer;
 `;
 
 const Button = styled.button`

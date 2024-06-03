@@ -1,15 +1,51 @@
-import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 import Post from '../components/Post/Post';
 import { useSelector } from 'react-redux';
+import Pagenation from '../components/Pagenation/Pagenation';
 
 const Board = () => {
   const boardTitle = useParams().id;
   const posts = useSelector((state) => state.posts);
+  const navigate = useNavigate();
 
   const filteredPosts = posts.filter((post) => post.category === boardTitle);
 
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const totalPost =
+    boardTitle === '최신글'
+      ? posts.map((post) => <Post key={post.id} post={post} />).length
+      : filteredPosts.map((post) => <Post key={post.id} post={post} />).length;
+  const postPerPage = 10;
+  const pagePerBoard = 5;
+  const totalPage = Math.ceil(totalPost / postPerPage);
+  const currentPage = Number(useLocation().search.replace(`?page=`, ''));
+
+  const startPost = (currentPage - 1) * postPerPage;
+  const [start, setStart] = useState(1);
+
+  useEffect(() => {
+    if (currentPage === start + pagePerBoard) setStart((prev) => prev + pagePerBoard);
+    if (currentPage < start) setStart((prev) => prev - pagePerBoard);
+  }, [currentPage, start]);
+
+  const pageNumbers = () => {
+    const page = [];
+    for (let i = 1; i <= totalPage; i++) {
+      page.push(i);
+    }
+    return page.splice(start - 1, start - 1 + 5).map((num) => (
+      <button key={num} onClick={() => movePage(num)}>
+        {num}
+      </button>
+    ));
+  };
+
+  const movePage = (num) => {
+    setSearchParams({ page: num });
+  };
   return (
     <BoardContainer>
       <H2>{boardTitle}</H2>
@@ -23,16 +59,28 @@ const Board = () => {
           <PostInfo>작성자</PostInfo>
         </PostInfoWrapper>
         {boardTitle === '최신글'
-          ? posts.map((post) => <Post key={post.id} post={post} />)
-          : filteredPosts.map((post) => <Post key={post.id} post={post} />)}
+          ? posts.slice(startPost, startPost + 10).map((post) => <Post key={post.id} post={post} />)
+          : filteredPosts.slice(startPost, startPost + 10).map((post) => <Post key={post.id} post={post} />)}
       </Postcontainer>
       <ButtonWrapper>
-        <Link to={`/board/${boardTitle}`}>
-          <button>목록</button>
-        </Link>
-        <Link>
-          <button>🖊️글쓰기</button>
-        </Link>
+        <button onClick={() => navigate(`/board/${boardTitle}?page=1`)}>목록</button>
+
+        {/* <Pagenation /> */}
+        <div>
+          <button onClick={() => navigate(`/board/${boardTitle}?page=${currentPage === 1 ? 1 : currentPage - 1}`)}>
+            이전
+          </button>
+          {pageNumbers()}
+          <button
+            onClick={() =>
+              navigate(`/board/${boardTitle}?page=${currentPage === totalPage ? totalPage : currentPage + 1}`)
+            }
+          >
+            다음
+          </button>
+        </div>
+
+        <button>🖊️글쓰기</button>
       </ButtonWrapper>
     </BoardContainer>
   );

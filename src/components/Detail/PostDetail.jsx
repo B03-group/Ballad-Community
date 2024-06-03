@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import BlackHr from '../common/BlackHr';
 
 function PostDetail() {
   const separator = `  |  `;
@@ -14,7 +15,7 @@ function PostDetail() {
         <Separator>{separator}</Separator>
         <CommentNum>댓글 수</CommentNum>
       </Info>
-      <HR />
+      <BlackHr />
       <Content>
         <Article>글 상세내용</Article>
       </Content>
@@ -47,12 +48,6 @@ const Date = styled.span``;
 const ViewNum = styled.span``;
 
 const CommentNum = styled.span``;
-
-const HR = styled.hr`
-  height: 1px;
-  border: 0;
-  background: rgba(0, 0, 0, 0.1);
-`;
 
 const Content = styled.div`
   padding: 30px 0 15px;

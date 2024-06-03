@@ -1,5 +1,6 @@
 import { nanoid } from '@reduxjs/toolkit';
 import styled from 'styled-components';
+import BlackHr from '../common/BlackHr';
 import Comment from './Comment';
 
 const mockData = [
@@ -36,7 +37,7 @@ function Comments() {
         <Title>댓글</Title>
         <CommentsNum>{mockData.length}</CommentsNum>
       </TitleWrapper>
-      <HR />
+      <BlackHr />
       <CommentsList>
         {mockData.map((comment) => (
           <Comment
@@ -81,12 +82,6 @@ const Title = styled.span`
 const CommentsNum = styled.span`
   font-size: 18px;
   color: blue;
-`;
-
-const HR = styled.hr`
-  height: 1px;
-  border: 0;
-  background: rgb(0, 0, 0, 0.1);
 `;
 
 const CommentsList = styled.ul``;

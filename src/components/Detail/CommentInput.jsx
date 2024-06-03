@@ -8,7 +8,9 @@ function CommentInput() {
       <Header>
         <Title>댓글 달기</Title>
       </Header>
-      {isLogIn ? <LoggedInInput /> : <LoggedOutInput>댓글 쓰기 권한이 없습니다. 로그인 하시겠습니까?</LoggedOutInput>}
+      <Body>
+        {isLogIn ? <LoggedInInput /> : <LoggedOutInput>댓글 쓰기 권한이 없습니다. 로그인 하시겠습니까?</LoggedOutInput>}
+      </Body>
       <Footer>
         <AddBtn>등록</AddBtn>
       </Footer>

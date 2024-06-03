@@ -7,7 +7,6 @@ import styled from 'styled-components';
 
 const usePagenation = () => {
   const [start, setStart] = useState(1);
-  const [active, setActive] = useState(1);
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -53,7 +52,7 @@ const usePagenation = () => {
     if (currentPage < start) setStart((prev) => prev - pagePerBoard);
   }, [currentPage, start]);
 
-  return { goBackPage, goNextPage, showPage, showPost, postPerPage, currentPage };
+  return { goBackPage, goNextPage, showPage, showPost, postPerPage, currentPage, boardTitle };
 };
 
 export default usePagenation;

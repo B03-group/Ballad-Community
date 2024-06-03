@@ -1,13 +1,12 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Pagenation from '../components/Board/Pagenation';
 import usePagenation from '../hooks/usePagenation';
 
 const Board = () => {
-  const boardTitle = useParams().category;
   const navigate = useNavigate();
 
-  const { showPost } = usePagenation();
+  const { showPost, boardTitle } = usePagenation();
 
   return (
     <BoardContainer>

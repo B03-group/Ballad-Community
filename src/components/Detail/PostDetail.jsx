@@ -35,7 +35,7 @@ const Title = styled.h1`
 `;
 
 const Info = styled.p`
-  font-size: 10px;
+  font-size: 11px;
 `;
 
 const Separator = styled.span``;
@@ -59,5 +59,5 @@ const Content = styled.div`
 `;
 
 const Article = styled.article`
-  font-size: 13px;
+  font-size: 12px;
 `;

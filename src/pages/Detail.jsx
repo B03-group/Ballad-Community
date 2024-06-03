@@ -11,7 +11,7 @@ function Detail() {
     <MainWrapper>
       <CategoryName>{categoryId}</CategoryName>
       <PostDetail />
-      <hr/>
+      <HR/>
       <Comments />
       <CommentInput/>
     </MainWrapper>
@@ -28,5 +28,11 @@ const MainWrapper = styled.main`
 const CategoryName = styled.h4`
   padding-left: 5px;
   margin-bottom: 8px;
-  font-size: 15px;
+  font-size: 13px;
+`;
+
+const HR = styled.hr`
+  height: 1px;
+  border: 0;
+  background: rgba(0, 0, 0, 0.1);
 `;

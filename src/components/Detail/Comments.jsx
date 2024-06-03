@@ -59,12 +59,14 @@ const Wrapper = styled.section``;
 const TitleWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: start;
   margin: 30px 0 15px;
   gap: 3px;
 `;
 
 const TitleImg = styled.div`
-  width: 19px;
+  padding-top: 1px;
+  width: 20px;
 
   & > img {
     width: 100%;
@@ -72,16 +74,19 @@ const TitleImg = styled.div`
   }
 `;
 
-const Title = styled.span``;
+const Title = styled.span`
+  font-size: 18px;
+`;
 
 const CommentsNum = styled.span`
+  font-size: 18px;
   color: blue;
 `;
 
 const HR = styled.hr`
   height: 1px;
   border: 0;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgb(0, 0, 0, 0.1);
 `;
 
 const CommentsList = styled.ul``;

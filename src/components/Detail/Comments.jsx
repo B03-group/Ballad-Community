@@ -1,4 +1,5 @@
 import { nanoid } from '@reduxjs/toolkit';
+import { SlSpeech } from 'react-icons/sl';
 import styled from 'styled-components';
 import BlackHr from '../common/BlackHr';
 import Comment from './Comment';
@@ -31,9 +32,7 @@ function Comments() {
   return (
     <Wrapper>
       <TitleWrapper>
-        <TitleImg>
-          <img src="/public/speechBalloon.png" />
-        </TitleImg>
+        <TitleImg />
         <Title>댓글</Title>
         <CommentsNum>{mockData.length}</CommentsNum>
       </TitleWrapper>
@@ -60,19 +59,14 @@ const Wrapper = styled.section``;
 const TitleWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: start;
+  align-items: center;
   margin: 30px 0 15px;
   gap: 3px;
 `;
 
-const TitleImg = styled.div`
-  padding-top: 1px;
+const TitleImg = styled(SlSpeech)`
+  padding-top: 2px;
   width: 20px;
-
-  & > img {
-    width: 100%;
-    object-fit: cover;
-  }
 `;
 
 const Title = styled.span`
@@ -80,7 +74,7 @@ const Title = styled.span`
 `;
 
 const CommentsNum = styled.span`
-  font-size: 18px;
+  font-size: 20px;
   color: blue;
 `;
 

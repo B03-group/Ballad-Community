@@ -20,6 +20,13 @@ function Detail() {
 
 export default Detail;
 
-const MainWrapper = styled.main``;
+const MainWrapper = styled.main`
+  margin: 0 auto;
+  padding: 10px;
+`;
 
-const CategoryName = styled.h4``;
+const CategoryName = styled.h4`
+  padding-left: 5px;
+  margin-bottom: 8px;
+  font-size: 15px;
+`;

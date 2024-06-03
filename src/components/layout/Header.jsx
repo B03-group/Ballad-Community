@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-export const Navbar = () => {
+const Header = () => {
   const boardTitles = ['최신글', '국내', '추천음악', '자유'];
   return (
     <StNav>
@@ -81,3 +81,5 @@ const StCategoryLink = styled(Link)`
   font-weight: 700;
   color: black;
 `;
+
+export default Header;

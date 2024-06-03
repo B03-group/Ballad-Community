@@ -1,59 +1,84 @@
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Header = () => {
   const boardTitles = ['최신글', '국내', '추천음악', '자유'];
-  const navigate = useNavigate();
-
   return (
-    <StHeader>
-      <div>
-        <H1 onClick={() => navigate(`/`)}>발라드 음악 추천 커뮤니티</H1>
-      </div>
-      <nav>
-        {boardTitles.map((boardTitle) => (
-          <Button key={boardTitle} onClick={() => navigate(`/board/${boardTitle}?page=1`)}>
-            {boardTitle}
-          </Button>
-        ))}
-      </nav>
-    </StHeader>
+    <StNav>
+      <StInfo>
+        <StLink to={'/'}>
+          <div style={{ display: 'flex' }}>
+            <StLogo /> <StH1>발라드 음악 추천 커뮤니티</StH1>
+          </div>
+        </StLink>
+        <StUser>
+          <StLink>로그인</StLink>
+          <StLink>회원가입</StLink>
+          <StLink to={'/'}>
+            <StProfile />
+          </StLink>
+        </StUser>
+      </StInfo>
+      <StCategory>
+        {boardTitles.map((boardTitle) => {
+          return (
+            <StCategoryLink to={`/board/${boardTitle}?page=1`} key={boardTitle}>
+              {boardTitle}
+            </StCategoryLink>
+          );
+        })}
+      </StCategory>
+    </StNav>
   );
 };
+const StNav = styled.nav`
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid black;
+  padding: 10px;
+`;
+const StInfo = styled.div`
+  display: flex;
+  justify-content: space-between;
+  height: 60px;
+`;
+const StLogo = styled.div`
+  width: 60px;
+  height: 60px;
+  background-color: black;
+  border-radius: 30px;
+  display: inline-block;
+`;
+const StH1 = styled.h1`
+  font-weight: 700;
+  font-size: 30px;
+  margin: 10px 20px;
+`;
+const StUser = styled.div`
+  display: flex;
+  gap: 20px;
+`;
+const StProfile = styled.div`
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: gray;
+`;
+const StCategory = styled.div`
+  margin-top: 15px;
+  display: flex;
+  gap: 20px;
+`;
+const StLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+  height: 20px;
+`;
+const StCategoryLink = styled(Link)`
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 700;
+  color: black;
+`;
 
 export default Header;
-
-// 스타일드 컴포넌트
-const StHeader = styled.header`
-  padding: 1rem;
-  display: flex;
-  border-bottom: 1px solid gray;
-
-  justify-content: center;
-
-  flex-direction: column;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    text-align: center;
-    padding: 1rem 0.5rem;
-  }
-`;
-
-const H1 = styled.h1`
-  font-size: 30px;
-  font-weight: 700;
-
-  margin: 0px 20px;
-  cursor: pointer;
-`;
-
-const Button = styled.button`
-  background-color: transparent;
-  border: 0px solid transparent;
-
-  margin: 20px 15px 0px 15px;
-
-  font-size: 20px;
-  font-weight: 600;
-`;

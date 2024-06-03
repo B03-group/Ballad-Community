@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import BlackHr from '../common/BlackHr';
 
 function PostDetail() {
-  const separator = `  |  `;
+  const separator = `|`;
   return (
     <Wrapper>
       <Title>제목</Title>
@@ -36,10 +36,14 @@ const Title = styled.h1`
 `;
 
 const Info = styled.p`
+  display: flex;
+  justify-content: end;
   font-size: 11px;
 `;
 
-const Separator = styled.span``;
+const Separator = styled.span`
+  margin: 0 5px;
+`;
 
 const Writer = styled.span``;
 

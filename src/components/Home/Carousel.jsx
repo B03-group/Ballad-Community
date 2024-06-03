@@ -3,7 +3,7 @@ import styled from 'styled-components';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { FaBookmark, FaRegBookmark } from 'react-icons/fa';
-import { MdFavorite, MdFavoriteBorder } from 'react-icons/md';
+import { MdFavorite } from 'react-icons/md';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -14,9 +14,8 @@ import 'swiper/css/navigation';
 import { Pagination, Navigation } from 'swiper/modules';
 import sample1 from '../../assets/sample1.jpg';
 
-export const Carousel = () => {
+export const Carousel = ({ data }) => {
   const [swiperRef, setSwiperRef] = useState(null);
-  const arr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
   return (
     <>
@@ -31,7 +30,7 @@ export const Carousel = () => {
         slidesOffsetAfter={50}
         navigation={true}
         modules={[Pagination, Navigation]}
-        className="mySwiper"
+        rewind={true}
         style={{ border: '2px solid black', padding: '20px' }}
         breakpoints={{
           0: {
@@ -48,25 +47,24 @@ export const Carousel = () => {
           }
         }}
       >
-        {arr.map((e, i) => {
+        {data.map((item, i) => {
           return (
-            <SwiperSlide key={e + i} className={i === 0 ? 'swiper-slide-active' : ''}>
+            <SwiperSlide key={item.id} className={i === 0 ? 'swiper-slide-active' : ''}>
               <StCardDiv>
                 <StImgDiv>
                   <StImg src={sample1} alt="" />
                 </StImgDiv>
-                <StH2>글제목{+i}</StH2>
+                <StH2>{item.title}</StH2>
                 <StNickNameDiv>
-                  <p>NickName</p>
+                  <p>{item.writer}</p>
                   <StFillBookMark />
                   {/* <StBookMark /> */}
                 </StNickNameDiv>
                 <StTextDiv>
+                  <StTextP>{item.description}</StTextP>
                   <StFavorDiv>
-                    {' '}
                     <StFillFavor />
-                    {/* <StFavor /> */}
-                    <span style={{ verticalAlign: 'top' }}>{'1'}</span>
+                    <span style={{ verticalAlign: 'top' }}>{item.like}</span>
                   </StFavorDiv>
                 </StTextDiv>
               </StCardDiv>
@@ -91,7 +89,6 @@ const StH2 = styled.div`
 const StBookMark = styled(FaRegBookmark)`
   width: 20px;
   height: 20px;
-
   fill: #76ba1b;
 `;
 const StFillBookMark = styled(FaBookmark)`
@@ -100,11 +97,7 @@ const StFillBookMark = styled(FaBookmark)`
 
   fill: #76ba1b;
 `;
-const StFavor = styled(MdFavoriteBorder)`
-  width: 20px;
-  height: 20px;
-  fill: #ee115b;
-`;
+
 const StFillFavor = styled(MdFavorite)`
   width: 20px;
   height: 20px;
@@ -120,10 +113,19 @@ const StTextDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin: 0 20px;
+`;
+
+const StTextP = styled.p`
+  font-size: 1rem;
+  width: 220px;
+  height: 1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 const StFavorDiv = styled.div`
   margin-left: auto;
-  margin-right: 20px;
 `;
 
 const StImgDiv = styled.div`

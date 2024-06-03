@@ -50,7 +50,7 @@ const ViewNum = styled.span``;
 const CommentNum = styled.span``;
 
 const Content = styled.div`
-  padding: 30px 0 15px;
+  padding: 60px 0 100px;
 `;
 
 const Article = styled.article`

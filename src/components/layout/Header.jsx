@@ -22,7 +22,7 @@ const Header = () => {
       <StCategory>
         {boardTitles.map((boardTitle) => {
           return (
-            <StCategoryLink to={`/board/${boardTitle}`} key={boardTitle}>
+            <StCategoryLink to={`/board/${boardTitle}?page=1`} key={boardTitle}>
               {boardTitle}
             </StCategoryLink>
           );
@@ -31,7 +31,6 @@ const Header = () => {
     </StNav>
   );
 };
-
 const StNav = styled.nav`
   display: flex;
   flex-direction: column;

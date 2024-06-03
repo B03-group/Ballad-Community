@@ -1,18 +1,18 @@
-import React from "react";
-import { useParams } from "react-router-dom";
-import styled from "styled-components";
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import styled from 'styled-components';
 
 const Post = ({ post }) => {
-  const parms = useParams().id;
+  const parms = useParams().category;
   return (
     <>
-      {" "}
+      {' '}
       <StPost>
         <p>
           <PostInfo>{post.date}</PostInfo>
           <PostInfo>{post.like}</PostInfo>
           <PostTitle>
-            {parms === "최신글" ? `[${post.category}] ` : ""}
+            {parms === '최신글' ? `[${post.category}] ` : ''}
             {post.title}
           </PostTitle>
         </p>

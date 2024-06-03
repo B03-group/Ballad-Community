@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import CommentInput from '../components/Detail/CommentInput';
 import Comments from '../components/Detail/Comments';
 import PostDetail from '../components/Detail/PostDetail';
-import BlackHr from '../components/common/BlackHr';
 
 function Detail() {
   const { id: categoryId } = useParams();
@@ -12,7 +11,7 @@ function Detail() {
     <MainWrapper>
       <CategoryName>{categoryId}</CategoryName>
       <PostDetail />
-      <BlackHr />
+      <Hr />
       <Comments />
       <CommentInput />
     </MainWrapper>
@@ -31,3 +30,11 @@ const CategoryName = styled.h4`
   margin-bottom: 8px;
   font-size: 13px;
 `;
+
+const Hr = styled.hr`
+  height: 1px;
+  border: 0;
+  background: rgba(0, 0, 0, 0.1);
+`;
+
+

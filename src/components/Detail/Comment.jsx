@@ -18,7 +18,7 @@ function Comment({ writer, date, content, like }) {
       <Footer>
         <LikeBtn>Like</LikeBtn>
       </Footer>
-      <HR />
+      <Hr />
     </Wrapper>
   );
 }
@@ -70,7 +70,7 @@ const Footer = styled.div`
 
 const LikeBtn = styled.button``;
 
-const HR = styled.hr`
+const Hr = styled.hr`
   height: 1px;
   border: 0;
   background: rgba(0, 0, 0, 0.1);

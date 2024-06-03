@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import dummy from '../../assets/dummy';
+import dummyData from '../../assets/dummyData';
 
-const initialState = dummy;
+const initialState = dummyData;
 
 const postsSlice = createSlice({
   name: 'posts',

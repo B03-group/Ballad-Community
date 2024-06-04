@@ -4,7 +4,7 @@ import CommentInput from '../components/Detail/CommentInput';
 import Comments from '../components/Detail/Comments';
 import PostDetail from '../components/Detail/PostDetail';
 
-function Detail() {
+const Detail = () => {
   const { category: categoryId } = useParams();
 
   return (
@@ -16,7 +16,7 @@ function Detail() {
       <CommentInput />
     </MainWrapper>
   );
-}
+};
 
 export default Detail;
 
@@ -38,5 +38,3 @@ const Hr = styled.hr`
   border: 0;
   background: rgba(0, 0, 0, 0.1);
 `;
-
-

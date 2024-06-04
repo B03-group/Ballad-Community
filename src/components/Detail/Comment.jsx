@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { getDate } from '../../assets/functions';
 
-function Comment({ writer, date, content, like }) {
+const Comment = ({ writer, date, content, like }) => {
   const dateStr = getDate(date, 'long');
   return (
     <StWrapper>
@@ -21,7 +21,7 @@ function Comment({ writer, date, content, like }) {
       <StHr />
     </StWrapper>
   );
-}
+};
 
 export default Comment;
 

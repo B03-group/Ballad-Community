@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-function CommentInput() {
+const CommentInput = () => {
   const isLogIn = true;
 
   return (
@@ -16,7 +16,7 @@ function CommentInput() {
       </StFooter>
     </StWrapper>
   );
-}
+};
 
 export default CommentInput;
 

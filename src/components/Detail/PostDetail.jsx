@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import BlackHr from '../common/BlackHr';
 
-function PostDetail() {
+const PostDetail = () => {
   const separator = `|`;
   return (
     <StWrapper>
@@ -21,7 +21,7 @@ function PostDetail() {
       </StContent>
     </StWrapper>
   );
-}
+};
 
 export default PostDetail;
 

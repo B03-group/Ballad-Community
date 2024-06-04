@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-function BlackHr() {
+const BlackHr = () => {
   return <StHr />;
-}
+};
 
 export default BlackHr;
 

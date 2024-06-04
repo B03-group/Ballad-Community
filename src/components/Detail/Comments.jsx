@@ -28,7 +28,7 @@ const mockData = [
   }
 ];
 
-function Comments() {
+const Comments = () => {
   return (
     <StWrapper>
       <StTitleWrapper>
@@ -50,7 +50,7 @@ function Comments() {
       </StCommentsList>
     </StWrapper>
   );
-}
+};
 
 export default Comments;
 

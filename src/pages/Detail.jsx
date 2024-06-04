@@ -5,7 +5,7 @@ import Comments from '../components/Detail/Comments';
 import PostDetail from '../components/Detail/PostDetail';
 
 function Detail() {
-  const { id: categoryId } = useParams();
+  const { category: categoryId } = useParams();
 
   return (
     <MainWrapper>

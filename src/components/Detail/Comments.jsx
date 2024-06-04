@@ -1,5 +1,8 @@
 import { nanoid } from '@reduxjs/toolkit';
+import { createClient } from '@supabase/supabase-js';
+import { useEffect, useState } from 'react';
 import { SlSpeech } from 'react-icons/sl';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import BlackHr from '../common/BlackHr';
 import Comment from './Comment';
@@ -27,20 +30,38 @@ const mockData = [
     like: 0
   }
 ];
+const supabase = createClient('https://hosygkmrpmwxwrqoqlhq.supabase.co', import.meta.env.VITE_COMMENTS_SUPABASE_KEY);
 
 const Comments = () => {
+  const { detailId } = useParams();
+  const [comments, setComments] = useState([]);
+
+  useEffect(() => {
+    getComments();
+  }, []);
+
+  async function getComments() {
+    const { data, error } = await supabase.from('comments').select().eq('pageId', detailId);
+
+    if (!error) {
+      setComments(data);
+    } else {
+      console.log(error);
+    }
+  }
+
   return (
     <StWrapper>
       <StTitleWrapper>
         <StTitleImg />
         <StTitle>댓글</StTitle>
-        <StCommentsNum>{mockData.length}</StCommentsNum>
+        <StCommentsNum>{comments.length}</StCommentsNum>
       </StTitleWrapper>
       <BlackHr />
       <StCommentsList>
-        {mockData.map((comment) => (
+        {comments.map((comment) => (
           <Comment
-            key={comment.id}
+            key={comment.commentId}
             writer={comment.writer}
             content={comment.content}
             date={comment.date}

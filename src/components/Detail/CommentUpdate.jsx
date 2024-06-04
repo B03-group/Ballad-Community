@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import styled from 'styled-components';
 import { updateCommentsContent } from '../../api/commentApi';
+import { checkInputLengthValidate } from '../../assets/validations';
 
 const CommentUpdate = ({ writer, content, commentId, setUpdateId }) => {
   const isLogIn = true;
@@ -10,6 +11,7 @@ const CommentUpdate = ({ writer, content, commentId, setUpdateId }) => {
     const commenttargetId = commentId;
     const content = inputRef.current.value;
 
+    if (!checkInputLengthValidate(content)) return;
     updateCommentsContent(commenttargetId, content);
     setUpdateId('');
   };

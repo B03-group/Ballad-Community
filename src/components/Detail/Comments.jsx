@@ -1,4 +1,3 @@
-import { nanoid } from '@reduxjs/toolkit';
 import { createClient } from '@supabase/supabase-js';
 import { useEffect, useState } from 'react';
 import { SlSpeech } from 'react-icons/sl';
@@ -7,29 +6,6 @@ import styled from 'styled-components';
 import BlackHr from '../common/BlackHr';
 import Comment from './Comment';
 
-const mockData = [
-  {
-    id: nanoid(),
-    writer: '1',
-    content: 'test1',
-    date: Date.now(),
-    like: 0
-  },
-  {
-    id: nanoid(),
-    writer: '2',
-    content: 'test2',
-    date: Date.now(),
-    like: 0
-  },
-  {
-    id: nanoid(),
-    writer: '3',
-    content: 'test3',
-    date: Date.now(),
-    like: 0
-  }
-];
 const supabase = createClient('https://hosygkmrpmwxwrqoqlhq.supabase.co', import.meta.env.VITE_COMMENTS_SUPABASE_KEY);
 
 const Comments = () => {

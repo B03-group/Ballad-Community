@@ -1,11 +1,24 @@
+import { useRef } from 'react';
 import styled from 'styled-components';
+import { insertPost } from '../../api/postsApi';
 
 function WriteForm() {
+  const categoryRef = useRef();
+  const titleRef = useRef();
+  const contentRef = useRef();
+
+  const handleAddBtnClick = () => {
+    const category = categoryRef.current.value;
+    const title = titleRef.current.value;
+    const content = contentRef.current.value;
+    insertPost(category, title, content);
+  };
+
   return (
-    <StFormWrapper>
+    <StFormWrapper onSubmit={handleAddBtnClick}>
       <StCategoryWrapper>
         <StLabel>카테고리</StLabel>
-        <StCategorySelect>
+        <StCategorySelect ref={categoryRef}>
           <option value="">분류 없음</option>
           <option value="recent">최신 글</option>
           <option value="domestic">국내</option>
@@ -15,11 +28,11 @@ function WriteForm() {
       </StCategoryWrapper>
       <StTitleWrapper>
         <StLabel>제목</StLabel>
-        <StTitleInput placeholder="제목을 입력해 주세요" />
+        <StTitleInput ref={titleRef} placeholder="제목을 입력해 주세요" />
       </StTitleWrapper>
       <StContentWrapper>
         <StLabel>내용</StLabel>
-        <StContentTextArea />
+        <StContentTextArea ref={contentRef} />
       </StContentWrapper>
       <StBtnWrapper>
         <StAddBtn>등록</StAddBtn>

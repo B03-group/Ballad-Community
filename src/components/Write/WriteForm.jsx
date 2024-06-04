@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { insertPost } from '../../api/postsApi';
 import { checkInputLengthValidate, checkPostCategoryValidate } from '../../assets/validations';
 
-function WriteForm() {
+const WriteForm = () => {
   const categoryRef = useRef();
   const titleRef = useRef();
   const contentRef = useRef();

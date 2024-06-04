@@ -1,11 +1,13 @@
-import styled from "styled-components";
-import WriteForm from "../components/Write/WriteForm";
+import styled from 'styled-components';
+import WriteForm from '../components/Write/WriteForm';
 
-function Write() {
-  return <StMainWrapper>
-    <WriteForm />
-  </StMainWrapper>;
-}
+const Write = () => {
+  return (
+    <StMainWrapper>
+      <WriteForm />
+    </StMainWrapper>
+  );
+};
 
 export default Write;
 

@@ -6,10 +6,17 @@ import { getComments } from '../../api/commentApi';
 import BlackHr from '../common/BlackHr';
 import Comment from './Comment';
 import CommentInput from './CommentInput';
+import CommentUpdate from './CommentUpdate';
 
 const Comments = () => {
   const { detailId } = useParams();
   const [comments, setComments] = useState([]);
+  const [updateId, setUpdateId] = useState('');
+
+  useEffect(() => {
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const fetchData = async () => {
     const data = await getComments(detailId);
@@ -17,10 +24,10 @@ const Comments = () => {
     setComments(data);
   };
 
-  useEffect(() => {
-    fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const handleUpdateClick = ({ currentTarget }) => {
+    const commentId = currentTarget.dataset.id;
+    setUpdateId(commentId);
+  };
 
   return (
     <StWrapper>
@@ -31,18 +38,31 @@ const Comments = () => {
       </StTitleWrapper>
       <BlackHr />
       <StCommentsList>
-        {comments.map((comment) => (
-          <Comment
-            key={comment.comment_id}
-            commentId={comment.comment_id}
-            writer={comment.writer}
-            content={comment.content}
-            date={comment.date}
-            likeNum={comment.like_num}
-            like={comment.like}
-            setComments={setComments}
-          />
-        ))}
+        {comments.map((comment) =>
+          updateId === comment.comment_id ? (
+            <CommentUpdate
+              key={comment.comment_id}
+              writer={comment.writer}
+              content={comment.content}
+              commentId={comment.comment_id}
+              setComments={setComments}
+              setUpdateId={setUpdateId}
+            />
+          ) : (
+            <Comment
+              key={comment.comment_id}
+              commentId={comment.comment_id}
+              userId={comment.user_id}
+              writer={comment.writer}
+              content={comment.content}
+              date={comment.date}
+              likeNum={comment.like_num}
+              like={comment.like}
+              handleUpdateClick={handleUpdateClick}
+              setComments={setComments}
+            />
+          )
+        )}
       </StCommentsList>
       <CommentInput setComments={setComments} />
     </StWrapper>

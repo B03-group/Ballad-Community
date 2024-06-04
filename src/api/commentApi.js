@@ -7,7 +7,7 @@ export const getComments = async (detailId) => {
   else throw new Error();
 };
 
-export const updateComments = async (likeNum, plusNum, commentId, reverseLike) => {
+export const updateCommentsLike = async (likeNum, plusNum, commentId, reverseLike) => {
   const { data, error } = await supabase
     .from('test')
     .update({ like_num: likeNum + plusNum, like: reverseLike })
@@ -18,6 +18,15 @@ export const updateComments = async (likeNum, plusNum, commentId, reverseLike) =
 
   if (!error) return updatedComment;
   else throw new Error();
+};
+
+export const updateCommentsContent = async (commentId, content) => {
+  const { data, error } = await supabase.from('test').update({ content: content }).eq('comment_id', commentId).select();
+  console.log(commentId);
+  const [updatedComment] = data;
+
+  if (!error) return updatedComment;
+  else console.log(error);
 };
 
 export const insertComment = async (newComment) => {

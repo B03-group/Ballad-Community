@@ -1,21 +1,25 @@
 import { MdFavorite } from 'react-icons/md';
 import styled from 'styled-components';
+import { DelComment, updateCommentsLike } from '../../api/commentApi';
 import { getDate } from '../../assets/functions';
 
 const fakeUserId = '80257256-087d-4ef3-9d35-d7ae865404fa';
 
-const Comment = ({
-  commentId,
-  userId,
-  writer,
-  date,
-  content,
-  likeNum,
-  handleUpdateClick,
-  handleDelClick,
-  handleLikeClick
-}) => {
+const Comment = ({ commentId, userId, writer, date, content, like, likeNum, setUpdateId }) => {
   const dateStr = getDate(date, 'short');
+  const handleLikeClick = () => {
+    const plusNum = like ? -1 : 1;
+
+    updateCommentsLike(likeNum, plusNum, commentId, !like);
+  };
+
+  const handleUpdateClick = () => {
+    setUpdateId(commentId);
+  };
+
+  const handleDelClick = () => {
+    DelComment(commentId);
+  };
 
   return (
     <StWrapper>
@@ -33,15 +37,11 @@ const Comment = ({
       <StFooter>
         {fakeUserId === userId && (
           <>
-            <StUpdateBtn data-id={commentId} onClick={handleUpdateClick}>
-              수정
-            </StUpdateBtn>
-            <StDelBtn data-id={commentId} onClick={handleDelClick}>
-              삭제
-            </StDelBtn>
+            <StUpdateBtn onClick={handleUpdateClick}>수정</StUpdateBtn>
+            <StDelBtn onClick={handleDelClick}>삭제</StDelBtn>
           </>
         )}
-        <StLikeBtn data-id={commentId} onClick={handleLikeClick}>
+        <StLikeBtn onClick={handleLikeClick}>
           <StFillFavor />
         </StLikeBtn>
       </StFooter>

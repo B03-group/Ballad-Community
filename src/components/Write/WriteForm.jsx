@@ -1,16 +1,23 @@
 import { useRef } from 'react';
 import styled from 'styled-components';
 import { insertPost } from '../../api/postsApi';
+import { checkInputLengthValidate, checkPostCategoryValidate } from '../../assets/validations';
 
 function WriteForm() {
   const categoryRef = useRef();
   const titleRef = useRef();
   const contentRef = useRef();
 
-  const handleAddBtnClick = () => {
+  const handleAddBtnClick = (e) => {
     const category = categoryRef.current.value;
     const title = titleRef.current.value;
     const content = contentRef.current.value;
+
+    e.preventDefault();
+
+    if (!checkPostCategoryValidate(category)) return;
+    if (!checkInputLengthValidate(title)) return;
+    if (!checkInputLengthValidate(content)) return;
     insertPost(category, title, content);
   };
 

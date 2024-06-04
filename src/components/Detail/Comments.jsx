@@ -1,62 +1,72 @@
-import { nanoid } from '@reduxjs/toolkit';
+import { useEffect, useState } from 'react';
 import { SlSpeech } from 'react-icons/sl';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { getComments } from '../../api/commentApi';
 import BlackHr from '../common/BlackHr';
 import Comment from './Comment';
+import CommentInput from './CommentInput';
+import CommentUpdate from './CommentUpdate';
 
-const mockData = [
-  {
-    id: nanoid(),
-    writer: '1',
-    content: 'test1',
-    date: Date.now(),
-    like: 0
-  },
-  {
-    id: nanoid(),
-    writer: '2',
-    content: 'test2',
-    date: Date.now(),
-    like: 0
-  },
-  {
-    id: nanoid(),
-    writer: '3',
-    content: 'test3',
-    date: Date.now(),
-    like: 0
-  }
-];
+const Comments = () => {
+  const { detailId } = useParams();
+  const [comments, setComments] = useState([]);
+  const [updateId, setUpdateId] = useState('');
 
-function Comments() {
+  useEffect(() => {
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [comments]);
+
+  const fetchData = async () => {
+    const data = await getComments(detailId);
+    data.sort((a, b) => a.date - b.date);
+    setComments(data);
+  };
+
   return (
-    <Wrapper>
-      <TitleWrapper>
-        <TitleImg />
-        <Title>댓글</Title>
-        <CommentsNum>{mockData.length}</CommentsNum>
-      </TitleWrapper>
+    <StWrapper>
+      <StTitleWrapper>
+        <StTitleImg />
+        <StTitle>댓글</StTitle>
+        <StCommentsNum>{comments.length}</StCommentsNum>
+      </StTitleWrapper>
       <BlackHr />
-      <CommentsList>
-        {mockData.map((comment) => (
-          <Comment
-            key={comment.id}
-            writer={comment.writer}
-            content={comment.content}
-            date={comment.date}
-            like={comment.like}
-          />
-        ))}
-      </CommentsList>
-    </Wrapper>
+      <StCommentsList>
+        {comments.map((comment) =>
+          updateId === comment.comment_id ? (
+            <CommentUpdate
+              key={comment.comment_id}
+              writer={comment.writer}
+              content={comment.content}
+              commentId={comment.comment_id}
+              setUpdateId={setUpdateId}
+            />
+          ) : (
+            <Comment
+              key={comment.comment_id}
+              commentId={comment.comment_id}
+              userId={comment.user_id}
+              writer={comment.writer}
+              content={comment.content}
+              date={comment.date}
+              like={comment.like}
+              likeNum={comment.like_num}
+              setUpdateId={setUpdateId}
+            />
+          )
+        )}
+      </StCommentsList>
+      <CommentInput />
+    </StWrapper>
   );
-}
+};
 
 export default Comments;
 
-const Wrapper = styled.section``;
+const StWrapper = styled.section``;
 
-const TitleWrapper = styled.div`
+const StTitleWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -64,18 +74,18 @@ const TitleWrapper = styled.div`
   gap: 3px;
 `;
 
-const TitleImg = styled(SlSpeech)`
+const StTitleImg = styled(SlSpeech)`
   padding-top: 2px;
   width: 20px;
 `;
 
-const Title = styled.span`
+const StTitle = styled.span`
   font-size: 18px;
 `;
 
-const CommentsNum = styled.span`
+const StCommentsNum = styled.span`
   font-size: 20px;
   color: blue;
 `;
 
-const CommentsList = styled.ul``;
+const StCommentsList = styled.ul``;

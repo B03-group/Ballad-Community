@@ -1,35 +1,62 @@
+import { MdFavorite } from 'react-icons/md';
 import styled from 'styled-components';
+import { DelComment, updateCommentsLike } from '../../api/commentApi';
 import { getDate } from '../../assets/functions';
 
-function Comment({ writer, date, content, like }) {
-  const dateStr = getDate(date, 'long');
+const fakeUserId = '80257256-087d-4ef3-9d35-d7ae865404fa';
+
+const Comment = ({ commentId, userId, writer, date, content, like, likeNum, setUpdateId }) => {
+  const dateStr = getDate(date, 'short');
+  const handleLikeClick = () => {
+    const plusNum = like ? -1 : 1;
+
+    updateCommentsLike(likeNum, plusNum, commentId, !like);
+  };
+
+  const handleUpdateClick = () => {
+    setUpdateId(commentId);
+  };
+
+  const handleDelClick = () => {
+    DelComment(commentId);
+  };
+
   return (
-    <Wrapper>
-      <Header>
-        <Writer>{writer}</Writer>
-        <Info>
-          <Like>{like}</Like>
-          <Date>{dateStr}</Date>
-        </Info>
-      </Header>
-      <Body>
-        <Content>{content}</Content>
-      </Body>
-      <Footer>
-        <LikeBtn>Like</LikeBtn>
-      </Footer>
-      <Hr />
-    </Wrapper>
+    <StWrapper>
+      <StHeader>
+        <StWriter>{writer}</StWriter>
+        <StInfo>
+          <StLike>추천 수: {likeNum}</StLike>
+          <StDate>{dateStr}</StDate>
+        </StInfo>
+      </StHeader>
+      <StBody>
+        <StContent>{content}</StContent>
+      </StBody>
+
+      <StFooter>
+        {fakeUserId === userId && (
+          <>
+            <StUpdateBtn onClick={handleUpdateClick}>수정</StUpdateBtn>
+            <StDelBtn onClick={handleDelClick}>삭제</StDelBtn>
+          </>
+        )}
+        <StLikeBtn onClick={handleLikeClick}>
+          <StFillFavor />
+        </StLikeBtn>
+      </StFooter>
+      <StHr />
+    </StWrapper>
   );
-}
+};
 
 export default Comment;
 
-const Wrapper = styled.li`
+const StWrapper = styled.li`
   padding: 10px 5px;
 `;
 
-const Header = styled.div`
+const StHeader = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -37,41 +64,59 @@ const Header = styled.div`
   margin-bottom: 15px;
 `;
 
-const Writer = styled.div`
+const StWriter = styled.div`
   font-size: 14px;
 `;
 
-const Info = styled.div`
+const StInfo = styled.div`
   display: flex;
   align-items: end;
   gap: 10px;
 `;
 
-const Like = styled.span`
+const StLike = styled.span`
   font-size: 14px;
 `;
 
-const Date = styled.span`
+const StDate = styled.span`
   font-size: 12px;
 `;
 
-const Body = styled.div`
+const StBody = styled.div`
   margin-bottom: 15px;
 `;
 
-const Content = styled.p`
+const StContent = styled.p`
   font-size: 12px;
 `;
 
-const Footer = styled.div`
+const StFooter = styled.div`
   display: flex;
   justify-content: end;
 `;
 
-const LikeBtn = styled.button``;
+const StUpdateBtn = styled.button``;
 
-const Hr = styled.hr`
+const StDelBtn = styled.button``;
+
+const StLikeBtn = styled.button`
+  all: unset;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+`;
+
+const StHr = styled.hr`
   height: 1px;
   border: 0;
   background: rgba(0, 0, 0, 0.1);
+`;
+
+const StFillFavor = styled(MdFavorite)`
+  width: 20px;
+  height: 20px;
+
+  fill: #ee115b;
 `;

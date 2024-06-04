@@ -1,14 +1,34 @@
+import { MdFavorite } from 'react-icons/md';
 import styled from 'styled-components';
+import { updateComments } from '../../api/commentApi';
 import { getDate } from '../../assets/functions';
 
-const Comment = ({ writer, date, content, like }) => {
-  const dateStr = getDate(date, 'long');
+const Comment = ({ commentId, writer, date, content, likeNum, like, setComments }) => {
+  const dateStr = getDate(date, 'short');
+
+  const handleLikeClick = ({ currentTarget }) => {
+    const commentId = currentTarget.dataset.id;
+    const likeNum = Number(currentTarget.dataset.likenum);
+    const plusNum = like ? -1 : 1;
+    const reverseLike = !like;
+
+    updateComment(likeNum, plusNum, commentId, reverseLike);
+  };
+
+  const updateComment = async (likeNum, plusNum, commentId, reverseLike) => {
+    const updatedComment = await updateComments(likeNum, plusNum, commentId, reverseLike);
+
+    setComments((prevComments) =>
+      prevComments.map((comment) => (comment['comment_id'] === commentId ? updatedComment : comment))
+    );
+  };
+
   return (
     <StWrapper>
       <StHeader>
         <StWriter>{writer}</StWriter>
         <StInfo>
-          <StLike>{like}</StLike>
+          <StLike>추천 수: {likeNum}</StLike>
           <StDate>{dateStr}</StDate>
         </StInfo>
       </StHeader>
@@ -16,7 +36,9 @@ const Comment = ({ writer, date, content, like }) => {
         <StContent>{content}</StContent>
       </StBody>
       <StFooter>
-        <StLikeBtn>StLike</StLikeBtn>
+        <StLikeBtn data-id={commentId} data-likenum={likeNum} onClick={handleLikeClick}>
+          <StFillFavor />
+        </StLikeBtn>
       </StFooter>
       <StHr />
     </StWrapper>
@@ -68,10 +90,24 @@ const StFooter = styled.div`
   justify-content: end;
 `;
 
-const StLikeBtn = styled.button``;
+const StLikeBtn = styled.button`
+  all: unset;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+`;
 
 const StHr = styled.hr`
   height: 1px;
   border: 0;
   background: rgba(0, 0, 0, 0.1);
+`;
+
+const StFillFavor = styled(MdFavorite)`
+  width: 20px;
+  height: 20px;
+
+  fill: #ee115b;
 `;

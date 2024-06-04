@@ -1,6 +1,5 @@
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import CommentInput from '../components/Detail/CommentInput';
 import Comments from '../components/Detail/Comments';
 import PostDetail from '../components/Detail/PostDetail';
 
@@ -13,7 +12,7 @@ const Detail = () => {
       <PostDetail />
       <Hr />
       <Comments />
-      <CommentInput />
+
     </MainWrapper>
   );
 };

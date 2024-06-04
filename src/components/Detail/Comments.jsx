@@ -1,31 +1,26 @@
-import { createClient } from '@supabase/supabase-js';
 import { useEffect, useState } from 'react';
 import { SlSpeech } from 'react-icons/sl';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { getComments } from '../../api/commentApi';
 import BlackHr from '../common/BlackHr';
 import Comment from './Comment';
-
-const supabase = createClient('https://hosygkmrpmwxwrqoqlhq.supabase.co', import.meta.env.VITE_COMMENTS_SUPABASE_KEY);
+import CommentInput from './CommentInput';
 
 const Comments = () => {
   const { detailId } = useParams();
   const [comments, setComments] = useState([]);
 
+  const fetchData = async () => {
+    const data = await getComments(detailId);
+    data.sort((a, b) => a.date - b.date);
+    setComments(data);
+  };
+
   useEffect(() => {
-    getComments();
+    fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  async function getComments() {
-    const { data, error } = await supabase.from('comments').select().eq('pageId', detailId);
-
-    if (!error) {
-      setComments(data);
-    } else {
-      console.log(error);
-    }
-  }
 
   return (
     <StWrapper>
@@ -38,14 +33,18 @@ const Comments = () => {
       <StCommentsList>
         {comments.map((comment) => (
           <Comment
-            key={comment.commentId}
+            key={comment.comment_id}
+            commentId={comment.comment_id}
             writer={comment.writer}
             content={comment.content}
             date={comment.date}
+            likeNum={comment.like_num}
             like={comment.like}
+            setComments={setComments}
           />
         ))}
       </StCommentsList>
+      <CommentInput setComments={setComments} />
     </StWrapper>
   );
 };

@@ -1,7 +1,30 @@
+import { useRef } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { v4 as uuidv4 } from 'uuid';
+import { insertComment } from '../../api/commentApi';
 
-const CommentInput = () => {
+const CommentInput = ({ setComments }) => {
   const isLogIn = true;
+  const { detailId } = useParams();
+  const fakeUserId = '80257256-087d-4ef3-9d35-d7ae865404fa';
+  const inputRef = useRef(null);
+
+  const handleAddBtnClick = () => {
+    const newComment = {
+      comment_id: uuidv4(),
+      date: Date.now(),
+      writer: 'fakeUser',
+      content: inputRef.current.value,
+      user_id: fakeUserId,
+      page_id: detailId,
+      like_num: 0,
+      like: false,
+    };
+    insertComment(newComment);
+    setComments((prev) => [...prev, newComment]);
+    inputRef.current.value = "";
+  };
 
   return (
     <StWrapper>
@@ -9,10 +32,14 @@ const CommentInput = () => {
         <StTitle>댓글 달기</StTitle>
       </StHeader>
       <StBody>
-        {isLogIn ? <LoggedInInput /> : <LoggedOutInput>댓글 쓰기 권한이 없습니다. 로그인 하시겠습니까?</LoggedOutInput>}
+        {isLogIn ? (
+          <LoggedInInput ref={inputRef} />
+        ) : (
+          <LoggedOutInput>댓글 쓰기 권한이 없습니다. 로그인 하시겠습니까?</LoggedOutInput>
+        )}
       </StBody>
       <StFooter>
-        <StAddBtn>등록</StAddBtn>
+        <StAddBtn onClick={handleAddBtnClick}>등록</StAddBtn>
       </StFooter>
     </StWrapper>
   );

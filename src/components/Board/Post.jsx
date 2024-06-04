@@ -4,18 +4,19 @@ import styled from 'styled-components';
 
 const Post = ({ post }) => {
   const parms = useParams().category;
+
   return (
     <>
       {' '}
       <StPost>
-        <p>
-          <PostInfo>{post.date}</PostInfo>
+        <div>
+          <PostInfo>{post.date.slice(0, 10) + ' ' + post.date.slice(11, 16)}</PostInfo>
           <PostInfo>{post.like}</PostInfo>
-          <PostTitle>
-            {parms === '최신글' ? `[${post.category}] ` : ''}
-            {post.title}
-          </PostTitle>
-        </p>
+        </div>
+        <PostTitle>
+          {parms === '최신글' ? `[${post.category}] ` : ''}
+          {post.title}
+        </PostTitle>
         <PostInfo>{post.writer}</PostInfo>
       </StPost>
     </>
@@ -32,6 +33,7 @@ const StPost = styled.li`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 `;
 
 const PostInfo = styled.span`

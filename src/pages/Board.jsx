@@ -16,9 +16,9 @@ const Board = () => {
           <div>
             <StPostInfo>날짜</StPostInfo>
             <StPostInfo>추천수</StPostInfo>
-            <StPostInfo></StPostInfo>
           </div>
-          <StPostInfo>작성자</StPostInfo>
+          <StPostInfo></StPostInfo>
+          <StPostWriter>작성자</StPostWriter>
         </StPostInfoWrapper>
         {showPost}
       </StPostcontainer>
@@ -63,7 +63,11 @@ const StPostInfoWrapper = styled.li`
 `;
 
 const StPostInfo = styled.span`
-  margin: 0px 30px;
+  margin: 0px 45px;
+`;
+
+const StPostWriter = styled.span`
+  margin: 0px 25px;
 `;
 
 const StButtonWrapper = styled.div`

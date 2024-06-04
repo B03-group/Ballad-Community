@@ -4,6 +4,7 @@ import { useLocation, useNavigate, useParams, useSearchParams } from 'react-rout
 import Post from '../components/Board/Post';
 
 import styled from 'styled-components';
+import useGetData from './useGetData';
 
 const usePagenation = () => {
   const [start, setStart] = useState(1);
@@ -11,13 +12,16 @@ const usePagenation = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const boardTitle = useParams().category;
-  const posts = useSelector((state) => state.posts);
-  const filteredPosts = posts.filter((post) => post.category === boardTitle);
+
+  const { data } = useGetData();
+
+  // const posts = useSelector((state) => state.posts);
+  const filtereddata = data.filter((post) => post.category === boardTitle);
 
   const totalPost =
     boardTitle === '최신글'
-      ? posts.map((post) => <Post key={post.id} post={post} />).length
-      : filteredPosts.map((post) => <Post key={post.id} post={post} />).length;
+      ? data.map((post) => <Post key={post.id} post={post} />).length
+      : filtereddata.map((post) => <Post key={post.id} post={post} />).length;
 
   const postPerPage = 10;
   const pagePerBoard = 5;
@@ -40,8 +44,8 @@ const usePagenation = () => {
 
   const showPost =
     boardTitle === '최신글'
-      ? posts.slice(startPost, startPost + 10).map((post) => <Post key={post.id} post={post} />)
-      : filteredPosts.slice(startPost, startPost + 10).map((post) => <Post key={post.id} post={post} />);
+      ? data.slice(startPost, startPost + 10).map((post) => <Post key={post.id} post={post} />)
+      : filtereddata.slice(startPost, startPost + 10).map((post) => <Post key={post.id} post={post} />);
 
   const goBackPage = () => navigate(`/board/${boardTitle}?page=${currentPage === 1 ? 1 : currentPage - 1}`);
   const goNextPage = () =>

@@ -4,30 +4,30 @@ import BlackHr from '../common/BlackHr';
 function PostDetail() {
   const separator = `|`;
   return (
-    <Wrapper>
-      <Title>제목</Title>
-      <Info>
-        <Writer>작성자</Writer>
-        <Separator>{separator}</Separator>
-        <Date>날짜</Date>
-        <Separator>{separator}</Separator>
-        <ViewNum>조회 수</ViewNum>
-        <Separator>{separator}</Separator>
-        <CommentNum>댓글 수</CommentNum>
-      </Info>
+    <StWrapper>
+      <StTitle>제목</StTitle>
+      <StInfo>
+        <StWriter>작성자</StWriter>
+        <StSeparator>{separator}</StSeparator>
+        <StDate>날짜</StDate>
+        <StSeparator>{separator}</StSeparator>
+        <StViewNum>조회 수</StViewNum>
+        <StSeparator>{separator}</StSeparator>
+        <StCommentNum>댓글 수</StCommentNum>
+      </StInfo>
       <BlackHr />
-      <Content>
-        <Article>글 상세내용</Article>
-      </Content>
-    </Wrapper>
+      <StContent>
+        <StArticle>글 상세내용</StArticle>
+      </StContent>
+    </StWrapper>
   );
 }
 
 export default PostDetail;
 
-const Wrapper = styled.section``;
+const StWrapper = styled.section``;
 
-const Title = styled.h1`
+const StTitle = styled.h1`
   padding-left: 5px;
   margin-bottom: 15px;
 
@@ -35,28 +35,28 @@ const Title = styled.h1`
   font-weight: 600;
 `;
 
-const Info = styled.p`
+const StInfo = styled.p`
   display: flex;
   justify-content: end;
   font-size: 11px;
 `;
 
-const Separator = styled.span`
+const StSeparator = styled.span`
   margin: 0 5px;
 `;
 
-const Writer = styled.span``;
+const StWriter = styled.span``;
 
-const Date = styled.span``;
+const StDate = styled.span``;
 
-const ViewNum = styled.span``;
+const StViewNum = styled.span``;
 
-const CommentNum = styled.span``;
+const StCommentNum = styled.span``;
 
-const Content = styled.div`
+const StContent = styled.div`
   padding: 60px 0 100px;
 `;
 
-const Article = styled.article`
+const StArticle = styled.article`
   font-size: 12px;
 `;

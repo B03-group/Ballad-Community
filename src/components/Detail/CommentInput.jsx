@@ -4,35 +4,35 @@ function CommentInput() {
   const isLogIn = true;
 
   return (
-    <Wrapper>
-      <Header>
-        <Title>댓글 달기</Title>
-      </Header>
-      <Body>
+    <StWrapper>
+      <StHeader>
+        <StTitle>댓글 달기</StTitle>
+      </StHeader>
+      <StBody>
         {isLogIn ? <LoggedInInput /> : <LoggedOutInput>댓글 쓰기 권한이 없습니다. 로그인 하시겠습니까?</LoggedOutInput>}
-      </Body>
-      <Footer>
-        <AddBtn>등록</AddBtn>
-      </Footer>
-    </Wrapper>
+      </StBody>
+      <StFooter>
+        <StAddBtn>등록</StAddBtn>
+      </StFooter>
+    </StWrapper>
   );
 }
 
 export default CommentInput;
 
-const Wrapper = styled.section`
+const StWrapper = styled.section`
   margin-top: 10px;
 `;
 
-const Header = styled.div``;
-const Title = styled.h4`
+const StHeader = styled.div``;
+const StTitle = styled.h4`
   padding-left: 5px;
   margin-bottom: 10px;
   font-size: 15px;
   font-weight: 600;
 `;
 
-const Body = styled.div``;
+const StBody = styled.div``;
 
 const LoggedInInput = styled.textarea`
   padding: 10px 10px;
@@ -47,9 +47,9 @@ const LoggedInInput = styled.textarea`
 
 const LoggedOutInput = styled.a``;
 
-const Footer = styled.div`
+const StFooter = styled.div`
   display: flex;
   justify-content: end;
 `;
 
-const AddBtn = styled.button``;
+const StAddBtn = styled.button``;

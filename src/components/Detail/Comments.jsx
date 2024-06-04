@@ -30,14 +30,14 @@ const mockData = [
 
 function Comments() {
   return (
-    <Wrapper>
-      <TitleWrapper>
-        <TitleImg />
-        <Title>댓글</Title>
-        <CommentsNum>{mockData.length}</CommentsNum>
-      </TitleWrapper>
+    <StWrapper>
+      <StTitleWrapper>
+        <StTitleImg />
+        <StTitle>댓글</StTitle>
+        <StCommentsNum>{mockData.length}</StCommentsNum>
+      </StTitleWrapper>
       <BlackHr />
-      <CommentsList>
+      <StCommentsList>
         {mockData.map((comment) => (
           <Comment
             key={comment.id}
@@ -47,16 +47,16 @@ function Comments() {
             like={comment.like}
           />
         ))}
-      </CommentsList>
-    </Wrapper>
+      </StCommentsList>
+    </StWrapper>
   );
 }
 
 export default Comments;
 
-const Wrapper = styled.section``;
+const StWrapper = styled.section``;
 
-const TitleWrapper = styled.div`
+const StTitleWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -64,18 +64,18 @@ const TitleWrapper = styled.div`
   gap: 3px;
 `;
 
-const TitleImg = styled(SlSpeech)`
+const StTitleImg = styled(SlSpeech)`
   padding-top: 2px;
   width: 20px;
 `;
 
-const Title = styled.span`
+const StTitle = styled.span`
   font-size: 18px;
 `;
 
-const CommentsNum = styled.span`
+const StCommentsNum = styled.span`
   font-size: 20px;
   color: blue;
 `;
 
-const CommentsList = styled.ul``;
+const StCommentsList = styled.ul``;

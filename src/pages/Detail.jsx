@@ -1,11 +1,10 @@
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import CommentInput from '../components/Detail/CommentInput';
 import Comments from '../components/Detail/Comments';
 import PostDetail from '../components/Detail/PostDetail';
 
-function Detail() {
-  const { id: categoryId } = useParams();
+const Detail = () => {
+  const { category: categoryId } = useParams();
 
   return (
     <MainWrapper>
@@ -13,10 +12,10 @@ function Detail() {
       <PostDetail />
       <Hr />
       <Comments />
-      <CommentInput />
+
     </MainWrapper>
   );
-}
+};
 
 export default Detail;
 
@@ -38,5 +37,3 @@ const Hr = styled.hr`
   border: 0;
   background: rgba(0, 0, 0, 0.1);
 `;
-
-

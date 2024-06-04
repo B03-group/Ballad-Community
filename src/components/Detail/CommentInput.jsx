@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { insertComment } from '../../api/commentApi';
+import { checkInputLengthValidate } from '../../assets/validations';
 
 const CommentInput = () => {
   const isLogIn = true;
@@ -11,7 +12,9 @@ const CommentInput = () => {
   const inputRef = useRef(null);
 
   const handleAddBtnClick = () => {
-    insertComment(inputRef.current.value, fakeUserId, detailId);
+    const input = inputRef.current.value;
+    if(!checkInputLengthValidate(input)) return ;
+    insertComment(input, fakeUserId, detailId);
     inputRef.current.value = '';
   };
 

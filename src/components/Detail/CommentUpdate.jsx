@@ -1,40 +1,39 @@
 import { useRef } from 'react';
-import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { updateCommentsContent } from '../../api/commentApi';
 
-import { insertComment } from '../../api/commentApi';
-
-const CommentInput = () => {
+const CommentUpdate = ({ writer, content, commentId, setUpdateId }) => {
   const isLogIn = true;
-  const { detailId } = useParams();
-  const fakeUserId = '80257256-087d-4ef3-9d35-d7ae865404fa';
   const inputRef = useRef(null);
 
-  const handleAddBtnClick = () => {
-    insertComment(inputRef.current.value, fakeUserId, detailId);
-    inputRef.current.value = '';
+  const handleUpdateClick = () => {
+    const commenttargetId = commentId;
+    const content = inputRef.current.value;
+
+    updateCommentsContent(commenttargetId, content);
+    setUpdateId('');
   };
 
   return (
     <StWrapper>
       <StHeader>
-        <StTitle>댓글 달기</StTitle>
+        <StTitle>{writer}</StTitle>
       </StHeader>
       <StBody>
         {isLogIn ? (
-          <LoggedInInput ref={inputRef} />
+          <LoggedInInput ref={inputRef} defaultValue={content} />
         ) : (
           <LoggedOutInput>댓글 쓰기 권한이 없습니다. 로그인 하시겠습니까?</LoggedOutInput>
         )}
       </StBody>
       <StFooter>
-        <StAddBtn onClick={handleAddBtnClick}>등록</StAddBtn>
+        <StAddBtn onClick={handleUpdateClick}>등록</StAddBtn>
       </StFooter>
     </StWrapper>
   );
 };
 
-export default CommentInput;
+export default CommentUpdate;
 
 const StWrapper = styled.section`
   margin-top: 10px;

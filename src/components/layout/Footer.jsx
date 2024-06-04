@@ -1,24 +1,23 @@
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
-const StFooter = styled.footer`
-  padding: 2rem 1rem;
-
-  border-top: 1px solid gray;
+const FooterContainer = styled.footer`
+  background-color: #fff;
+  color: #333;
   text-align: center;
-
-  p {
-    font-size: 0.9rem;
-    color: #666;
-    margin-bottom: 0.5rem;
-  }
-
-  @media (max-width: 768px) {
-    padding: 1.5rem 0.5rem;
-  }
+  padding: 10px;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 `;
 
 const Footer = () => {
-  return <StFooter>©️2024 삼시세끼. All Rights Reserved</StFooter>;
+  return (
+    <FooterContainer>
+      <p>©2024 삼시세끼. All Rights Reserved</p>
+    </FooterContainer>
+  );
 };
 
 export default Footer;

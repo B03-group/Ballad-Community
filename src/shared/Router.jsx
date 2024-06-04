@@ -1,21 +1,15 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Layout from "../components/layout/Layout";
-import Home from "../pages/Home";
-import GlobalStyle from "../styles/GlobalStyle";
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Home from '../pages/Home';
+import Auth from '../components/auth/Auth';
 
-const Router = () => {
-  return (
-    <>
-      <GlobalStyle />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route path="/" element={<Home />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </>
-  );
-};
+const AppRouter = () => (
+  <Router>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/auth" element={<Auth />} />
+    </Routes>
+  </Router>
+);
 
-export default Router;
+export default AppRouter;

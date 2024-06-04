@@ -1,31 +1,60 @@
-import styled from "styled-components";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
-const StHeader = styled.header`
-  padding: 1rem;
-  display: flex;
-  border-bottom: 1px solid gray;
+const HeaderContainer = styled.header`
+  background-color: #fff;
+  color: #333;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 
-  justify-content: center;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    text-align: center;
-    padding: 1rem 0.5rem;
+  h1 {
+    margin: 0;
+    font-size: 24px;
   }
-`;
 
-const H1 = styled.h1`
-  font-size: 30px;
-  font-weight: 600;
+  nav {
+    display: flex;
+    align-items: center;
+  }
 
-  margin: 0px 20px;
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+
+  li {
+    margin-left: 20px;
+  }
+
+  a {
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+
+    &:hover {
+      color: #555;
+    }
+  }
 `;
 
 const Header = () => {
   return (
-    <StHeader>
-      <H1>발라드 음악 추천 사이트</H1>
-    </StHeader>
+    <HeaderContainer>
+      <h1>발라드 음악 추천 사이트</h1>
+      <nav>
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/auth">Login/Register</Link>
+          </li>
+        </ul>
+      </nav>
+    </HeaderContainer>
   );
 };
 

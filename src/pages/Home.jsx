@@ -1,10 +1,16 @@
-import React from "react";
+import React from 'react';
+import styled from 'styled-components';
+
+const HomeContainer = styled.div`
+  padding: 20px;
+  text-align: center;
+`;
 
 const Home = () => {
   return (
-    <>
-      <div>홈 화면 입니다.</div>
-    </>
+    <HomeContainer>
+      <h2>홈 화면입니다.</h2>
+    </HomeContainer>
   );
 };
 

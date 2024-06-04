@@ -2,23 +2,15 @@ import { useRef } from 'react';
 import styled from 'styled-components';
 import { updateCommentsContent } from '../../api/commentApi';
 
-const CommentUpdate = ({ writer, content, commentId, setComments, setUpdateId }) => {
+const CommentUpdate = ({ writer, content, commentId, setUpdateId }) => {
   const isLogIn = true;
   const inputRef = useRef(null);
-
-  const updateContent = async (commenttargetId, content) => {
-    const updatedComment = await updateCommentsContent(commenttargetId, content);
-
-    setComments((prevComments) =>
-      prevComments.map((comment) => (comment['comment_id'] === commenttargetId ? updatedComment : comment))
-    );
-  };
 
   const handleUpdateClick = () => {
     const commenttargetId = commentId;
     const content = inputRef.current.value;
 
-    updateContent(commenttargetId, content);
+    updateCommentsContent(commenttargetId, content);
     setUpdateId('');
   };
 

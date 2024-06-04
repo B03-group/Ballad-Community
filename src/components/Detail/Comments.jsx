@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { SlSpeech } from 'react-icons/sl';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { getComments } from '../../api/commentApi';
+import { DelComment, getComments, updateCommentsLike } from '../../api/commentApi';
 import BlackHr from '../common/BlackHr';
 import Comment from './Comment';
 import CommentInput from './CommentInput';
@@ -16,17 +16,31 @@ const Comments = () => {
   useEffect(() => {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [comments]);
 
   const fetchData = async () => {
     const data = await getComments(detailId);
     data.sort((a, b) => a.date - b.date);
     setComments(data);
   };
+  const handleLikeClick = ({ currentTarget }) => {
+    const commentId = currentTarget.dataset.id;
+    const comment = comments.find((comment) => comment.comment_id === commentId);
+    const likeNum = comment.like_num;
+    const like = comment.like;
+    const plusNum = like ? -1 : 1;
+
+    updateCommentsLike(likeNum, plusNum, commentId, !like);
+  };
 
   const handleUpdateClick = ({ currentTarget }) => {
     const commentId = currentTarget.dataset.id;
     setUpdateId(commentId);
+  };
+
+  const handleDelClick = ({ currentTarget }) => {
+    const commentId = currentTarget.dataset.id;
+    DelComment(commentId);
   };
 
   return (
@@ -45,7 +59,6 @@ const Comments = () => {
               writer={comment.writer}
               content={comment.content}
               commentId={comment.comment_id}
-              setComments={setComments}
               setUpdateId={setUpdateId}
             />
           ) : (
@@ -57,14 +70,14 @@ const Comments = () => {
               content={comment.content}
               date={comment.date}
               likeNum={comment.like_num}
-              like={comment.like}
               handleUpdateClick={handleUpdateClick}
-              setComments={setComments}
+              handleDelClick={handleDelClick}
+              handleLikeClick={handleLikeClick}
             />
           )
         )}
       </StCommentsList>
-      <CommentInput setComments={setComments} />
+      <CommentInput />
     </StWrapper>
   );
 };

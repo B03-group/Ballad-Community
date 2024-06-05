@@ -3,6 +3,7 @@ import styled from 'styled-components';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { MdFavorite } from 'react-icons/md';
+import { PiMicrophoneDuotone } from 'react-icons/pi';
 import { GrFormPrevious, GrFormNext } from 'react-icons/gr';
 
 // Import Swiper styles
@@ -12,7 +13,6 @@ import 'swiper/css/navigation';
 
 // import required modules
 import { Pagination, Navigation } from 'swiper/modules';
-import sample1 from '../../assets/sample1.jpg';
 
 export const Carousel = ({ category, data, target }) => {
   const [swiperRef, setSwiperRef] = useState(null);
@@ -61,7 +61,7 @@ export const Carousel = ({ category, data, target }) => {
             <SwiperSlide key={item.post_id}>
               <StCardDiv>
                 <StImgDiv>
-                  <StImg src={item.img ?? sample1} alt="" />
+                  {item.img_url ? <StImg src={item.img_url} alt="" /> : <StDefaultIcon $target={target} />}
                 </StImgDiv>
                 <StH2>{item.title}</StH2>
                 <StNickNameDiv>
@@ -190,8 +190,13 @@ const StImgDiv = styled.div`
   img {
     width: 300px;
     height: 200px;
-    object-fit: cover;
+    object-fit: scale-down;
   }
+`;
+const StDefaultIcon = styled(PiMicrophoneDuotone)`
+  width: 300px;
+  height: 200px;
+  color: ${(props) => (props.$target === 'concert' ? 'blue' : props.$target === 'free' ? 'blue' : 'red')};
 `;
 const StImg = styled.img`
   border-radius: 20px 20px 0 0;

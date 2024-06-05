@@ -1,5 +1,3 @@
-import { ChartVideo } from './ChartVideo';
-
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -18,7 +16,7 @@ const { data, error } = await supabase.from('ballad_chart').select('*').order('r
 
 export const ChartSlide = () => {
   return (
-    <StChartContainer>
+    <>
       <StChartBox>
         <StH2>주간 발라드 TOP10</StH2>
         <Swiper
@@ -54,20 +52,9 @@ export const ChartSlide = () => {
           })}
         </Swiper>
       </StChartBox>
-      <StChartBox>
-        <StH2>Official Video</StH2>
-        <ChartVideo />
-      </StChartBox>
-    </StChartContainer>
+    </>
   );
 };
-
-const StChartContainer = styled.div`
-  max-width: 1200px;
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0 auto;
-`;
 
 const StChartBox = styled.div`
   width: 454px;

@@ -1,20 +1,31 @@
 import { useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-
+import { v4 as uuidv4 } from 'uuid';
 import { insertComment } from '../../api/commentApi';
 import { checkInputLengthValidate } from '../../assets/validations';
 
-const CommentInput = () => {
+const CommentInput = ({ setComments }) => {
   const isLogIn = true;
   const { detailId } = useParams();
   const fakeUserId = '80257256-087d-4ef3-9d35-d7ae865404fa';
   const inputRef = useRef(null);
 
   const handleAddBtnClick = () => {
-    const input = inputRef.current.value;
-    if(!checkInputLengthValidate(input)) return ;
-    insertComment(input, fakeUserId, detailId);
+    const inputValue = inputRef.current.value;
+    const newComment = {
+      comment_id: uuidv4(),
+      date: Date.now(),
+      writer: 'fakeUser',
+      content: inputValue,
+      user_id: fakeUserId,
+      page_id: detailId,
+      like_num: 0,
+      like: false
+    };
+    if (!checkInputLengthValidate(inputValue)) return;
+    insertComment(newComment);
+    setComments((prevComments) => [...prevComments, newComment]);
     inputRef.current.value = '';
   };
 
@@ -31,7 +42,7 @@ const CommentInput = () => {
         )}
       </StBody>
       <StFooter>
-        <StAddBtn onClick={handleAddBtnClick}>등록</StAddBtn>
+        <StAddBtn onClick={() => handleAddBtnClick(inputRef)}>등록</StAddBtn>
       </StFooter>
     </StWrapper>
   );

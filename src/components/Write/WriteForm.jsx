@@ -61,7 +61,6 @@ const WriteForm = () => {
       <StCategoryWrapper>
         <StLabel>카테고리</StLabel>
         <StCategorySelect ref={categoryRef}>
-          <option value="">분류 없음</option>
           <option value="공연(정보,후기)">공연(정보,후기)</option>
           <option value="추천음악">추천 음악</option>
           <option value="자유">자유</option>

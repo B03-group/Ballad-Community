@@ -5,19 +5,32 @@ import styled from 'styled-components';
 const Post = ({ post }) => {
   const parms = useParams().category;
 
+  const today = new Date()
+    .toLocaleDateString('ko-KR', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    })
+    .replace(/\./g, '')
+    .replace(/\s/g, '-');
+
   return (
     <>
       {' '}
       <StPost>
-        <div>
-          <PostInfo>{post.date.slice(0, 10) + ' ' + post.date.slice(11, 16)}</PostInfo>
-          <PostInfo>{post.like}</PostInfo>
+        <div style={{ display: 'flex' }}>
+          <StDate>
+            {today === post.date.slice(0, 10)
+              ? Number(post.date.slice(11, 13)) + 9 + post.date.slice(13, 16)
+              : post.date.slice(0, 10)}
+          </StDate>
+          <StLike>{post.like}</StLike>
         </div>
-        <PostTitle>
-          {parms === '최신글' ? `[${post.category}] ` : ''}
+        <StTitle>
+          {parms === '전체글' ? `[${post.category}] ` : ''}
           {post.title}
-        </PostTitle>
-        <PostInfo>{post.writer}</PostInfo>
+        </StTitle>
+        <StWriter>{post.writer}</StWriter>
       </StPost>
     </>
   );
@@ -36,10 +49,38 @@ const StPost = styled.li`
   align-items: center;
 `;
 
-const PostInfo = styled.span`
-  margin: 0px 20px;
-
+const StDate = styled.div`
+  width: 120px;
+  margin: 0px 15px;
   font-size: 15px;
+
+  text-align: center;
+`;
+
+const StLike = styled.div`
+  width: 30px;
+  margin: 0px 10px;
+  font-size: 15px;
+
+  text-align: center;
+`;
+
+const StTitle = styled.div`
+  width: 70%;
+  margin: 0px 10px;
+  font-size: 15px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+const StWriter = styled.div`
+  width: 100px;
+  margin: 0px 10px;
+  font-size: 15px;
+
+  text-align: center;
 `;
 
 const PostTitle = styled.button`

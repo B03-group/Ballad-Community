@@ -13,12 +13,12 @@ const Board = () => {
       <H2>{boardTitle}</H2>
       <StPostcontainer>
         <StPostInfoWrapper>
-          <div>
-            <StPostInfo>날짜</StPostInfo>
-            <StPostInfo>추천수</StPostInfo>
+          <div style={{ display: 'flex' }}>
+            <StDate>날짜</StDate>
+            <StLike>추천수</StLike>
           </div>
-          <StPostInfo></StPostInfo>
-          <StPostWriter>작성자</StPostWriter>
+          <StTitle></StTitle>
+          <StWriter>작성자</StWriter>
         </StPostInfoWrapper>
         {showPost}
       </StPostcontainer>
@@ -26,7 +26,7 @@ const Board = () => {
       <StButtonWrapper>
         <button onClick={() => navigate(`/board/${boardTitle}?page=1`)}>목록</button>
         <Pagenation />
-        <button>🖊️글쓰기</button>
+        <button onClick={() => navigate(`/write`)}>🖊️글쓰기</button>
       </StButtonWrapper>
     </StBoardContainer>
   );
@@ -62,12 +62,27 @@ const StPostInfoWrapper = styled.li`
   justify-content: space-between;
 `;
 
-const StPostInfo = styled.span`
-  margin: 0px 45px;
+const StDate = styled.div`
+  margin: 0px 60px;
+  font-size: 15px;
 `;
 
-const StPostWriter = styled.span`
-  margin: 0px 25px;
+const StLike = styled.div`
+  margin: 0px 5px;
+  font-size: 15px;
+`;
+
+const StTitle = styled.div`
+  margin: 0px 20px;
+  font-size: 15px;
+`;
+
+const StWriter = styled.div`
+  width: 100px;
+  margin: 0px 10px;
+  font-size: 15px;
+
+  text-align: center;
 `;
 
 const StButtonWrapper = styled.div`

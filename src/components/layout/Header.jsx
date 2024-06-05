@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Header = () => {
-  const boardTitles = ['최신글', '국내', '추천음악', '자유'];
+  const boardTitles = ['전체글', '자유', '추천음악', '공연(정보,후기)'];
   return (
     <StNav>
       <StInfo>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import supabase from '../../supabase';
+import { supabase } from '../api/api';
 
 const useGetData = () => {
   const [posts, setPosts] = useState([]);
@@ -9,7 +9,7 @@ const useGetData = () => {
   }, []);
 
   async function getPosts() {
-    const { data } = await supabase.from('posts').select();
+    const { data } = await supabase.from('posts').select().order(`date`, { ascending: false });
     setPosts(data);
   }
 

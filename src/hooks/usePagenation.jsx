@@ -19,9 +19,9 @@ const usePagenation = () => {
   const filtereddata = data.filter((post) => post.category === boardTitle);
 
   const totalPost =
-    boardTitle === '최신글'
-      ? data.map((post) => <Post key={post.id} post={post} />).length
-      : filtereddata.map((post) => <Post key={post.id} post={post} />).length;
+    boardTitle === '전체글'
+      ? data.map((post) => <Post key={post.post_id} post={post} />).length
+      : filtereddata.map((post) => <Post key={post.post_id} post={post} />).length;
 
   const postPerPage = 10;
   const pagePerBoard = 5;
@@ -43,9 +43,9 @@ const usePagenation = () => {
   };
 
   const showPost =
-    boardTitle === '최신글'
-      ? data.slice(startPost, startPost + 10).map((post) => <Post key={post.id} post={post} />)
-      : filtereddata.slice(startPost, startPost + 10).map((post) => <Post key={post.id} post={post} />);
+    boardTitle === '전체글'
+      ? data.slice(startPost, startPost + 10).map((post) => <Post key={post.post_id} post={post} />)
+      : filtereddata.slice(startPost, startPost + 10).map((post) => <Post key={post.post_id} post={post} />);
 
   const goBackPage = () => navigate(`/board/${boardTitle}?page=${currentPage === 1 ? 1 : currentPage - 1}`);
   const goNextPage = () =>

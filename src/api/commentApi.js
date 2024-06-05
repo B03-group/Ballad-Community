@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
 import { supabase } from './api';
 
 export const getComments = async (detailId) => {
@@ -27,20 +26,10 @@ export const updateCommentsContent = async (commentId, content) => {
   const [updatedComment] = data;
 
   if (!error) return updatedComment;
-  else console.log(error);
+  else throw new Error();
 };
 
-export const insertComment = async (content, userId, pageId) => {
-  const newComment = {
-    comment_id: uuidv4(),
-    date: Date.now(),
-    writer: 'fakeUser',
-    content: content,
-    user_id: userId,
-    page_id: pageId,
-    like_num: 0,
-    like: false
-  };
+export const insertComment = async (newComment) => {
   const { error } = await supabase.from('test').insert(newComment);
 
   if (error) throw new Error();

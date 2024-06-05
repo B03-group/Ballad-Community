@@ -85,7 +85,7 @@ const Comments = () => {
           )
         )}
       </StCommentsList>
-      <CommentInput />
+      <CommentInput setComments={setComments} />
     </StWrapper>
   );
 };

@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { insertPost, uploadImg } from '../../api/postsApi';
 import { checkInputLengthValidate, checkPostCategoryValidate } from '../../assets/validations';
@@ -10,6 +11,7 @@ const WriteForm = () => {
   const titleRef = useRef();
   const contentRef = useRef();
   const ImgInputRef = useRef();
+  const navigator = useNavigate();
 
   const handleAddBtnClick = async (e) => {
     e.preventDefault();
@@ -20,21 +22,13 @@ const WriteForm = () => {
     if (!checkPostCategoryValidate(category)) return;
     if (!checkInputLengthValidate(title)) return;
     if (!checkInputLengthValidate(content)) return;
-    insertImg();
-  };
 
-  const insertImg = async () => {
-    const category = categoryRef.current.value;
-    const title = titleRef.current.value;
-    const content = contentRef.current.value;
-
-    if (!checkPostCategoryValidate(category)) return;
-    if (!checkInputLengthValidate(title)) return;
-    if (!checkInputLengthValidate(content)) return;
     const path = await uploadImg(imgFile);
 
     const uploadImgUrl = `https://hosygkmrpmwxwrqoqlhq.supabase.co/storage/v1/object/public/posts/${path}`;
     insertPost(category, title, content, uploadImgUrl);
+    alert("등록이 완료되었습니다!")
+    navigator(`/board/${category}?page=1`)
   };
 
   const handleImgChange = ({ target }) => {

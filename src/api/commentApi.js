@@ -26,7 +26,7 @@ export const updateCommentsContent = async (commentId, content) => {
   const [updatedComment] = data;
 
   if (!error) return updatedComment;
-  else console.log(error);
+  else throw new Error();
 };
 
 export const insertComment = async (newComment) => {

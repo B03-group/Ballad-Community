@@ -17,7 +17,6 @@ const PostDetail = () => {
   };
   const separator = `|`;
 
-  console.log(detailId, post);
   return (
     <StWrapper>
       {post ? (

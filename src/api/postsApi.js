@@ -25,20 +25,21 @@ export const uploadImg = async (imgFile) => {
   else console.log(error);
 };
 
-export const getPost = async (detailId) => {
-  const { data, error } = await supabase.from('posts').select().eq('post_id', detailId);
+export const getPost = async (postId) => {
+  const { data, error } = await supabase.from('posts').select().eq('post_id', postId);
 
   if (!error) return data;
   else throw new Error();
 };
 
-export const updatePostViews = async (views, detailId) => {
-  const { error } = await supabase
-    .from('posts')
-    .update({ views: views })
-    .eq('post_id', detailId)
-    .select();
+export const updatePostViews = async (views, postId) => {
+  const { error } = await supabase.from('posts').update({ views: views }).eq('post_id', postId).select();
 
+  if (error) throw new Error();
+};
+
+export const DelPost = async (postId) => {
+  const { error } = await supabase.from('posts').delete().eq('post_id', postId);
 
   if (error) throw new Error();
 };

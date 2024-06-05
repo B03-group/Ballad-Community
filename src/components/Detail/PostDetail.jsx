@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { DelPost, getPost, updatePostViews } from '../../api/postsApi';
 import { getDate } from '../../assets/functions';
@@ -7,8 +7,10 @@ import BlackHr from '../common/BlackHr';
 
 const FAKE_USER_NICKNAME = 'fakeUser';
 const PostDetail = () => {
-  const { postId } = useParams();
+  const { category, postId} = useParams();
+
   const [post, setPost] = useState();
+  const navigate = useNavigate();
   const separator = `|`;
 
   useEffect(() => {
@@ -26,8 +28,12 @@ const PostDetail = () => {
     });
   };
 
-  const handleDelClick = (postId) =>  {
-    DelPost();
+  const handleDelClick = (postId) => {
+    const isDel = confirm('정말 삭제하시겠습니까?');
+    if (isDel) {
+      DelPost(postId);
+      navigate(`/board/${category}?page=1`);
+    }
   };
 
   const handleUpdateClick = () => {};
@@ -55,7 +61,7 @@ const PostDetail = () => {
           {post.writer === FAKE_USER_NICKNAME ? (
             <>
               <StFooter>
-                <StDelBtn onClick={handleDelClick}>삭제</StDelBtn>
+                <StDelBtn onClick={() => handleDelClick(postId)}>삭제</StDelBtn>
                 <StUpdateBtn onClick={handleUpdateClick}>수정</StUpdateBtn>
               </StFooter>
             </>

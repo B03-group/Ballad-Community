@@ -7,6 +7,8 @@ import Update from '../pages/Update';
 import Write from '../pages/Write';
 import Profile from '../pages/Profile';
 import LoginRegister from '../components/auth/LoginRegister';
+import Login from './components/auth/Login';
+import Register from './components/auth/Register';
 
 const Router = () => {
   return (
@@ -21,6 +23,8 @@ const Router = () => {
             <Route path="/update/:postId" element={<Update/>} />
             <Route path="/profile" element={<Profile />} />
       <Route path="/login" element={<LoginRegister />} />
+      <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           </Route>
         </Routes>
       </BrowserRouter>

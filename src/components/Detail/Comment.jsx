@@ -1,24 +1,36 @@
-import { MdFavorite } from 'react-icons/md';
+import { useEffect, useState } from 'react';
+import { MdFavorite, MdFavoriteBorder } from 'react-icons/md';
 import styled from 'styled-components';
-import { DelComment, updateCommentsLike } from '../../api/commentApi';
+import { updateCommentsLike } from '../../api/commentApi';
 import { getDate } from '../../assets/functions';
 
 const fakeUserId = '80257256-087d-4ef3-9d35-d7ae865404fa';
 
-const Comment = ({ commentId, userId, writer, date, content, like, likeNum, setUpdateId }) => {
+const Comment = ({
+  commentId,
+  userId,
+  writer,
+  date,
+  content,
+  like: passedLike,
+  likeNum: passedLikeNum,
+  handleUpdateClick,
+  handleDelClick
+}) => {
+  const [likeNum, setLikeNum] = useState(passedLikeNum);
+  const [like, setLike] = useState(passedLike);
   const dateStr = getDate(date, 'short');
+
+  useEffect(() => {
+    setLike(passedLike);
+    setLikeNum(passedLikeNum);
+  }, [passedLike, passedLikeNum]);
+
   const handleLikeClick = () => {
     const plusNum = like ? -1 : 1;
-
-    updateCommentsLike(likeNum, plusNum, commentId, !like);
-  };
-
-  const handleUpdateClick = () => {
-    setUpdateId(commentId);
-  };
-
-  const handleDelClick = () => {
-    DelComment(commentId);
+    setLikeNum((prevLikeNum) => prevLikeNum + plusNum);
+    setLike((prevLike) => !prevLike);
+    updateCommentsLike(passedLikeNum, plusNum, commentId, !passedLike);
   };
 
   return (
@@ -37,13 +49,11 @@ const Comment = ({ commentId, userId, writer, date, content, like, likeNum, setU
       <StFooter>
         {fakeUserId === userId && (
           <>
-            <StUpdateBtn onClick={handleUpdateClick}>수정</StUpdateBtn>
-            <StDelBtn onClick={handleDelClick}>삭제</StDelBtn>
+            <StUpdateBtn onClick={handleUpdateClick(commentId)}>수정</StUpdateBtn>
+            <StDelBtn onClick={handleDelClick(commentId)}>삭제</StDelBtn>
           </>
         )}
-        <StLikeBtn onClick={handleLikeClick}>
-          <StFillFavor />
-        </StLikeBtn>
+        <StLikeBtn onClick={handleLikeClick}>{like ? <StFillFavor /> : <StFillFavorEmpty />}</StLikeBtn>
       </StFooter>
       <StHr />
     </StWrapper>
@@ -119,4 +129,11 @@ const StFillFavor = styled(MdFavorite)`
   height: 20px;
 
   fill: #ee115b;
+`;
+
+const StFillFavorEmpty = styled(MdFavoriteBorder)`
+  width: 20px;
+  height: 20px;
+
+  color: #ee115b;
 `;

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { PiMicrophoneDuotone } from 'react-icons/pi';
 
 const Header = () => {
   const boardTitles = ['전체글', '자유', '추천음악', '공연(정보,후기)'];
@@ -42,10 +43,9 @@ const StInfo = styled.div`
   justify-content: space-between;
   height: 60px;
 `;
-const StLogo = styled.div`
+const StLogo = styled(PiMicrophoneDuotone)`
   width: 60px;
   height: 60px;
-  background-color: black;
   border-radius: 30px;
   display: inline-block;
 `;

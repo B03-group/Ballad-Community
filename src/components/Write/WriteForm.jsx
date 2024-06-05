@@ -1,36 +1,70 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import styled from 'styled-components';
-import { insertPost } from '../../api/postsApi';
+import { insertPost, uploadImg } from '../../api/postsApi';
 import { checkInputLengthValidate, checkPostCategoryValidate } from '../../assets/validations';
 
 const WriteForm = () => {
+  const [imgFile, setImgFile] = useState();
+  const [imgUrl, setImgUrl] = useState();
   const categoryRef = useRef();
   const titleRef = useRef();
   const contentRef = useRef();
+  const ImgInputRef = useRef();
 
-  const handleAddBtnClick = (e) => {
+  const handleAddBtnClick = async (e) => {
+    e.preventDefault();
     const category = categoryRef.current.value;
     const title = titleRef.current.value;
     const content = contentRef.current.value;
 
-    e.preventDefault();
+    if (!checkPostCategoryValidate(category)) return;
+    if (!checkInputLengthValidate(title)) return;
+    if (!checkInputLengthValidate(content)) return;
+    insertImg();
+  };
+
+  const insertImg = async () => {
+    const category = categoryRef.current.value;
+    const title = titleRef.current.value;
+    const content = contentRef.current.value;
 
     if (!checkPostCategoryValidate(category)) return;
     if (!checkInputLengthValidate(title)) return;
     if (!checkInputLengthValidate(content)) return;
-    insertPost(category, title, content);
+    const path = await uploadImg(imgFile);
+
+    const uploadImgUrl = `https://hosygkmrpmwxwrqoqlhq.supabase.co/storage/v1/object/public/posts/${path}`;
+    insertPost(category, title, content, uploadImgUrl);
+  };
+
+  const handleImgChange = ({ target }) => {
+    const [file] = target.files;
+    if (!file) {
+      return;
+    }
+    setImgFile(file);
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      setImgUrl(String(reader.result));
+    };
+  };
+
+  const handleAddImgBtnClick = async (e) => {
+    e.preventDefault();
+    ImgInputRef.current.click();
   };
 
   return (
-    <StFormWrapper onSubmit={handleAddBtnClick}>
+    <StFormWrapper>
       <StCategoryWrapper>
         <StLabel>카테고리</StLabel>
         <StCategorySelect ref={categoryRef}>
           <option value="">분류 없음</option>
-          <option value="recent">최신 글</option>
-          <option value="domestic">국내</option>
-          <option value="recommend">추천 음악</option>
-          <option value="free">자유</option>
+          <option value="공연(정보,후기)">공연(정보,후기)</option>
+          <option value="추천음악">추천 음악</option>
+          <option value="자유">자유</option>
         </StCategorySelect>
       </StCategoryWrapper>
       <StTitleWrapper>
@@ -39,14 +73,21 @@ const WriteForm = () => {
       </StTitleWrapper>
       <StContentWrapper>
         <StLabel>내용</StLabel>
-        <StContentTextArea ref={contentRef} />
+        <StFileInput onChange={handleImgChange} ref={ImgInputRef} type="file" />
+        <StAddImgBtn onClick={handleAddImgBtnClick}>이미지</StAddImgBtn>
+        <StInputArea>
+          <StImgWrapper>
+            <img src={imgUrl} />
+          </StImgWrapper>
+          <StContentTextArea ref={contentRef} />
+        </StInputArea>
       </StContentWrapper>
       <StBtnWrapper>
-        <StAddBtn>등록</StAddBtn>
+        <StAddBtn onClick={handleAddBtnClick}>등록</StAddBtn>
       </StBtnWrapper>
     </StFormWrapper>
   );
-}
+};
 
 export default WriteForm;
 
@@ -104,10 +145,37 @@ const StContentWrapper = styled.div`
   gap: 15px;
 `;
 
+const StInputArea = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px 10px;
+
+  border: 1px solid black;
+`;
+
+const StImgWrapper = styled.div`
+  width: 30%;
+
+  & > img {
+    max-width: 100%;
+    object-fit: cover;
+  }
+`;
+
+const StFileInput = styled.input`
+  display: none;
+`;
+
+const StAddImgBtn = styled.button``;
+
 const StContentTextArea = styled.textarea`
+  all: unset;
   padding: 15px 10px;
   font-size: 14px;
+  width: 100%;
   height: 500px;
+  box-sizing: border-box;
 `;
 
 const StBtnWrapper = styled.div`

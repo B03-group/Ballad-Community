@@ -104,6 +104,20 @@ const GlobalStyle = createGlobalStyle`
     border-radius: 5px;
     cursor: pointer;
   }
+
+  /* 로그아웃 버튼 스타일 */
+  header nav ul li button {
+    background: none;
+    border: none;
+    color: #333;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0;
+
+    &:hover {
+      color: #555;
+    }
+  }
 `;
 
 export default GlobalStyle;

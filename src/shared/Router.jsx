@@ -1,15 +1,17 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Home from '../pages/Home';
-import Auth from '../components/auth/Auth';
+import Profile from '../pages/Profile';
+import LoginRegister from '../components/auth/LoginRegister';
 
-const AppRouter = () => (
-  <Router>
+const Router = () => {
+  return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/auth" element={<Auth />} />
+      <Route path="/profile" element={<Profile />} />
+      <Route path="/login" element={<LoginRegister />} />
     </Routes>
-  </Router>
-);
+  );
+};
 
-export default AppRouter;
+export default Router;

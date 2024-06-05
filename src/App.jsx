@@ -1,29 +1,22 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
-import LoginRegister from './components/auth/LoginRegister';
-import GlobalStyle from './styles/GlobalStyle';
+import Profile from './pages/Profile';
+import Login from './components/auth/Login';
+import Register from './components/auth/Register';
+import Layout from './components/layout/Layout';
 
 const App = () => {
   return (
     <Router>
-      <GlobalStyle />
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/auth">Login/Register</Link>
-            </li>
-          </ul>
-        </nav>
+      <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/auth" element={<LoginRegister />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
-      </div>
+      </Layout>
     </Router>
   );
 };

@@ -1,9 +1,9 @@
+import { PiMicrophoneDuotone } from 'react-icons/pi';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { PiMicrophoneDuotone } from 'react-icons/pi';
 
 const Header = () => {
-  const boardTitles = ['전체글', '자유', '추천음악', '공연(정보,후기)'];
+  const boardTitles = ['전체글', '공연(정보,후기)', '추천음악', '자유'];
   return (
     <StNav>
       <StInfo>

@@ -1,23 +1,27 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import Post from '../components/Board/Post';
 
 import styled from 'styled-components';
+import { useGetPostsByDate, useGetPostsByLike } from './useGetPosts';
 
 const usePagenation = () => {
+  const boardTitle = useParams().category;
   const [start, setStart] = useState(1);
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
+  const [filter, setFilter] = useState(`date`);
 
-  const boardTitle = useParams().category;
-  const posts = useSelector((state) => state.posts);
-  const filteredPosts = posts.filter((post) => post.category === boardTitle);
+  const { posts: datePosts, setPosts: setDatePosts } = useGetPostsByDate();
+  const { posts: likePosts, setPosts: setLikePosts } = useGetPostsByLike();
+
+  const posts = filter === `date` ? datePosts : likePosts;
+  const filteredData = posts.filter((post) => post.category === boardTitle);
 
   const totalPost =
-    boardTitle === '최신글'
-      ? posts.map((post) => <Post key={post.id} post={post} />).length
-      : filteredPosts.map((post) => <Post key={post.id} post={post} />).length;
+    boardTitle === '전체글'
+      ? posts.map((post) => <Post key={post.post_id} post={post} />).length
+      : filteredData.map((post) => <Post key={post.post_id} post={post} />).length;
 
   const postPerPage = 10;
   const pagePerBoard = 5;
@@ -25,6 +29,11 @@ const usePagenation = () => {
   const currentPage = Number(useLocation().search.replace(`?page=`, ''));
 
   const startPost = (currentPage - 1) * postPerPage;
+
+  const showPost =
+    boardTitle === '전체글'
+      ? posts.slice(startPost, startPost + 10).map((post) => <Post key={post.post_id} post={post} />)
+      : filteredData.slice(startPost, startPost + 10).map((post) => <Post key={post.post_id} post={post} />);
 
   const showPage = () => {
     const page = [];
@@ -38,11 +47,6 @@ const usePagenation = () => {
     ));
   };
 
-  const showPost =
-    boardTitle === '최신글'
-      ? posts.slice(startPost, startPost + 10).map((post) => <Post key={post.id} post={post} />)
-      : filteredPosts.slice(startPost, startPost + 10).map((post) => <Post key={post.id} post={post} />);
-
   const goBackPage = () => navigate(`/board/${boardTitle}?page=${currentPage === 1 ? 1 : currentPage - 1}`);
   const goNextPage = () =>
     navigate(`/board/${boardTitle}?page=${currentPage === totalPage ? totalPage : currentPage + 1}`);
@@ -52,7 +56,27 @@ const usePagenation = () => {
     if (currentPage < start) setStart((prev) => prev - pagePerBoard);
   }, [currentPage, start]);
 
-  return { goBackPage, goNextPage, showPage, showPost, postPerPage, currentPage, boardTitle };
+  useEffect(() => {
+    if (filter === `date`) {
+      setDatePosts(datePosts);
+    }
+    if (filter === `like`) {
+      setLikePosts(likePosts);
+    }
+  }, [filter, datePosts, likePosts]);
+
+  return {
+    goBackPage,
+    goNextPage,
+    showPage,
+    showPost,
+    postPerPage,
+    currentPage,
+    boardTitle,
+    totalPost,
+    filter,
+    setFilter
+  };
 };
 
 export default usePagenation;

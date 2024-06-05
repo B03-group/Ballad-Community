@@ -34,7 +34,7 @@ const Home = () => {
         <ChartVideo />
       </StChartContainer>
       <Carousel category={'전체'} data={allData.data} target={'all'}></Carousel>
-      <Carousel category={'공연(정보/후기)'} data={concertData.data} target={'concert'}></Carousel>
+      <Carousel category={'공연(정보,후기)'} data={concertData.data} target={'concert'}></Carousel>
       <Carousel category={'추천음악'} data={recommendData.data} target={'recommend'}></Carousel>
       <Carousel category={'자유'} data={freeData.data} target={'free'}></Carousel>
     </>

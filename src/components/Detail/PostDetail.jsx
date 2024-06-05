@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { getPost } from '../../api/postsApi';
+import { getPost, updatePostViews } from '../../api/postsApi';
 import { getDate } from '../../assets/functions';
 import BlackHr from '../common/BlackHr';
 
@@ -13,7 +13,12 @@ const PostDetail = () => {
   }, []);
   const getData = async () => {
     const data = await getPost(detailId);
-    setPost(data[0]);
+    const views = data[0].views + 1;
+    await updatePostViews(views, detailId);
+    setPost({
+      ...data[0],
+      views,
+    });
   };
   const separator = `|`;
 

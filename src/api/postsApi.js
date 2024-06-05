@@ -31,3 +31,14 @@ export const getPost = async (detailId) => {
   if (!error) return data;
   else throw new Error();
 };
+
+export const updatePostViews = async (views, detailId) => {
+  const { error } = await supabase
+    .from('posts')
+    .update({ views: views })
+    .eq('post_id', detailId)
+    .select();
+
+
+  if (error) throw new Error();
+};

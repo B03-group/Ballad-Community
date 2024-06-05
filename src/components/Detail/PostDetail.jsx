@@ -1,27 +1,44 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { getPost, updatePostViews } from '../../api/postsApi';
+import { DelPost, getPost, updatePostViews } from '../../api/postsApi';
 import { getDate } from '../../assets/functions';
 import BlackHr from '../common/BlackHr';
 
+const FAKE_USER_NICKNAME = 'fakeUser';
 const PostDetail = () => {
-  const { detailId } = useParams();
+  const { category, postId} = useParams();
+
   const [post, setPost] = useState();
-  useEffect(() => {
-    getData();
-  }, []);
-  const getData = async () => {
-    const data = await getPost(detailId);
-    const views = data[0].views + 1;
-    await updatePostViews(views, detailId);
-    setPost({
-      ...data[0],
-      views,
-    });
-  };
+  const navigate = useNavigate();
   const separator = `|`;
 
+  useEffect(() => {
+    getData();
+    //eslint-disable-next-line
+  }, []);
+
+  const getData = async () => {
+    const data = await getPost(postId);
+    const views = data[0].views + 1;
+    await updatePostViews(views, postId);
+    setPost({
+      ...data[0],
+      views
+    });
+  };
+
+  const handleDelClick = (postId) => {
+    const isDel = confirm('정말 삭제하시겠습니까?');
+    if (isDel) {
+      DelPost(postId);
+      navigate(`/board/${category}?page=1`);
+    }
+  };
+
+  const handleUpdateClick = (postId) => {
+    navigate(`/update/${postId}`);
+  };
   return (
     <StWrapper>
       {post ? (
@@ -36,8 +53,23 @@ const PostDetail = () => {
           </StInfo>
           <BlackHr />
           <StContent>
-            <StArticle>글 상세내용</StArticle>
+            <StContentHeader>
+              <StImgWrapper>
+                <img src={post.img_url} />
+              </StImgWrapper>
+            </StContentHeader>
+            <StArticle>{post.content}</StArticle>
           </StContent>
+          {post.writer === FAKE_USER_NICKNAME ? (
+            <>
+              <StFooter>
+                <StDelBtn onClick={() => {handleDelClick(postId)}}>삭제</StDelBtn>
+                <StUpdateBtn onClick={() => {handleUpdateClick(postId)}}>수정</StUpdateBtn>
+              </StFooter>
+            </>
+          ) : (
+            <></>
+          )}
         </>
       ) : (
         <></>
@@ -74,12 +106,36 @@ const StDate = styled.span``;
 
 const StViewNum = styled.span``;
 
-const StCommentNum = styled.span``;
-
 const StContent = styled.div`
   padding: 60px 0 100px;
 `;
 
+const StContentHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+`;
+
+const StImgWrapper = styled.div`
+  width: 20%;
+
+  & > img {
+    max-width: 100%;
+    object-fit: cover;
+  }
+`;
 const StArticle = styled.article`
   font-size: 12px;
 `;
+
+const StFooter = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  gap: 10px;
+`;
+
+const StDelBtn = styled.button``;
+
+const StUpdateBtn = styled.button``;

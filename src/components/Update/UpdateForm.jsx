@@ -1,19 +1,31 @@
-import { useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { insertPost, uploadImg } from '../../api/postsApi';
+import { getPost, updatePost, uploadImg } from '../../api/postsApi';
 import { checkInputLengthValidate, checkPostCategoryValidate } from '../../assets/validations';
 
-const WriteForm = () => {
+const UpdateForm = () => {
   const [imgFile, setImgFile] = useState();
   const [imgUrl, setImgUrl] = useState();
+  const [post, setPost] = useState();
   const categoryRef = useRef();
   const titleRef = useRef();
   const contentRef = useRef();
   const ImgInputRef = useRef();
-  const navigator = useNavigate();
+  const { postId } = useParams();
+  const navigate = useNavigate();
 
-  const handleAddBtnClick = async (e) => {
+  useEffect(() => {
+    getData();
+    //eslint-disable-next-line
+  }, []);
+
+  const getData = async () => {
+    const data = await getPost(postId);
+    setPost(data[0]);
+  };
+
+  const handleUpdateBtnClick = async (e) => {
     e.preventDefault();
     const category = categoryRef.current.value;
     const title = titleRef.current.value;
@@ -23,12 +35,16 @@ const WriteForm = () => {
     if (!checkInputLengthValidate(title)) return;
     if (!checkInputLengthValidate(content)) return;
 
-    const path = await uploadImg(imgFile);
+    if (imgFile) {
+      const path = await uploadImg(imgFile);
 
-    const uploadImgUrl = `https://hosygkmrpmwxwrqoqlhq.supabase.co/storage/v1/object/public/posts/${path}`;
-    insertPost(category, title, content, uploadImgUrl);
-    alert("등록이 완료되었습니다!")
-    navigator(`/board/${category}?page=1`)
+      const uploadImgUrl = `https://hosygkmrpmwxwrqoqlhq.supabase.co/storage/v1/object/public/posts/${path}`;
+      updatePost(postId, category, content, title, uploadImgUrl);
+      navigate(`/board/${post.category}/${post.post_id}`);
+    } else {
+      updatePost(postId, category, content, title, post.img_url);
+      navigate(`/board/${post.category}/${post.post_id}`);
+    }
   };
 
   const handleImgChange = ({ target }) => {
@@ -54,7 +70,7 @@ const WriteForm = () => {
     <StFormWrapper>
       <StCategoryWrapper>
         <StLabel>카테고리</StLabel>
-        <StCategorySelect ref={categoryRef}>
+        <StCategorySelect defaultValue={post && post.category} ref={categoryRef}>
           <option value="공연(정보,후기)">공연(정보,후기)</option>
           <option value="추천음악">추천 음악</option>
           <option value="자유">자유</option>
@@ -62,7 +78,7 @@ const WriteForm = () => {
       </StCategoryWrapper>
       <StTitleWrapper>
         <StLabel>제목</StLabel>
-        <StTitleInput ref={titleRef} placeholder="제목을 입력해 주세요" />
+        <StTitleInput defaultValue={post && post.title} ref={titleRef} placeholder="제목을 입력해 주세요" />
       </StTitleWrapper>
       <StContentWrapper>
         <StLabel>내용</StLabel>
@@ -70,19 +86,19 @@ const WriteForm = () => {
         <StAddImgBtn onClick={handleAddImgBtnClick}>이미지</StAddImgBtn>
         <StInputArea>
           <StImgWrapper>
-            <img src={imgUrl} />
+            <img src={imgUrl ? imgUrl : post && post.img_url} />
           </StImgWrapper>
-          <StContentTextArea ref={contentRef} />
+          <StContentTextArea defaultValue={post && post.content} ref={contentRef} />
         </StInputArea>
       </StContentWrapper>
       <StBtnWrapper>
-        <StAddBtn onClick={handleAddBtnClick}>등록</StAddBtn>
+        <StAddBtn onClick={handleUpdateBtnClick}>등록</StAddBtn>
       </StBtnWrapper>
     </StFormWrapper>
   );
 };
 
-export default WriteForm;
+export default UpdateForm;
 
 const StFormWrapper = styled.form`
   margin-top: 10px;

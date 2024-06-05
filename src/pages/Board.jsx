@@ -2,15 +2,27 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Pagenation from '../components/Board/Pagenation';
 import usePagenation from '../hooks/usePagenation';
+import { useEffect, useState } from 'react';
 
 const Board = () => {
   const navigate = useNavigate();
-
-  const { showPost, boardTitle } = usePagenation();
+  const { showPost, boardTitle, totalPost, filter, setFilter } = usePagenation();
 
   return (
     <StBoardContainer>
       <H2>{boardTitle}</H2>
+      <StDiv>
+        <span>{totalPost}개의 글</span>
+        <select
+          value={filter}
+          onChange={(e) => {
+            setFilter(e.target.value);
+          }}
+        >
+          <option value="date">최신순</option>
+          <option value="like">추천순</option>
+        </select>
+      </StDiv>
       <StPostcontainer>
         <StPostInfoWrapper>
           <div style={{ display: 'flex' }}>
@@ -40,10 +52,19 @@ const StBoardContainer = styled.div`
 `;
 
 const H2 = styled.h2`
-  font-size: 20px;
+  font-size: 25px;
   font-weight: 600;
 
   margin: 20px 0px;
+`;
+
+const StDiv = styled.div`
+  font-size: 15px;
+
+  margin: 10px 0px;
+
+  display: flex;
+  justify-content: space-between;
 `;
 
 const StPostcontainer = styled.ul`

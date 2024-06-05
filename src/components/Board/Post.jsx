@@ -14,16 +14,28 @@ const Post = ({ post }) => {
     .replace(/\./g, '')
     .replace(/\s/g, '-');
 
+  // date.now를 받아옴
+  const timestamp_ms = post.date;
+
+  // 밀리초 타임스탬프를 Date 객체로 변환
+  const date = new Date(timestamp_ms);
+
+  // 연, 월, 일을 추출
+  const year = date.getUTCFullYear();
+  const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 1을 더합니다.
+  const day = String(date.getUTCDate()).padStart(2, '0');
+  const time = String(date.getUTCHours() + 9 + `:` + date.getUTCMinutes());
+
+  // yyyy-mm-dd 형식으로 포맷팅
+  const formattedDate = `${year}-${month}-${day}`;
+  const formattedTime = `${time}`;
+
   return (
     <>
       {' '}
       <StPost>
         <div style={{ display: 'flex' }}>
-          <StDate>
-            {today === post.date.slice(0, 10)
-              ? Number(post.date.slice(11, 13)) + 9 + post.date.slice(13, 16)
-              : post.date.slice(0, 10)}
-          </StDate>
+          <StDate>{today === formattedDate ? formattedTime : formattedDate}</StDate>
           <StLike>{post.like}</StLike>
         </div>
         <StTitle>
@@ -73,6 +85,11 @@ const StTitle = styled.div`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  &:hover {
+    color: blue;
+  }
+  cursor: pointer;
 `;
 
 const StWriter = styled.div`
@@ -81,15 +98,4 @@ const StWriter = styled.div`
   font-size: 15px;
 
   text-align: center;
-`;
-
-const PostTitle = styled.button`
-  margin: 0px 20px;
-  border: 0px transparent;
-  background-color: transparent;
-
-  font-size: 15px;
-  &:hover {
-    color: blue;
-  }
 `;

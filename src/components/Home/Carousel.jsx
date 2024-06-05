@@ -13,8 +13,10 @@ import 'swiper/css/navigation';
 
 // import required modules
 import { Pagination, Navigation } from 'swiper/modules';
+import { useNavigate } from 'react-router-dom';
 
 export const Carousel = ({ category, data, target }) => {
+  const navigate = useNavigate();
   const [swiperRef, setSwiperRef] = useState(null);
 
   return (
@@ -58,7 +60,12 @@ export const Carousel = ({ category, data, target }) => {
       >
         {data.map((item) => {
           return (
-            <SwiperSlide key={item.post_id}>
+            <SwiperSlide
+              key={item.post_id}
+              onClick={() => {
+                navigate(`board/${category}/${item.post_id}`);
+              }}
+            >
               <StCardDiv>
                 <StImgDiv>
                   {item.img_url ? <StImg src={item.img_url} alt="" /> : <StDefaultIcon $target={target} />}

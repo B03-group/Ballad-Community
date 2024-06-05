@@ -6,7 +6,7 @@ import { ChartVideo } from '../components/Home/ChartVideo';
 
 import { createClient } from '@supabase/supabase-js';
 
-const supabase = createClient(import.meta.env.VITE_BALLAD_URL, import.meta.env.VITE_BALLAD_KEY);
+const supabase = createClient(import.meta.env.VITE_MAIN_URL, import.meta.env.VITE_MAIN_KEY);
 const allData = await supabase.from('posts').select().order('date', { ascending: false }).range(0, 9);
 const concertData = await supabase
   .from('posts')

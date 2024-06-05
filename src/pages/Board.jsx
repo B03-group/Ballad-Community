@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Pagenation from '../components/Board/Pagenation';
 import usePagenation from '../hooks/usePagenation';
-import { useEffect, useState } from 'react';
 
 const Board = () => {
   const navigate = useNavigate();

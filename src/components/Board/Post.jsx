@@ -1,9 +1,10 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Post = ({ post }) => {
   const parms = useParams().category;
+  const navigate = useNavigate();
 
   const today = new Date()
     .toLocaleDateString('ko-KR', {
@@ -39,7 +40,7 @@ const Post = ({ post }) => {
           <StDate>{today === formattedDate ? formattedTime : formattedDate}</StDate>
           <StLike>{post.like}</StLike>
         </div>
-        <StTitle>
+        <StTitle onClick={() => navigate(`/board/${post.category}/${post.post_id}`)}>
           {parms === '전체글' ? `[${post.category}] ` : ''}
           {post.title}
         </StTitle>

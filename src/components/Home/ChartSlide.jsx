@@ -1,3 +1,5 @@
+import { ChartVideo } from './ChartVideo';
+
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -10,71 +12,13 @@ import 'swiper/css/pagination';
 import { Autoplay, EffectCoverflow, Pagination } from 'swiper/modules';
 import styled from 'styled-components';
 
+import { createClient } from '@supabase/supabase-js';
+const supabase = createClient(import.meta.env.VITE_CHART_URL, import.meta.env.VITE_CHART_KEY);
+const { data, error } = await supabase.from('ballad_chart').select('*').order('rank', { ascending: true }).range(0, 9);
+
 export const ChartSlide = () => {
-  const testData = [
-    {
-      rank: 1,
-      title: '미안해 미워해 사랑해',
-      artist: 'Crush',
-      img_src: 'https://image.bugsm.co.kr/album/images/450/40993/4099372.jpg?version=20240517174204.0'
-    },
-    {
-      rank: 2,
-      title: '그랬나봐',
-      artist: '유회승(엔플라잉)',
-      img_src: 'https://image.bugsm.co.kr/album/images/450/206408/20640830.jpg?version=20240511011412.0'
-    },
-    {
-      rank: 3,
-      title: '천상연',
-      artist: '이창섭',
-      img_src: 'https://image.bugsm.co.kr/album/images/450/40963/4096392.jpg?version=20240222064728.0'
-    },
-    {
-      rank: 4,
-      title: 'Love wins all',
-      artist: '아이유(IU)',
-      img_src: 'https://image.bugsm.co.kr/album/images/450/40955/4095501.jpg?version=20240307012526.0'
-    },
-    {
-      rank: 5,
-      title: '봄눈',
-      artist: '10CM',
-      img_src: 'https://image.bugsm.co.kr/album/images/450/206426/20642655.jpg?version=20240515004113.0'
-    },
-    {
-      rank: 6,
-      title: '비의 랩소디',
-      artist: '임재현',
-      img_src: 'https://image.bugsm.co.kr/album/images/450/206088/20608836.jpg?version=20240209024356.0'
-    },
-    {
-      rank: 7,
-      title: '그대만 있다면(여름날 우리 X 너드커넥션(NerdConnection))',
-      artist: '너드커넥션(NerdConnection)',
-      img_src: 'https://image.bugsm.co.kr/album/images/450/40901/4090168.jpg?version=20240209005514.0'
-    },
-    {
-      rank: 8,
-      title: "I'll Be There",
-      artist: '이클립스(ECLIPSE)',
-      img_src: 'https://image.bugsm.co.kr/album/images/450/206384/20638425.jpg?version=20240508024358.0'
-    },
-    {
-      rank: 9,
-      title: '꿈결같아서',
-      artist: '민니((여자)아이들)',
-      img_src: 'https://image.bugsm.co.kr/album/images/450/206362/20636295.jpg?version=20240423111536.0'
-    },
-    {
-      rank: 10,
-      title: '헤어지자 말해요',
-      artist: '박재정',
-      img_src: 'https://image.bugsm.co.kr/album/images/450/40856/4085673.jpg?version=20230421064519.0'
-    }
-  ];
   return (
-    <>
+    <StChartContainer>
       <StChartBox>
         <StH2>주간 발라드 TOP10</StH2>
         <Swiper
@@ -94,9 +38,9 @@ export const ChartSlide = () => {
           pagination={true}
           modules={[Autoplay, EffectCoverflow, Pagination]}
           className="mySwiper"
-          style={{ height: '650px', width: '500px' }}
+          style={{ height: '650px', width: '454px' }}
         >
-          {testData.map((e) => {
+          {data.map((e) => {
             return (
               <SwiperSlide key={e.title}>
                 <StCard>
@@ -110,18 +54,29 @@ export const ChartSlide = () => {
           })}
         </Swiper>
       </StChartBox>
-    </>
+      <StChartBox>
+        <StH2>Official Video</StH2>
+        <ChartVideo />
+      </StChartBox>
+    </StChartContainer>
   );
 };
 
+const StChartContainer = styled.div`
+  max-width: 1200px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+`;
+
 const StChartBox = styled.div`
-  width: 700px;
+  width: 454px;
   margin: 20px auto;
 `;
 
 const StH2 = styled.h2`
   margin: 20px auto;
-  width: 450px;
+  width: 454px;
   text-align: center;
   font-size: 35px;
 `;

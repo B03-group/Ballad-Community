@@ -1,8 +1,7 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 // Import Swiper React components
-import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
-import { FaBookmark, FaRegBookmark } from 'react-icons/fa';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import { MdFavorite } from 'react-icons/md';
 import { GrFormPrevious, GrFormNext } from 'react-icons/gr';
 
@@ -15,20 +14,21 @@ import 'swiper/css/navigation';
 import { Pagination, Navigation } from 'swiper/modules';
 import sample1 from '../../assets/sample1.jpg';
 
-export const Carousel = ({ data }) => {
+export const Carousel = ({ category, data, target }) => {
   const [swiperRef, setSwiperRef] = useState(null);
 
   return (
     <>
-      <StSlideHeader>
-        <span>인기글</span>
+      <StSlideHeader key={'swiper-head'}>
+        <span>{category}</span>
         <StSlideButtonBox>
-          <StPreviousBtn className="swiper-prev" />
-          <StNextBtn className="swiper-next" />
+          <StPreviousBtn className={`${target}-swiper-prev`} />
+          <StNextBtn className={`${target}-swiper-next`} />
         </StSlideButtonBox>
       </StSlideHeader>
 
       <StSwiper
+        key={category}
         onSwiper={setSwiperRef}
         slidesPerView={4}
         slidesPerGroup={1}
@@ -37,43 +37,41 @@ export const Carousel = ({ data }) => {
         slidesOffsetBefore={50}
         slidesOffsetAfter={50}
         navigation={{
-          nextEl: '.swiper-next',
-          prevEl: '.swiper-prev'
+          prevEl: `.${target}-swiper-prev`,
+          nextEl: `.${target}-swiper-next`
         }}
         modules={[Pagination, Navigation]}
         breakpoints={{
           0: {
             slidesPerView: 1
           },
-          650: {
+          760: {
             slidesPerView: 2
           },
-          950: {
+          1140: {
             slidesPerView: 3
           },
-          1260: {
+          1520: {
             slidesPerView: 4
           }
         }}
       >
         {data.map((item) => {
           return (
-            <SwiperSlide key={item.id}>
+            <SwiperSlide key={item.post_id}>
               <StCardDiv>
                 <StImgDiv>
-                  <StImg src={sample1} alt="" />
+                  <StImg src={item.img ?? sample1} alt="" />
                 </StImgDiv>
                 <StH2>{item.title}</StH2>
                 <StNickNameDiv>
                   <p>{item.writer}</p>
-                  <StFillBookMark />
-                  {/* <StBookMark /> */}
                 </StNickNameDiv>
                 <StTextDiv>
-                  <StTextP>{item.description}</StTextP>
+                  <StTextP>{item.content}</StTextP>
                   <StFavorDiv>
                     <StFillFavor />
-                    <span style={{ verticalAlign: 'top' }}>{item.like}</span>
+                    <StFavorSpan>{item.like}</StFavorSpan>
                   </StFavorDiv>
                 </StTextDiv>
               </StCardDiv>
@@ -86,8 +84,10 @@ export const Carousel = ({ data }) => {
 };
 
 const StSlideHeader = styled.div`
+  width: 80%;
   font-size: 40px;
-  margin: 10px 100px;
+  margin: 20px auto;
+  margin-top: 40px;
 `;
 
 const StSlideButtonBox = styled.div`
@@ -129,6 +129,8 @@ const StNextBtn = styled(GrFormNext)`
 const StSwiper = styled(Swiper)`
   border: 2px solid black;
   padding: 20px 0;
+  width: 80%;
+  min-width: 400px;
 `;
 
 const StCardDiv = styled.div`
@@ -139,20 +141,16 @@ const StCardDiv = styled.div`
 `;
 
 const StH2 = styled.div`
+  box-sizing: border-box;
+  padding: 0 20px;
   text-align: center;
   margin-top: 5px;
-`;
-
-const StBookMark = styled(FaRegBookmark)`
-  width: 20px;
-  height: 20px;
-  fill: #76ba1b;
-`;
-const StFillBookMark = styled(FaBookmark)`
-  width: 20px;
-  height: 20px;
-
-  fill: #76ba1b;
+  font-weight: 600;
+  width: 100%;
+  height: 1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 const StFillFavor = styled(MdFavorite)`
@@ -175,7 +173,7 @@ const StTextDiv = styled.div`
 
 const StTextP = styled.p`
   font-size: 1rem;
-  width: 220px;
+  max-width: 180px;
   height: 1rem;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -183,6 +181,9 @@ const StTextP = styled.p`
 `;
 const StFavorDiv = styled.div`
   margin-left: auto;
+`;
+const StFavorSpan = styled.span`
+  vertical-align: top;
 `;
 
 const StImgDiv = styled.div`

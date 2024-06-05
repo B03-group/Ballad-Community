@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { getPost, updatePostViews } from '../../api/postsApi';
+import { DelPost, getPost, updatePostViews } from '../../api/postsApi';
 import { getDate } from '../../assets/functions';
 import BlackHr from '../common/BlackHr';
 
 const FAKE_USER_NICKNAME = 'fakeUser';
 const PostDetail = () => {
-  const { detailId } = useParams();
+  const { postId } = useParams();
   const [post, setPost] = useState();
   const separator = `|`;
 
@@ -17,17 +17,17 @@ const PostDetail = () => {
   }, []);
 
   const getData = async () => {
-    const data = await getPost(detailId);
+    const data = await getPost(postId);
     const views = data[0].views + 1;
-    await updatePostViews(views, detailId);
+    await updatePostViews(views, postId);
     setPost({
       ...data[0],
       views
     });
   };
 
-  const handleDelClick = () => {
-    DelComment();
+  const handleDelClick = (postId) =>  {
+    DelPost();
   };
 
   const handleUpdateClick = () => {};
@@ -55,8 +55,8 @@ const PostDetail = () => {
           {post.writer === FAKE_USER_NICKNAME ? (
             <>
               <StFooter>
-                <StDelBtn>삭제</StDelBtn>
-                <StUpdateBtn>수정</StUpdateBtn>
+                <StDelBtn onClick={handleDelClick}>삭제</StDelBtn>
+                <StUpdateBtn onClick={handleUpdateClick}>수정</StUpdateBtn>
               </StFooter>
             </>
           ) : (

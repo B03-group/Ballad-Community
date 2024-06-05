@@ -10,7 +10,7 @@ import CommentInput from './CommentInput';
 import CommentUpdate from './CommentUpdate';
 
 const Comments = () => {
-  const { detailId } = useParams();
+  const { postId } = useParams();
   const [comments, setComments] = useState([]);
   const [updateId, setUpdateId] = useState('');
 
@@ -20,7 +20,7 @@ const Comments = () => {
   }, []);
 
   const fetchData = async () => {
-    const data = await getComments(detailId);
+    const data = await getComments(postId);
     data.sort((a, b) => a.date - b.date);
     setComments(data);
   };

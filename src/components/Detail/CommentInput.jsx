@@ -7,7 +7,7 @@ import { checkInputLengthValidate } from '../../assets/validations';
 
 const CommentInput = ({ setComments }) => {
   const isLogIn = true;
-  const { detailId } = useParams();
+  const { postId } = useParams();
   const fakeUserId = '80257256-087d-4ef3-9d35-d7ae865404fa';
   const inputRef = useRef(null);
 
@@ -19,7 +19,7 @@ const CommentInput = ({ setComments }) => {
       writer: 'fakeUser',
       content: inputValue,
       user_id: fakeUserId,
-      page_id: detailId,
+      page_id: postId,
       like_num: 0,
       like: false
     };

@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import { SlSpeech } from 'react-icons/sl';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { getComments } from '../../api/commentApi';
+import { DelComment, getComments, updateCommentsContent } from '../../api/commentApi';
+import { checkInputLengthValidate } from '../../assets/validations';
 import BlackHr from '../common/BlackHr';
 import Comment from './Comment';
 import CommentInput from './CommentInput';
@@ -16,12 +17,38 @@ const Comments = () => {
   useEffect(() => {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [comments]);
+  }, []);
 
   const fetchData = async () => {
     const data = await getComments(detailId);
     data.sort((a, b) => a.date - b.date);
     setComments(data);
+  };
+
+  const handleUpdateClick = (commentId) => () => {
+    setUpdateId(commentId);
+  };
+
+  const handleDelClick = (commentId) => () => {
+    DelComment(commentId);
+    setComments((prevComments) => prevComments.filter((prevComment) => prevComment.comment_id !== commentId));
+  };
+
+  const handleUpdateAddClick = (content, commentId) => {
+    if (!checkInputLengthValidate(content)) return;
+
+    updateCommentsContent(commentId, content);
+    setComments((prevComments) =>
+      prevComments.map((prevComment) => {
+        if (prevComment.comment_id === commentId) {
+          return {
+            ...prevComment,
+            content: content
+          };
+        } else return prevComment;
+      })
+    );
+    setUpdateId('');
   };
 
   return (
@@ -40,7 +67,7 @@ const Comments = () => {
               writer={comment.writer}
               content={comment.content}
               commentId={comment.comment_id}
-              setUpdateId={setUpdateId}
+              handleUpdateAddClick={handleUpdateAddClick}
             />
           ) : (
             <Comment
@@ -52,7 +79,8 @@ const Comments = () => {
               date={comment.date}
               like={comment.like}
               likeNum={comment.like_num}
-              setUpdateId={setUpdateId}
+              handleUpdateClick={handleUpdateClick}
+              handleDelClick={handleDelClick}
             />
           )
         )}

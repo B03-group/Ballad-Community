@@ -1,20 +1,9 @@
 import { useRef } from 'react';
 import styled from 'styled-components';
-import { updateCommentsContent } from '../../api/commentApi';
-import { checkInputLengthValidate } from '../../assets/validations';
 
-const CommentUpdate = ({ writer, content, commentId, setUpdateId }) => {
+const CommentUpdate = ({ writer, content, commentId, handleUpdateAddClick }) => {
   const isLogIn = true;
   const inputRef = useRef(null);
-
-  const handleUpdateClick = () => {
-    const commenttargetId = commentId;
-    const content = inputRef.current.value;
-
-    if (!checkInputLengthValidate(content)) return;
-    updateCommentsContent(commenttargetId, content);
-    setUpdateId('');
-  };
 
   return (
     <StWrapper>
@@ -29,7 +18,7 @@ const CommentUpdate = ({ writer, content, commentId, setUpdateId }) => {
         )}
       </StBody>
       <StFooter>
-        <StAddBtn onClick={handleUpdateClick}>등록</StAddBtn>
+        <StAddBtn onClick={()=>{handleUpdateAddClick(inputRef.current.value, commentId)}}>등록</StAddBtn>
       </StFooter>
     </StWrapper>
   );

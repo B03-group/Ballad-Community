@@ -33,7 +33,7 @@ export const getPost = async (postId) => {
 };
 
 export const updatePostViews = async (views, postId) => {
-  const { error } = await supabase.from('posts').update({ views: views }).eq('post_id', postId).select();
+  const { error } = await supabase.from('posts').update({ views }).eq('post_id', postId).select();
 
   if (error) throw new Error();
 };
@@ -42,4 +42,15 @@ export const DelPost = async (postId) => {
   const { error } = await supabase.from('posts').delete().eq('post_id', postId);
 
   if (error) throw new Error();
+};
+
+export const updatePost = async (postId, category, content, title, imgUrl) => {
+  console.log(postId, category, content, title, imgUrl);
+  const { error } = await supabase
+    .from('posts')
+    .update({ category, content, title, img_url: imgUrl })
+    .eq('post_id', postId)
+    .select();
+
+  if (error) throw new Error;
 };

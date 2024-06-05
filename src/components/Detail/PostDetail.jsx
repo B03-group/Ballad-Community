@@ -36,7 +36,9 @@ const PostDetail = () => {
     }
   };
 
-  const handleUpdateClick = () => {};
+  const handleUpdateClick = (postId) => {
+    navigate(`/update/${postId}`);
+  };
   return (
     <StWrapper>
       {post ? (
@@ -61,8 +63,8 @@ const PostDetail = () => {
           {post.writer === FAKE_USER_NICKNAME ? (
             <>
               <StFooter>
-                <StDelBtn onClick={() => handleDelClick(postId)}>삭제</StDelBtn>
-                <StUpdateBtn onClick={handleUpdateClick}>수정</StUpdateBtn>
+                <StDelBtn onClick={() => {handleDelClick(postId)}}>삭제</StDelBtn>
+                <StUpdateBtn onClick={() => {handleUpdateClick(postId)}}>수정</StUpdateBtn>
               </StFooter>
             </>
           ) : (

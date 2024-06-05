@@ -1,24 +1,43 @@
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { getPost } from '../../api/postsApi';
+import { getDate } from '../../assets/functions';
 import BlackHr from '../common/BlackHr';
 
 const PostDetail = () => {
+  const { detailId } = useParams();
+  const [post, setPost] = useState();
+  useEffect(() => {
+    getData();
+  }, []);
+  const getData = async () => {
+    const data = await getPost(detailId);
+    setPost(data[0]);
+  };
   const separator = `|`;
+
+  console.log(detailId, post);
   return (
     <StWrapper>
-      <StTitle>제목</StTitle>
-      <StInfo>
-        <StWriter>작성자</StWriter>
-        <StSeparator>{separator}</StSeparator>
-        <StDate>날짜</StDate>
-        <StSeparator>{separator}</StSeparator>
-        <StViewNum>조회 수</StViewNum>
-        <StSeparator>{separator}</StSeparator>
-        <StCommentNum>댓글 수</StCommentNum>
-      </StInfo>
-      <BlackHr />
-      <StContent>
-        <StArticle>글 상세내용</StArticle>
-      </StContent>
+      {post ? (
+        <>
+          <StTitle>{post.title}</StTitle>
+          <StInfo>
+            <StWriter>{post.writer}</StWriter>
+            <StSeparator>{separator}</StSeparator>
+            <StDate>{getDate(post.date, 'long')}</StDate>
+            <StSeparator>{separator}</StSeparator>
+            <StViewNum>{post.views}</StViewNum>
+          </StInfo>
+          <BlackHr />
+          <StContent>
+            <StArticle>글 상세내용</StArticle>
+          </StContent>
+        </>
+      ) : (
+        <></>
+      )}
     </StWrapper>
   );
 };

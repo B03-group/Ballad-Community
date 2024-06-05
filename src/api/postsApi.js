@@ -24,3 +24,10 @@ export const uploadImg = async (imgFile) => {
   if (!error) return data.path;
   else console.log(error);
 };
+
+export const getPost = async (detailId) => {
+  const { data, error } = await supabase.from('posts').select().eq('post_id', detailId);
+
+  if (!error) return data;
+  else throw new Error();
+};

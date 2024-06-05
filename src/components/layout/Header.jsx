@@ -1,75 +1,84 @@
-import React, { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { supabase } from '../../supabaseClient';
-import { logout, setUser } from '../../features/auth/authActions';
-import './Header.css';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { PiMicrophoneDuotone } from 'react-icons/pi';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 const Header = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { user } = useSelector((state) => state.auth);
-
-  const getSession = async () => {
-    const {
-      data: { session }
-    } = await supabase.auth.getSession();
-    if (session) {
-      dispatch(setUser(session.user));
-    }
-  };
-
-  useEffect(() => {
-    getSession();
-  }, []);
-
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    dispatch(logout());
-    toast.success('로그아웃 되었습니다!', {
-      position: 'top-center',
-      autoClose: 5000,
-      closeOnClick: true,
-      onClose: () => navigate('/')
-    });
-  };
-
+  const boardTitles = ['전체글', '공연(정보,후기)', '추천음악', '자유'];
   return (
-    <header>
-      <h1>발라드 음악 추천 사이트</h1>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          {user ? (
-            <>
-              <li>
-                <Link to="#" onClick={handleLogout} style={{ color: 'red' }}>
-                  Logout
-                </Link>
-              </li>
-              <li>
-                <Link to="/profile">
-                  <img
-                    src={user.user_metadata.avatar_url || '/src/assets/default-avatar.png'}
-                    alt="Profile"
-                    className="avatar"
-                  />
-                </Link>
-              </li>
-            </>
-          ) : (
-            <li>
-              <Link to="/login">Login/Register</Link>
-            </li>
-          )}
-        </ul>
-      </nav>
-    </header>
+    <StNav>
+      <StInfo>
+        <StLink to={'/'}>
+          <div style={{ display: 'flex' }}>
+            <StLogo /> <StH1>발라드 음악 추천 커뮤니티</StH1>
+          </div>
+        </StLink>
+        <StUser>
+          <StLink>로그인</StLink>
+          <StLink>회원가입</StLink>
+          <StLink to={'/'}>
+            <StProfile />
+          </StLink>
+        </StUser>
+      </StInfo>
+      <StCategory>
+        {boardTitles.map((boardTitle) => {
+          return (
+            <StCategoryLink to={`/board/${boardTitle}?page=1`} key={boardTitle}>
+              {boardTitle}
+            </StCategoryLink>
+          );
+        })}
+      </StCategory>
+    </StNav>
   );
 };
+const StNav = styled.nav`
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid black;
+  padding: 10px;
+`;
+const StInfo = styled.div`
+  display: flex;
+  justify-content: space-between;
+  height: 60px;
+`;
+const StLogo = styled(PiMicrophoneDuotone)`
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  display: inline-block;
+`;
+const StH1 = styled.h1`
+  font-weight: 700;
+  font-size: 30px;
+  margin: 10px 20px;
+`;
+const StUser = styled.div`
+  display: flex;
+  gap: 20px;
+`;
+const StProfile = styled.div`
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: gray;
+`;
+const StCategory = styled.div`
+  margin-top: 15px;
+  display: flex;
+  gap: 20px;
+`;
+const StLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+  height: 20px;
+`;
+const StCategoryLink = styled(Link)`
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 700;
+  color: black;
+`;
 
 export default Header;

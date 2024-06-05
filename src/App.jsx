@@ -1,23 +1,17 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Home from './pages/Home';
-import Profile from './pages/Profile';
-import Login from './components/auth/Login';
-import Register from './components/auth/Register';
-import Layout from './components/layout/Layout';
+import React from "react";
+import Router from "./shared/Router";
+import { Provider } from "react-redux";
+import store from "./redux/config/configStore";
+import GlobalStyle from "./styles/GlobalStyle";
 
 const App = () => {
   return (
-    <Router>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-        </Routes>
-      </Layout>
-    </Router>
+    <>
+      <Provider store={store}>
+        <GlobalStyle />
+        <Router />
+      </Provider>
+    </>
   );
 };
 

@@ -12,7 +12,6 @@ const useGetPostsByDate = () => {
     const { data } = await supabase.from('posts').select().order(`date`, { ascending: false });
     setPosts(data);
   }
-  const dateData = posts;
   return { posts, setPosts };
 };
 
@@ -28,7 +27,6 @@ const useGetPostsByLike = () => {
     setPosts(data);
   }
 
-  const likeData = posts;
   return { posts, setPosts };
 };
 

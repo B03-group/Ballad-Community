@@ -24,7 +24,8 @@ const Post = ({ post }) => {
   const year = date.getUTCFullYear();
   const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 1을 더합니다.
   const day = String(date.getUTCDate()).padStart(2, '0');
-  const time = String(date.getUTCHours() + 9 + `:` + date.getUTCMinutes());
+  const miniutes = date.getUTCMinutes() < 10 ? `0` + date.getUTCMinutes() : date.getUTCMinutes();
+  const time = String(date.getUTCHours() + 9 + `:` + miniutes);
 
   // yyyy-mm-dd 형식으로 포맷팅
   const formattedDate = `${year}-${month}-${day}`;

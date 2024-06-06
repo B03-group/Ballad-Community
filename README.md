@@ -1,24 +1,35 @@
 
 
 # 프로젝트 소개 
-내용
+
+라이브러리
+- yarn
+- yarn add redux react-redux @reduxjs/toolkit
+- yarn add styled-components
+- yarn add swiper
+- yarn add react-icons
+- yarn add react-player
+- yarn react-toastify
+- yarn dev
 
 <br />
 
 ## 👥 팀원소개
 
-| 김형빈 | 김형빈 | 김형빈 | 김형빈 | 김형빈 |
+| 김성구 | 김지환 | 김형빈 | 염경원 | 주현우 |
 | :---: | :---: | :---: | :---: | :---: |
-| <img src="https://avatars.githubusercontent.com/hb9901" width="200"> | <img src="https://avatars.githubusercontent.com/hb9901" width="200"> | <img src="https://avatars.githubusercontent.com/hb9901" width="200"> | <img src="https://avatars.githubusercontent.com/hb9901" width="200"> | <img src="https://avatars.githubusercontent.com/hb9901" width="200"> |
-| 리더 | 부리더 | 팀원 | 팀원 | 팀원 |
-| [shin1501020](https://github.com/shin1501020) | [JoohwanSeo](https://github.com/JoohwanSeo) | [YCDM03](https://github.com/YCDM03) | [hb9901](https://github.com/hb9901)|  [tpring](https://github.com/tpring) |    
+| <img src="https://avatars.githubusercontent.com/Kimsounggu" width="200"> | <img src="https://avatars.githubusercontent.com/u/RingKim1" width="200"> | <img src="https://avatars.githubusercontent.com/hb9901" width="200"> | <img src="https://avatars.githubusercontent.com/YCDM03" width="200"> | <img src="https://avatars.githubusercontent.com/HyunwooJu" width="200"> |
+| 팀원 | 팀원 | 부리더 | 팀원 | 리더 |
+| [Kimsounggu](https://github.com/Kimsounggu) | [RingKim1](https://github.com/RingKim1) | [hb9901](https://github.com/hb9901)| [YCDM03](https://github.com/YCDM03) | [HyunwooJu](https://github.com/HyunwooJu) |    
 
 
 
 <br />
 
+
 ## 🛠️ 기술 스택
-<img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=HTML5&logoColor=white"><img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white"><img src="https://img.shields.io/badge/Javascript-F7DF1E?style=for-the-badge&logo=Javascript&logoColor=white">
+<img src="https://img.shields.io/badge/yarn-%232C8EBB?style=for-the-badge&logo=yarn&logoColor=white"><img src="https://img.shields.io/badge/REACT-%2361DAFB?style=for-the-badge&logo=REACT&logoColor=white"><img src="https://img.shields.io/badge/REDUX-%23764ABC?style=for-the-badge&logo=REDUX&logoColor=white"><img src="https://img.shields.io/badge/styledcomponents-%23DB7093?style=for-the-badge&logo=styledcomponents&logoColor=white"><img src="https://img.shields.io/badge/swiper-%236332F6?style=for-the-badge&logo=swiper&logoColor=white">
+
 
 <br />
 

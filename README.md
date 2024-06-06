@@ -39,9 +39,8 @@
 ## 📝 주요 기능
 
 ### 메인페이지
-* 차트슬라이드<br />
+* 차트, 영상슬라이드<br />
   ![ezgif-5-ef19c5ded4](https://github.com/B03-group/Ballad-Community/assets/164147591/dcf65a12-5ff9-4380-bc16-d603d58f23f2)
-* 영상슬라이드<br />
 * 게시판 캐러셀<br />
 ### 로그인
 * 회원가입<br />

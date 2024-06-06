@@ -10,9 +10,7 @@ const Detail = () => {
     <MainWrapper>
       <CategoryName>{categoryId}</CategoryName>
       <PostDetail />
-      <Hr />
       <Comments />
-
     </MainWrapper>
   );
 };
@@ -30,10 +28,5 @@ const CategoryName = styled.h4`
   margin-top: 10px;
   margin-bottom: 20px;
   font-size: 20px;
-`;
-
-const Hr = styled.hr`
-  height: 1px;
-  border: 0;
-  background: rgba(0, 0, 0, 0.1);
+  font-weight: 600;
 `;

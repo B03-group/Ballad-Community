@@ -82,4 +82,9 @@ const StFooter = styled.div`
   justify-content: end;
 `;
 
-const StAddBtn = styled.button``;
+const StAddBtn = styled.button`
+  margin-bottom: 40px;
+  width: 60px;
+  background: #333;
+  color: white;
+`;

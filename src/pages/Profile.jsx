@@ -27,13 +27,15 @@ const Profile = () => {
       profileImage
     };
     try {
-      await dispatch(updateProfile(formData)).unwrap();
+      const updatedUser = await dispatch(updateProfile(formData)).unwrap();
       toast.success('프로필이 업데이트 되었습니다!', {
         position: 'top-center',
         autoClose: 5000,
         closeOnClick: true,
         onClose: () => navigate('/')
       });
+      // 로컬 스토리지에 업데이트된 사용자 데이터 저장
+      localStorage.setItem('user', JSON.stringify(updatedUser));
     } catch (err) {
       toast.error(`에러: ${err.message}`, {
         position: 'top-center',

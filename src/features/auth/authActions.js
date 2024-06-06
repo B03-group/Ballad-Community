@@ -29,11 +29,22 @@ export const signup = createAsyncThunk('auth/signup', async ({ email, password, 
 
       if (uploadError) throw uploadError;
 
-      profileImageUrl = supabase.storage.from('avatars').getPublicUrl(filePath).publicURL;
-      await supabase.auth.updateUser({ data: { profileImageUrl } });
+      // 로그 추가: 파일 경로 확인
+      console.log('File path:', filePath);
+
+      const { publicURL, error: urlError } = supabase.storage.from('avatars').getPublicUrl(filePath);
+
+      if (urlError) throw urlError;
+
+      profileImageUrl = publicURL;
+
+      // 로그 추가
+      console.log('Profile Image URL:', profileImageUrl);
+
+      await supabase.auth.updateUser({ data: { avatar_url: profileImageUrl } });
     }
 
-    return { ...user, profileImageUrl };
+    return { ...user, avatar_url: profileImageUrl };
   } catch (error) {
     console.error('Signup error:', error);
     return thunkAPI.rejectWithValue(error.message || 'Unknown error occurred');
@@ -91,15 +102,22 @@ export const updateProfile = createAsyncThunk('auth/updateProfile', async ({ nam
 
       if (uploadError) throw uploadError;
 
-      const { publicURL } = supabase.storage.from('avatars').getPublicUrl(filePath);
+      const { publicURL, error: urlError } = supabase.storage.from('avatars').getPublicUrl(filePath);
+      if (urlError) throw urlError;
+
       updates.user_metadata.avatar_url = publicURL;
+
+      // 로그 추가
+      console.log('Updated Profile Image URL:', publicURL);
     }
 
     const { error } = await supabase.auth.updateUser(updates);
 
     if (error) throw error;
 
-    return { ...user, user_metadata: updates.user_metadata };
+    // 업데이트된 사용자 데이터를 반환
+    const updatedUser = { ...user, user_metadata: updates.user_metadata };
+    return updatedUser;
   } catch (error) {
     console.error('Profile update error:', error);
     return thunkAPI.rejectWithValue(error.message || 'Unknown error occurred');

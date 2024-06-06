@@ -2,13 +2,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { PiMicrophoneDuotone } from 'react-icons/pi';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../features/auth/authActions';
 
 const Header = () => {
-  const { user } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
 
@@ -95,9 +92,7 @@ const StUser = styled.div`
 const StDiv = styled.div`
   cursor: pointer;
 `;
-const StDiv = styled.div`
-  cursor: pointer;
-`;
+
 const StProfile = styled.div`
   width: 40px;
   height: 40px;

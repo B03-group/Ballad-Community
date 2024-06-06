@@ -4,8 +4,11 @@ import detailLoader from '../loaders/detailLoader';
 import Board from '../pages/Board';
 import Detail from '../pages/Detail';
 import Home from '../pages/Home';
+import Profile from '../pages/Profile';
 import Update from '../pages/Update';
 import Write from '../pages/Write';
+import Login from '../components/auth/Login';
+import Register from '../components/auth/Register';
 
 const Router = createBrowserRouter([
   {
@@ -31,8 +34,21 @@ const Router = createBrowserRouter([
       {
         path: 'update/postId',
         element: <Update />
+      },
+      {
+        path: '/profile',
+        element: <Profile />
+      },
+      {
+        path: '/login',
+        element: <Login />
+      },
+      {
+        path: '/register',
+        element: <Register />
       }
     ]
   }
 ]);
+
 export default Router;

@@ -50,11 +50,17 @@
 
 ### 게시판
 * 필터링(최신순, 추천순)<br />
+![게시판 필터링 기능](https://github.com/B03-group/Ballad-Community/assets/131237911/d137e5f0-6aa1-463d-af97-7a0d3e2fa5df)
 * 페이지네이션<br />
+![게시판 페이지네이션](https://github.com/B03-group/Ballad-Community/assets/131237911/f70b9463-ca65-4fe4-b112-f4adeaa3b481)
 ### 상세 페이지
 * 게시글 CRUD<br />
+![게시글 등록](https://github.com/B03-group/Ballad-Community/assets/131237911/5f87473d-dc1d-41da-9337-4d49c15c35cb)
+![게시글 수정, 삭제](https://github.com/B03-group/Ballad-Community/assets/131237911/99321a67-e825-4307-a823-bb5a6e6e19f2)
 * 추천<br />
+![좋아요 기능](https://github.com/B03-group/Ballad-Community/assets/131237911/c5fa5c72-f90e-4293-86db-278354ab8196)
 * 댓글<br />
+![댓글](https://github.com/B03-group/Ballad-Community/assets/131237911/c6621107-4c14-49fa-aeb6-94c9d98970fb)
 
 <br />
 

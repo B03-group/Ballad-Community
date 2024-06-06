@@ -36,12 +36,15 @@
 
 ## 📝 주요 기능
 
+### 메인화면
+### 게시판 기능
+### 게시글 상세 페이지
 
 <br />
 
 ## 🔗 링크
-[TEAM NOTION](https://www.notion.so/teamsparta/B03-207ac11987a14da99a4b442ad84bf386)
-<br/>
-[FIGMA](https://www.figma.com/design/Bk7hMPbMn1kO4eVmn0xiTg/Figma-basics?node-id=1669-162202&t=U4y7VwjE9fQldf03-0)
+
+### [✨ TEAM NOTION](https://www.notion.so/teamsparta/B03-207ac11987a14da99a4b442ad84bf386)
+### [✨ FIGMA](https://www.figma.com/design/Bk7hMPbMn1kO4eVmn0xiTg/Figma-basics?node-id=1669-162202&t=U4y7VwjE9fQldf03-0)
 
 <br />

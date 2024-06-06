@@ -35,9 +35,9 @@ const Board = () => {
       </StPostcontainer>
 
       <StButtonWrapper>
-        <button onClick={() => navigate(`/board/${boardTitle}?page=1`)}>목록</button>
+        <StButton onClick={() => navigate(`/board/${boardTitle}?page=1`)}>목록</StButton>
         <Pagenation />
-        <button onClick={() => navigate(`/write`)}>🖊️글쓰기</button>
+        <StButton onClick={() => navigate(`/write`)}>🖊️글쓰기</StButton>
       </StButtonWrapper>
     </StBoardContainer>
   );
@@ -111,4 +111,14 @@ const StButtonWrapper = styled.div`
   justify-content: space-between;
 
   margin: 10px 0px;
+`;
+
+const StButton = styled.button`
+  background: #333;
+  border-radius: 5px;
+
+  color: white;
+  font-size: 15px;
+
+  height: auto;
 `;

@@ -47,7 +47,8 @@ export default Board;
 
 // 스타일드 컴포넌트
 const StBoardContainer = styled.div`
-  margin: 0px 5%;
+  margin: 0px auto;
+  max-width: 1300px;
 `;
 
 const H2 = styled.h2`

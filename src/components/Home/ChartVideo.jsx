@@ -139,10 +139,6 @@ const StSwiper = styled(Swiper)`
   justify-content: center;
   font-weight: 700;
 `;
-const StH3 = styled.h3`
-  font-size: 25px;
-  font-weight: 600;
-`;
 
 const StSlideButtonBox = styled.div`
   display: flex;
@@ -153,6 +149,7 @@ const StSlideButtonBox = styled.div`
 `;
 const StPreviousBtn = styled(GrFormPrevious)`
   box-sizing: border-box;
+  cursor: pointer;
   width: 30px;
   height: 25px;
   border: 2px solid black;
@@ -168,6 +165,7 @@ const StPreviousBtn = styled(GrFormPrevious)`
 
 const StNextBtn = styled(GrFormNext)`
   box-sizing: border-box;
+  cursor: pointer;
   width: 30px;
   height: 25px;
   border: 2px solid black;

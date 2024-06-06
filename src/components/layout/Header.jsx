@@ -1,4 +1,3 @@
-import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -19,30 +18,12 @@ const Header = () => {
 
   return (
     <StNav>
-      <StInfo>
-        <StLink to={'/'}>
-          <div style={{ display: 'flex' }}>
-            <StLogo /> <StH1>발라드 음악 추천 커뮤니티</StH1>
-          </div>
-        </StLink>
-        <StUser>
-          {user ? (
-            <>
-              <span onClick={handleLogout} style={{ cursor: 'pointer' }}>
-                로그아웃
-              </span>
-              <StLink to={'/profile'}>
-                <StProfile />
-              </StLink>
-            </>
-          ) : (
-            <>
-              <StLink to={'/login'}>로그인</StLink>
-              <StLink to={'/register'}>회원가입</StLink>
-            </>
-          )}
-        </StUser>
-      </StInfo>
+      <StAside />
+      <StLink to={'/'}>
+        <StLogoBox>
+          <StLogo /> <StH1>발라드 음악 추천 커뮤니티</StH1>
+        </StLogoBox>
+      </StLink>
       <StCategory>
         {boardTitles.map((boardTitle) => (
           <StCategoryLink to={`/board/${boardTitle}?page=1`} key={boardTitle}>
@@ -50,36 +31,65 @@ const Header = () => {
           </StCategoryLink>
         ))}
       </StCategory>
+      <StUser>
+        {user ? (
+          <>
+            <StDiv onClick={handleLogout}>로그아웃</StDiv>
+            <StLink to={'/profile'}>
+              <StProfile />
+            </StLink>
+          </>
+        ) : (
+          <>
+            <StLink to={'/login'}>로그인</StLink>
+            <StLink to={'/register'}>회원가입</StLink>
+          </>
+        )}
+      </StUser>
+      <StAside />
     </StNav>
   );
 };
 
 const StNav = styled.nav`
   display: flex;
-  flex-direction: column;
-  border-bottom: 1px solid black;
+  flex-wrap: wrap;
+  background-color: #252525;
+  height: 50px;
+  @media only screen and (max-width: 810px) {
+    height: 120px;
+    min-width: 350px;
+    flex-direction: column;
+    align-items: center;
+  }
+  justify-content: space-between;
   padding: 10px;
 `;
-const StInfo = styled.div`
+const StLogoBox = styled.div`
   display: flex;
-  justify-content: space-between;
-  height: 60px;
 `;
 const StLogo = styled(PiMicrophoneDuotone)`
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
+  @media only screen and (max-width: 810px) {
+    width: 40px;
+  }
   border-radius: 30px;
   display: inline-block;
 `;
 const StH1 = styled.h1`
   font-weight: 700;
-  font-size: 30px;
-  margin: 10px 20px;
+  font-size: 20px;
+  margin: 15px 10px;
+  color: white;
 `;
 const StUser = styled.div`
   display: flex;
-  gap: 20px;
   align-items: center;
+  gap: 20px;
+`;
+const StDiv = styled.div`
+  cursor: pointer;
 `;
 const StProfile = styled.div`
   width: 40px;
@@ -87,21 +97,30 @@ const StProfile = styled.div`
   border-radius: 20px;
   background-color: gray;
 `;
+const StAside = styled.aside`
+  min-width: 20px;
+  max-width: 500px;
+  height: 100%;
+  @media only screen and (max-width: 810px) {
+    width: 0;
+  }
+`;
 const StCategory = styled.div`
-  margin-top: 15px;
   display: flex;
+  align-items: center;
   gap: 20px;
 `;
 const StLink = styled(Link)`
+  display: flex;
   text-decoration: none;
-  color: black;
+  color: white;
   height: 20px;
 `;
 const StCategoryLink = styled(Link)`
   text-decoration: none;
-  font-size: 20px;
-  font-weight: 700;
-  color: black;
+  font-size: 15px;
+  font-weight: 600;
+  color: white;
 `;
 
 export default Header;

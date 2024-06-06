@@ -19,14 +19,14 @@ const Register = () => {
     try {
       await dispatch(signup({ email, password, name, profileImage })).unwrap();
       toast.success('회원가입 되었습니다!', {
-        position: 'top-center', // 문자열로 위치 지정
+        position: 'top-center',
         autoClose: 5000,
         closeOnClick: true,
         onClose: () => navigate('/')
       });
     } catch (err) {
       toast.error(`에러: ${err.message}`, {
-        position: 'top-center', // 문자열로 위치 지정
+        position: 'top-center',
         autoClose: 5000,
         closeOnClick: true
       });
@@ -35,7 +35,7 @@ const Register = () => {
 
   return (
     <div className="container">
-      <h1 style={{ fontSize: '48px', marginBottom: '20px' }}>회원가입</h1>
+      <h1 className="title">회원가입</h1>
       <form className="form-container" onSubmit={handleSubmit}>
         <label className="label">Email:</label>
         <input

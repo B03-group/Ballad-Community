@@ -29,11 +29,6 @@ const Router = createBrowserRouter([
         loader: async ({ params }) => detailLoader(params.postId)
       },
       {
-        path: '/update/:postId',
-        element: <Update />
-      },
-
-      {
         path: '/login',
         element: <Login />
       },
@@ -53,6 +48,10 @@ const Router = createBrowserRouter([
       {
         path: '/write',
         element: <Write />
+      },
+      {
+        path: '/update/:postId',
+        element: <Update />
       }
     ]
   }

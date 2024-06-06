@@ -15,7 +15,6 @@ const PostDetail = () => {
   const isDataHasUser = likeUsersData.findIndex((likeUser) => likeUser.user_id === userId) >= 0;
   const [likeNum, setLikeNum] = useState(likeUsersData.length);
   const [isLike, setIsLike] = useState(isDataHasUser);
-
   const post = postData[0];
   const navigate = useNavigate();
 
@@ -24,24 +23,27 @@ const PostDetail = () => {
     const increasePostView = async (increasedViews, postId) => {
       await updatePostViews(increasedViews, postId);
     };
-    const increaseLikeNum = async (postId, userId) => {
-      await insertLikeUser(postId, userId);
-    };
 
-    const decreaseLikeNum = async (postId, userId) => {
-      await delLikeUser(postId, userId);
-    };
     return () => {
       increasePostView(increasedViews, postId);
-      if (!isDataHasUser && !isLike) increaseLikeNum(postId, userId);
-      if (isDataHasUser && isLike) decreaseLikeNum(postId, userId);
     };
     //eslint-disable-next-line
   }, []);
 
   const handleLikeClick = () => {
-    setIsLike((prev) => !prev);
-    setLikeNum((prevNum) => (isLike ? prevNum - 1 : prevNum + 1));
+    if (user) {
+      if (isLike) {
+        setIsLike(false);
+        setLikeNum((prevNum) => prevNum - 1);
+        delLikeUser(postId, userId);
+      } else {
+        setIsLike(true);
+        setLikeNum((prevNum) => prevNum + 1);
+        insertLikeUser(postId, userId);
+      }
+    } else {
+      navigate('/login');
+    }
   };
 
   const handleDelClick = (postId) => {
@@ -76,11 +78,11 @@ const PostDetail = () => {
             <StArticle>{post.content}</StArticle>
             <StContentFooter>
               <StLikeBtn onClick={handleLikeClick}>
-                {isLike ? <StFillFavor /> : <StFillFavorEmpty />} <span>{likeNum}</span>
+                {isLike ? <StFillFavor /> : <StEmptyFavor />} <span>{likeNum}</span>
               </StLikeBtn>
             </StContentFooter>
           </StContent>
-          {post.post_id === userId ? (
+          {post.user_id === userId ? (
             <>
               <StFooter>
                 <StDelBtn
@@ -217,7 +219,7 @@ const StFillFavor = styled(MdFavorite)`
   fill: #ee115b;
 `;
 
-const StFillFavorEmpty = styled(MdFavoriteBorder)`
+const StEmptyFavor = styled(MdFavoriteBorder)`
   width: 30px;
   height: 30px;
 

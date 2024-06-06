@@ -1,8 +1,9 @@
+import { v4 as uuidv4 } from 'uuid';
 import { supabase } from './api';
 
 export const insertPost = async (userId, userName, category, title, content, imgUrl) => {
   const newPost = {
-    post_id: userId,
+    post_id: uuidv4(),
     category,
     date: Date.now(),
     writer: userName,
@@ -10,7 +11,8 @@ export const insertPost = async (userId, userName, category, title, content, img
     content,
     views: 0,
     like: 0,
-    img_url: imgUrl
+    img_url: imgUrl,
+    user_id: userId,
   };
   const { error } = await supabase.from('posts').insert(newPost);
 

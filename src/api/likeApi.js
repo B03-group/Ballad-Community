@@ -20,5 +20,5 @@ export const insertLikeUser = async (postId, userId) => {
   }
   const { error } = await supabase.from('likes').insert(newUser);
 
-  if (error) throw new Error();
+  if (error) throw console.log(error);
 };

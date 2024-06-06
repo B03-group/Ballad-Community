@@ -1,7 +1,7 @@
 import { supabase } from './api';
 
 export const getComments = async (postId) => {
-  const { data, error } = await supabase.from('comments').select().eq('page_id', postId);
+  const { data, error } = await supabase.from('comments').select().eq('post_id', postId);
 
   if (!error) return data;
   else throw new Error();

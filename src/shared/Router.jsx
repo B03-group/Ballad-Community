@@ -1,4 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
+import Login from '../components/auth/Login';
+import Register from '../components/auth/Register';
 import Layout from '../components/layout/Layout';
 import detailLoader from '../loaders/detailLoader';
 import Board from '../pages/Board';
@@ -7,8 +9,7 @@ import Home from '../pages/Home';
 import Profile from '../pages/Profile';
 import Update from '../pages/Update';
 import Write from '../pages/Write';
-import Login from '../components/auth/Login';
-import Register from '../components/auth/Register';
+import Private from './Private';
 
 const Router = createBrowserRouter([
   {
@@ -28,17 +29,10 @@ const Router = createBrowserRouter([
         loader: async ({ params }) => detailLoader(params.postId)
       },
       {
-        path: '/write',
-        element: <Write />
-      },
-      {
         path: '/update/:postId',
         element: <Update />
       },
-      {
-        path: '/profile',
-        element: <Profile />
-      },
+
       {
         path: '/login',
         element: <Login />
@@ -46,6 +40,19 @@ const Router = createBrowserRouter([
       {
         path: '/register',
         element: <Register />
+      }
+    ]
+  },
+  {
+    element: <Private />,
+    children: [
+      {
+        path: '/profile',
+        element: <Profile />
+      },
+      {
+        path: '/write',
+        element: <Write />
       }
     ]
   }

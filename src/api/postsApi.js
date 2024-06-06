@@ -45,7 +45,7 @@ export const DelPost = async (postId) => {
 };
 
 export const updatePost = async (postId, category, content, title, imgUrl) => {
-  console.log(postId, category, content, title, imgUrl);
+
   const { error } = await supabase
     .from('posts')
     .update({ category, content, title, img_url: imgUrl })

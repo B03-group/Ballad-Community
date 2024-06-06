@@ -1,32 +1,26 @@
-import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useLoaderData, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { DelPost, getPost, updatePostViews } from '../../api/postsApi';
+import { DelPost, updatePostViews } from '../../api/postsApi';
 import { getDate } from '../../assets/functions';
 import BlackHr from '../common/BlackHr';
 
 const FAKE_USER_NICKNAME = 'fakeUser';
 const PostDetail = () => {
-  const { category, postId} = useParams();
-
-  const [post, setPost] = useState();
+  const { category, postId } = useParams();
+  const { postData } = useLoaderData();
+  const post = postData[0];
   const navigate = useNavigate();
   const separator = `|`;
 
   useEffect(() => {
-    getData();
+    const increasedViews = post.views + 1;
+    const increasePostView = async (increasedViews, postId) => {
+      await updatePostViews(increasedViews, postId);
+    };
+    return () => increasePostView(increasedViews, postId);
     //eslint-disable-next-line
   }, []);
-
-  const getData = async () => {
-    const data = await getPost(postId);
-    const views = data[0].views + 1;
-    await updatePostViews(views, postId);
-    setPost({
-      ...data[0],
-      views
-    });
-  };
 
   const handleDelClick = (postId) => {
     const isDel = confirm('정말 삭제하시겠습니까?');
@@ -49,7 +43,7 @@ const PostDetail = () => {
             <StSeparator>{separator}</StSeparator>
             <StDate>{getDate(post.date, 'long')}</StDate>
             <StSeparator>{separator}</StSeparator>
-            <StViewNum>{post.views}</StViewNum>
+            <StViewNum>{post.views + 1}</StViewNum>
           </StInfo>
           <BlackHr />
           <StContent>
@@ -63,8 +57,20 @@ const PostDetail = () => {
           {post.writer === FAKE_USER_NICKNAME ? (
             <>
               <StFooter>
-                <StDelBtn onClick={() => {handleDelClick(postId)}}>삭제</StDelBtn>
-                <StUpdateBtn onClick={() => {handleUpdateClick(postId)}}>수정</StUpdateBtn>
+                <StDelBtn
+                  onClick={() => {
+                    handleDelClick(postId);
+                  }}
+                >
+                  삭제
+                </StDelBtn>
+                <StUpdateBtn
+                  onClick={() => {
+                    handleUpdateClick(postId);
+                  }}
+                >
+                  수정
+                </StUpdateBtn>
               </StFooter>
             </>
           ) : (

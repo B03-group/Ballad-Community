@@ -1,27 +1,38 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
 import Layout from '../components/layout/Layout';
+import detailLoader from '../loaders/detailLoader';
 import Board from '../pages/Board';
 import Detail from '../pages/Detail';
 import Home from '../pages/Home';
 import Update from '../pages/Update';
 import Write from '../pages/Write';
 
-const Router = () => {
-  return (
-    <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/board/:category" element={<Board />} />
-            <Route path="/board/:category/:postId" element={<Detail />} />
-            <Route path="/write" element={<Write />} />
-            <Route path="/update/:postId" element={<Update/>} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </>
-  );
-};
-
+const Router = createBrowserRouter([
+  {
+    element: <Layout />,
+    children: [
+      {
+        path: '/',
+        element: <Home />
+      },
+      {
+        path: '/board/:category',
+        element: <Board />
+      },
+      {
+        path: '/board/:category/:postId',
+        element: <Detail />,
+        loader: async ({ params }) => detailLoader(params.postId)
+      },
+      {
+        path: '/write',
+        element: <Write />
+      },
+      {
+        path: 'update/postId',
+        element: <Update />
+      }
+    ]
+  }
+]);
 export default Router;

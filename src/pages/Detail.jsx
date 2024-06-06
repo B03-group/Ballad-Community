@@ -30,6 +30,7 @@ const CategoryName = styled.h4`
   margin-top: 10px;
   margin-bottom: 20px;
   font-size: 20px;
+  font-weight: 600;
 `;
 
 const Hr = styled.hr`

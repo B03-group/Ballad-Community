@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import { delLikeUser, insertLikeUser } from '../../api/likeApi';
 import { DelPost, updatePostViews } from '../../api/postsApi';
 import { getDate } from '../../assets/functions';
-import BlackHr from '../common/BlackHr';
 
 const FAKE_USER_NICKNAME = 'fakeUser';
 const FAKE_USER_ID = 'dbf6b6ac-321d-47e4-b85f-d520187f10d7';
@@ -19,7 +18,6 @@ const PostDetail = () => {
 
   const post = postData[0];
   const navigate = useNavigate();
-  const separator = `|`;
 
   useEffect(() => {
     const increasedViews = post.views + 1;
@@ -63,13 +61,14 @@ const PostDetail = () => {
         <>
           <StTitle>{post.title}</StTitle>
           <StInfo>
-            <StWriter>{post.writer}</StWriter>
-            <StSeparator>{separator}</StSeparator>
-            <StDate>{getDate(post.date, 'long')}</StDate>
-            <StSeparator>{separator}</StSeparator>
-            <StViewNum>조회 수: {post.views + 1}회</StViewNum>
+            <StInfoLeft>
+              <StWriter>{post.writer}</StWriter>
+            </StInfoLeft>
+            <StInfoRight>
+              <StDate>{`${getDate(post.date, 'long')}, ${getDate(post.date, 'short')}`}</StDate>
+              <StViewNum>조회 수: {post.views + 1}회</StViewNum>
+            </StInfoRight>
           </StInfo>
-          <BlackHr />
           <StContent>
             <StContentHeader>
               <StImgWrapper>
@@ -77,12 +76,15 @@ const PostDetail = () => {
               </StImgWrapper>
             </StContentHeader>
             <StArticle>{post.content}</StArticle>
+            <StContentFooter>
+              <StLikeBtn onClick={handleLikeClick}>
+                {isLike ? <StFillFavor /> : <StFillFavorEmpty />} <span>{likeNum}</span>
+              </StLikeBtn>
+            </StContentFooter>
           </StContent>
           {post.writer === FAKE_USER_NICKNAME ? (
             <>
               <StFooter>
-                <StLikeBtn onClick={handleLikeClick}>{isLike ? <StFillFavor /> : <StFillFavorEmpty />}</StLikeBtn>
-                <span>{likeNum}</span>
                 <StDelBtn
                   onClick={() => {
                     handleDelClick(postId);
@@ -115,31 +117,59 @@ export default PostDetail;
 const StWrapper = styled.section``;
 
 const StTitle = styled.h1`
-  padding-left: 5px;
-  margin-bottom: 15px;
+  padding: 15px 10px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
 
-  font-size: 32px;
-  font-weight: 600;
+  font-size: 29px;
+  font-weight: 500;
+  background-color: #f8f8f8;
 `;
 
-const StInfo = styled.p`
+const StInfo = styled.div`
   display: flex;
-  justify-content: end;
-  font-size: 11px;
+  justify-content: space-between;
+  align-items: center;
+  height: 43px;
+
+  border-left: 1px solid rgba(0, 0, 0, 0.2);
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 `;
 
-const StSeparator = styled.span`
-  margin: 0 5px;
+const StInfoLeft = styled.div`
+  padding-left: 10px;
 `;
 
-const StWriter = styled.span``;
+const StInfoRight = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+`;
 
-const StDate = styled.span``;
+const StWriter = styled.span`
+  font-size: 15px;
+  font-weight: 500;
+`;
 
-const StViewNum = styled.span``;
+const StDate = styled.span`
+  font-size: 12px;
+  padding: 0px 10px;
+  color: rgba(0, 0, 0, 0.7);
+`;
+
+const StViewNum = styled.span`
+  font-size: 12px;
+  padding: 0px 10px;
+  color: rgba(0, 0, 0, 0.7);
+  border-left: 1px solid rgba(0, 0, 0, 0.2);
+`;
 
 const StContent = styled.div`
-  padding: 60px 0 100px;
+  padding: 60px 0 50px;
+  border-left: 1px solid rgba(0, 0, 0, 0.2);
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 `;
 
 const StContentHeader = styled.div`
@@ -158,7 +188,16 @@ const StImgWrapper = styled.div`
   }
 `;
 const StArticle = styled.article`
-  font-size: 12px;
+  padding: 20px 40px;
+  margin-bottom: 50px;
+  font-size: 18px;
+`;
+
+const StContentFooter = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
 `;
 
 const StLikeBtn = styled.button`
@@ -166,20 +205,25 @@ const StLikeBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-
+  gap: 10px;
+  width: 80px;
+  height: 40px;
+  color: #ee115b;
+  border: 1px solid #ee115b;
+  border-radius: 5px;
   cursor: pointer;
 `;
 
 const StFillFavor = styled(MdFavorite)`
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
 
   fill: #ee115b;
 `;
 
 const StFillFavorEmpty = styled(MdFavoriteBorder)`
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
 
   color: #ee115b;
 `;
@@ -188,9 +232,18 @@ const StFooter = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: end;
+  margin-top: 10px;
   gap: 10px;
 `;
 
-const StDelBtn = styled.button``;
+const StDelBtn = styled.button`
+  width: 60px;
+  background: #333;
+  color: white;
+`;
 
-const StUpdateBtn = styled.button``;
+const StUpdateBtn = styled.button`
+  width: 60px;
+  background: #333;
+  color: white;
+`;

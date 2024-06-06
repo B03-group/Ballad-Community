@@ -91,7 +91,7 @@ export const Carousel = ({ category, data, target }) => {
 };
 
 const StSlideHeader = styled.div`
-  width: 80%;
+  width: 1300px;
   font-size: 40px;
   margin: 20px auto;
   margin-top: 40px;
@@ -105,6 +105,7 @@ const StSlideButtonBox = styled.div`
 `;
 const StPreviousBtn = styled(GrFormPrevious)`
   box-sizing: border-box;
+  cursor: pointer;
   width: 34px;
   height: 34px;
   border: 2px solid black;
@@ -120,6 +121,7 @@ const StPreviousBtn = styled(GrFormPrevious)`
 
 const StNextBtn = styled(GrFormNext)`
   box-sizing: border-box;
+  cursor: pointer;
   width: 34px;
   height: 34px;
   border: 2px solid black;
@@ -135,9 +137,11 @@ const StNextBtn = styled(GrFormNext)`
 
 const StSwiper = styled(Swiper)`
   border: 2px solid black;
+  border-radius: 20px;
   padding: 20px 0;
   width: 80%;
   min-width: 400px;
+  max-width: 1300px;
 `;
 
 const StCardDiv = styled.div`

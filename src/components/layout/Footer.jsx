@@ -1,23 +1,20 @@
-import React from 'react';
 import styled from 'styled-components';
 
-const FooterContainer = styled.footer`
-  background-color: #fff;
-  color: #333;
+const StFooter = styled.footer`
+  padding: 1.2rem 1rem;
+  margin-top: 20px;
+  background-color: #252525;
+  color: white;
+  border-top: 1px solid gray;
   text-align: center;
-  padding: 10px;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-  position: fixed;
-  bottom: 0;
-  width: 100%;
+
+  @media (max-width: 768px) {
+    padding: 1.5rem 0.5rem;
+  }
 `;
 
 const Footer = () => {
-  return (
-    <FooterContainer>
-      <p>©2024 삼시세끼. All Rights Reserved</p>
-    </FooterContainer>
-  );
+  return <StFooter>©️2024 삼시세끼. All Rights Reserved</StFooter>;
 };
 
 export default Footer;

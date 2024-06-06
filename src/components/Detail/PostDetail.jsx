@@ -1,6 +1,7 @@
+import { useEffect } from 'react';
 import { useLoaderData, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { DelPost } from '../../api/postsApi';
+import { DelPost, updatePostViews } from '../../api/postsApi';
 import { getDate } from '../../assets/functions';
 import BlackHr from '../common/BlackHr';
 
@@ -11,6 +12,15 @@ const PostDetail = () => {
   const post = postData[0];
   const navigate = useNavigate();
   const separator = `|`;
+
+  useEffect(() => {
+    const increasedViews = post.views + 1;
+    const increasePostView = async (increasedViews, postId) => {
+      await updatePostViews(increasedViews, postId);
+    };
+    return () => increasePostView(increasedViews, postId);
+    //eslint-disable-next-line
+  }, []);
 
   const handleDelClick = (postId) => {
     const isDel = confirm('정말 삭제하시겠습니까?');
@@ -33,7 +43,7 @@ const PostDetail = () => {
             <StSeparator>{separator}</StSeparator>
             <StDate>{getDate(post.date, 'long')}</StDate>
             <StSeparator>{separator}</StSeparator>
-            <StViewNum>{post.views}</StViewNum>
+            <StViewNum>{post.views + 1}</StViewNum>
           </StInfo>
           <BlackHr />
           <StContent>

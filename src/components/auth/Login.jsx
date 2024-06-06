@@ -10,21 +10,21 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading } = useSelector((state) => state.auth) || {}; // 초기값을 빈 객체로 설정하여 undefined 방지
+  const { loading } = useSelector((state) => state.auth) || {};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await dispatch(login({ email, password })).unwrap();
       toast.success('로그인 되었습니다!', {
-        position: 'top-center', // 문자열로 위치 지정
+        position: 'top-center',
         autoClose: 5000,
         closeOnClick: true,
         onClose: () => navigate('/')
       });
     } catch (err) {
       toast.error(`에러: ${err.message}`, {
-        position: 'top-center', // 문자열로 위치 지정
+        position: 'top-center',
         autoClose: 5000,
         closeOnClick: true
       });
@@ -33,7 +33,7 @@ const Login = () => {
 
   return (
     <div className="container">
-      <h1 style={{ fontSize: '48px', marginBottom: '20px' }}>로그인</h1>
+      <h1 className="title">로그인</h1>
       <form className="form-container" onSubmit={handleSubmit}>
         <label className="label">Email:</label>
         <input

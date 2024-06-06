@@ -71,7 +71,7 @@ const WriteForm = () => {
       <StContentWrapper>
         <StLabel>내용</StLabel>
         <StFileInput onChange={handleImgChange} ref={ImgInputRef} type="file" />
-        <StAddImgBtn onClick={handleAddImgBtnClick}>이미지</StAddImgBtn>
+        <StAddImgBtn onClick={handleAddImgBtnClick}>📸이미지</StAddImgBtn>
         <StInputArea>
           <StImgWrapper>
             <img src={imgUrl} />
@@ -80,7 +80,7 @@ const WriteForm = () => {
         </StInputArea>
       </StContentWrapper>
       <StBtnWrapper>
-        <StAddBtn onClick={handleAddBtnClick}>등록</StAddBtn>
+        <StAddBtn onClick={handleAddBtnClick}>🖱️등록</StAddBtn>
       </StBtnWrapper>
     </StFormWrapper>
   );
@@ -147,7 +147,6 @@ const StInputArea = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 15px 10px;
-
   border: 1px solid black;
 `;
 
@@ -164,12 +163,19 @@ const StFileInput = styled.input`
   display: none;
 `;
 
-const StAddImgBtn = styled.button``;
+const StAddImgBtn = styled.button`
+  background-color: black;
+  color: white;
+  font-size: 15px;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 17px;
+`;
 
 const StContentTextArea = styled.textarea`
   all: unset;
   padding: 15px 10px;
-  font-size: 14px;
+  font-size: 20px;
   width: 100%;
   height: 500px;
   box-sizing: border-box;
@@ -180,4 +186,10 @@ const StBtnWrapper = styled.div`
   justify-content: end;
 `;
 
-const StAddBtn = styled.button``;
+const StAddBtn = styled.button`
+  background-color: black;
+  color: white;
+  padding: 7px 15px 7px 15px;
+  border-radius: 5px;
+  font-size: 17px;
+`;

@@ -154,7 +154,6 @@ const StWriter = styled.span`
 
 const StDate = styled.span`
   font-size: 12px;
-  padding: 0px 10px;
   color: rgba(0, 0, 0, 0.7);
 `;
 

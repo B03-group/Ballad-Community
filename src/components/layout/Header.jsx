@@ -33,9 +33,7 @@ const Header = () => {
         {user ? (
           <>
             <StDiv onClick={handleLogout}>로그아웃</StDiv>
-            <StLink to={'/profile'}>
-              <StProfile />
-            </StLink>
+            <StProfile to={'/profile'} />
           </>
         ) : (
           <>
@@ -66,7 +64,6 @@ const StNav = styled.nav`
 const StLogoBox = styled.div`
   display: flex;
 `;
-
 const StLogo = styled(PiMicrophoneDuotone)`
   width: 50px;
   height: 50px;
@@ -76,14 +73,12 @@ const StLogo = styled(PiMicrophoneDuotone)`
   border-radius: 30px;
   display: inline-block;
 `;
-
 const StH1 = styled.h1`
   font-weight: 700;
   font-size: 20px;
   margin: 15px 10px;
   color: white;
 `;
-
 const StUser = styled.div`
   display: flex;
   align-items: center;
@@ -91,9 +86,9 @@ const StUser = styled.div`
 `;
 const StDiv = styled.div`
   cursor: pointer;
+  color: white;
 `;
-
-const StProfile = styled.div`
+const StProfile = styled(Link)`
   width: 40px;
   height: 40px;
   border-radius: 20px;

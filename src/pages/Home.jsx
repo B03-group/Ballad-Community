@@ -44,8 +44,8 @@ const Home = () => {
 export default Home;
 
 const StChartContainer = styled.div`
-  max-width: 1200px;
+  max-width: 1400px;
   display: flex;
   flex-wrap: wrap;
-  margin: 0 auto;
+  margin: 30px auto;
 `;

@@ -13,7 +13,7 @@ const Header = () => {
           </div>
         </StLink>
         <StUser>
-          <StLink>로그인</StLink>
+          <StLink to={'/login'}>로그인</StLink>
           <StLink>회원가입</StLink>
           <StLink to={'/'}>
             <StProfile />

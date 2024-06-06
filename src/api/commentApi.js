@@ -1,7 +1,7 @@
 import { supabase } from './api';
 
 export const getComments = async (postId) => {
-  const { data, error } = await supabase.from('test').select().eq('page_id', postId);
+  const { data, error } = await supabase.from('comments').select("*").eq('post_id', postId);
 
   if (!error) return data;
   else throw new Error();
@@ -9,7 +9,7 @@ export const getComments = async (postId) => {
 
 export const updateCommentsLike = async (likeNum, plusNum, commentId, reverseLike) => {
   const { data, error } = await supabase
-    .from('test')
+    .from('comments')
     .update({ like_num: likeNum + plusNum, like: reverseLike })
     .eq('comment_id', commentId)
     .select();
@@ -21,7 +21,7 @@ export const updateCommentsLike = async (likeNum, plusNum, commentId, reverseLik
 };
 
 export const updateCommentsContent = async (commentId, content) => {
-  const { data, error } = await supabase.from('test').update({ content: content }).eq('comment_id', commentId).select();
+  const { data, error } = await supabase.from('comments').update({ content: content }).eq('comment_id', commentId).select();
 
   const [updatedComment] = data;
 
@@ -30,12 +30,12 @@ export const updateCommentsContent = async (commentId, content) => {
 };
 
 export const insertComment = async (newComment) => {
-  const { error } = await supabase.from('test').insert(newComment);
+  const { error } = await supabase.from('comments').insert(newComment);
 
   if (error) throw new Error();
 };
 export const DelComment = async (commentId) => {
-  const { error } = await supabase.from('test').delete().eq('comment_id', commentId);
+  const { error } = await supabase.from('comments').delete().eq('comment_id', commentId);
 
   if (error) throw new Error();
 };

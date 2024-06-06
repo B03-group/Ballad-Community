@@ -1,21 +1,20 @@
 import { useEffect, useState } from 'react';
 import { MdFavorite, MdFavoriteBorder } from 'react-icons/md';
+import { useSelector } from 'react-redux';
 import { useLoaderData, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { delLikeUser, insertLikeUser } from '../../api/likeApi';
 import { DelPost, updatePostViews } from '../../api/postsApi';
 import { getDate } from '../../assets/functions';
 
-const FAKE_USER_NICKNAME = 'fakeUser';
-const FAKE_USER_ID = 'dbf6b6ac-321d-47e4-b85f-d520187f10d7';
-
 const PostDetail = () => {
+  const { user } = useSelector((state) => state.auth);
   const { category, postId } = useParams();
   const { postData, likeUsersData } = useLoaderData();
-  const isDataHasUser = likeUsersData.findIndex((likeUser) => likeUser.user_id === FAKE_USER_ID) >= 0;
+  const userId = user && user.user_metadata.sub;
+  const isDataHasUser = likeUsersData.findIndex((likeUser) => likeUser.user_id === userId) >= 0;
   const [likeNum, setLikeNum] = useState(likeUsersData.length);
   const [isLike, setIsLike] = useState(isDataHasUser);
-
   const post = postData[0];
   const navigate = useNavigate();
 
@@ -24,24 +23,27 @@ const PostDetail = () => {
     const increasePostView = async (increasedViews, postId) => {
       await updatePostViews(increasedViews, postId);
     };
-    const increaseLikeNum = async (postId, userId) => {
-      await insertLikeUser(postId, userId);
-    };
 
-    const decreaseLikeNum = async (postId, userId) => {
-      await delLikeUser(postId, userId);
-    };
     return () => {
       increasePostView(increasedViews, postId);
-      if (!isDataHasUser && !isLike) increaseLikeNum(postId, FAKE_USER_ID);
-      if (isDataHasUser && isLike) decreaseLikeNum(postId, FAKE_USER_ID);
     };
     //eslint-disable-next-line
   }, []);
 
   const handleLikeClick = () => {
-    setIsLike((prev) => !prev);
-    setLikeNum((prevNum) => (isLike ? prevNum - 1 : prevNum + 1));
+    if (user) {
+      if (isLike) {
+        setIsLike(false);
+        setLikeNum((prevNum) => prevNum - 1);
+        delLikeUser(postId, userId);
+      } else {
+        setIsLike(true);
+        setLikeNum((prevNum) => prevNum + 1);
+        insertLikeUser(postId, userId);
+      }
+    } else {
+      navigate('/login');
+    }
   };
 
   const handleDelClick = (postId) => {
@@ -71,18 +73,16 @@ const PostDetail = () => {
           </StInfo>
           <StContent>
             <StContentHeader>
-              <StImgWrapper>
-                <img src={post.img_url} />
-              </StImgWrapper>
+              <StImgWrapper>{post.img_url && <img src={post.img_url} />}</StImgWrapper>
             </StContentHeader>
             <StArticle>{post.content}</StArticle>
             <StContentFooter>
               <StLikeBtn onClick={handleLikeClick}>
-                {isLike ? <StFillFavor /> : <StFillFavorEmpty />} <span>{likeNum}</span>
+                {isLike ? <StFillFavor /> : <StEmptyFavor />} <span>{likeNum}</span>
               </StLikeBtn>
             </StContentFooter>
           </StContent>
-          {post.writer === FAKE_USER_NICKNAME ? (
+          {post.user_id === userId ? (
             <>
               <StFooter>
                 <StDelBtn
@@ -219,7 +219,7 @@ const StFillFavor = styled(MdFavorite)`
   fill: #ee115b;
 `;
 
-const StFillFavorEmpty = styled(MdFavoriteBorder)`
+const StEmptyFavor = styled(MdFavoriteBorder)`
   width: 30px;
   height: 30px;
 

@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { insertPost, uploadImg } from '../../api/postsApi';
@@ -12,6 +13,9 @@ const WriteForm = () => {
   const contentRef = useRef();
   const ImgInputRef = useRef();
   const navigator = useNavigate();
+  const { user } = useSelector((state) => state.auth);
+  const userId = user && user.user_metadata.sub;
+  const userName = user && user.user_metadata.name;
 
   const handleAddBtnClick = async (e) => {
     e.preventDefault();
@@ -26,7 +30,7 @@ const WriteForm = () => {
     const path = await uploadImg(imgFile);
 
     const uploadImgUrl = `https://hosygkmrpmwxwrqoqlhq.supabase.co/storage/v1/object/public/posts/${path}`;
-    insertPost(category, title, content, uploadImgUrl);
+    insertPost(userId, userName, category, title, content, uploadImgUrl);
     alert('등록이 완료되었습니다!');
     navigator(`/board/${category}?page=1`);
   };

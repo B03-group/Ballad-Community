@@ -32,7 +32,7 @@ export const updateCommentsContent = async (commentId, content) => {
 export const insertComment = async (newComment) => {
   const { error } = await supabase.from('comments').insert(newComment);
 
-  if (error) throw new Error();
+  if (error) console.log(error);
 };
 export const DelComment = async (commentId) => {
   const { error } = await supabase.from('comments').delete().eq('comment_id', commentId);

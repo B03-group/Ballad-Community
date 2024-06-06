@@ -1,25 +1,26 @@
 import { useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 import { insertComment } from '../../api/commentApi';
 import { checkInputLengthValidate } from '../../assets/validations';
 
 const CommentInput = ({ setComments }) => {
-  const isLogIn = true;
   const { postId } = useParams();
-  const fakeUserId = '80257256-087d-4ef3-9d35-d7ae865404fa';
+  const { user } = useSelector((state) => state.auth);
   const inputRef = useRef(null);
+  const navigate = useNavigate();
 
   const handleAddBtnClick = () => {
     const inputValue = inputRef.current.value;
     const newComment = {
       comment_id: uuidv4(),
       date: Date.now(),
-      writer: 'fakeUser',
+      writer: user.user_metadata.name,
       content: inputValue,
-      user_id: fakeUserId,
-      page_id: postId,
+      user_id: user.user_metadata.sub,
+      post_id: postId,
       like_num: 0,
       like: false
     };
@@ -29,21 +30,27 @@ const CommentInput = ({ setComments }) => {
     inputRef.current.value = '';
   };
 
+  const handleLogInClick = () =>{
+    navigate('/login');
+  }
+
   return (
     <StWrapper>
-      <StHeader>
-        <StTitle>댓글 달기</StTitle>
-      </StHeader>
       <StBody>
-        {isLogIn ? (
-          <LoggedInInput ref={inputRef} />
+        {user ? (
+          <>
+            <StHeader>
+              <StTitle>댓글 달기</StTitle>
+            </StHeader>
+            <LoggedInInput ref={inputRef} />
+            <StFooter>
+              <StAddBtn onClick={() => handleAddBtnClick(inputRef)}>등록</StAddBtn>
+            </StFooter>
+          </>
         ) : (
-          <LoggedOutInput>댓글 쓰기 권한이 없습니다. 로그인 하시겠습니까?</LoggedOutInput>
+          <LoggedOutInput onClick={handleLogInClick}>댓글 쓰기 권한이 없습니다. 로그인 하시겠습니까?</LoggedOutInput>
         )}
       </StBody>
-      <StFooter>
-        <StAddBtn onClick={() => handleAddBtnClick(inputRef)}>등록</StAddBtn>
-      </StFooter>
     </StWrapper>
   );
 };
@@ -75,7 +82,17 @@ const LoggedInInput = styled.textarea`
   box-sizing: border-box;
 `;
 
-const LoggedOutInput = styled.a``;
+const LoggedOutInput = styled.div`
+  padding: 10px 10px;
+  margin-top: 10px;
+  width: 100%;
+  min-height: 80px;
+  border: 1px solid black;
+  border-radius: 2px;
+  font-size: 12px;
+  cursor: pointer;
+  box-sizing: border-box;
+`;
 
 const StFooter = styled.div`
   display: flex;

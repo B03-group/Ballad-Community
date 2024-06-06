@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { SlSpeech } from 'react-icons/sl';
-import { useParams } from 'react-router-dom';
+import { useLoaderData } from 'react-router-dom';
 import styled from 'styled-components';
-import { DelComment, getComments, updateCommentsContent } from '../../api/commentApi';
+import { DelComment, updateCommentsContent } from '../../api/commentApi';
 import { checkInputLengthValidate } from '../../assets/validations';
 import BlackHr from '../common/BlackHr';
 import Comment from './Comment';
@@ -10,20 +10,9 @@ import CommentInput from './CommentInput';
 import CommentUpdate from './CommentUpdate';
 
 const Comments = () => {
-  const { postId } = useParams();
-  const [comments, setComments] = useState([]);
+  const { commentsData } = useLoaderData();
+  const [comments, setComments] = useState(commentsData);
   const [updateId, setUpdateId] = useState('');
-
-  useEffect(() => {
-    fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const fetchData = async () => {
-    const data = await getComments(postId);
-    data.sort((a, b) => a.date - b.date);
-    setComments(data);
-  };
 
   const handleUpdateClick = (commentId) => () => {
     setUpdateId(commentId);

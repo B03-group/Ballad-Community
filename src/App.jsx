@@ -1,7 +1,7 @@
-import React from "react";
-import Router from "./shared/Router";
 import { Provider } from "react-redux";
+import { RouterProvider } from "react-router-dom";
 import store from "./redux/config/configStore";
+import Router from "./shared/Router";
 import GlobalStyle from "./styles/GlobalStyle";
 
 const App = () => {
@@ -9,7 +9,7 @@ const App = () => {
     <>
       <Provider store={store}>
         <GlobalStyle />
-        <Router />
+        <RouterProvider router={Router} />
       </Provider>
     </>
   );

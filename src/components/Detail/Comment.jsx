@@ -4,7 +4,7 @@ import { getDate } from '../../assets/functions';
 const fakeUserId = '80257256-087d-4ef3-9d35-d7ae865404fa';
 
 const Comment = ({ commentId, userId, writer, date, content, handleUpdateClick, handleDelClick }) => {
-  const dateStr = getDate(date, 'short');
+  const dateStr = getDate(date, 'long');
 
   return (
     <StWrapper>
@@ -26,7 +26,6 @@ const Comment = ({ commentId, userId, writer, date, content, handleUpdateClick, 
           </>
         )}
       </StFooter>
-      <StHr />
     </StWrapper>
   );
 };
@@ -42,11 +41,14 @@ const StHeader = styled.div`
   flex-direction: row;
   justify-content: space-between;
 
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   margin-bottom: 15px;
+  padding-bottom: 10px;
 `;
 
 const StWriter = styled.div`
-  font-size: 14px;
+  font-size: 16px;
+  font-weight: 600;
 `;
 
 const StInfo = styled.div`
@@ -57,6 +59,7 @@ const StInfo = styled.div`
 
 const StDate = styled.span`
   font-size: 12px;
+  color: rgba(0, 0, 0, 0.6);
 `;
 
 const StBody = styled.div`
@@ -64,12 +67,13 @@ const StBody = styled.div`
 `;
 
 const StContent = styled.p`
-  font-size: 12px;
+  font-size: 14px;
 `;
 
 const StFooter = styled.div`
   display: flex;
   justify-content: end;
+  margin-bottom: 30px;
 `;
 
 const StUpdateBtn = styled.button`
@@ -79,13 +83,8 @@ const StUpdateBtn = styled.button`
 `;
 
 const StDelBtn = styled.button`
+  margin-left: 10px;
   width: 60px;
   background: #333;
   color: white;
-`;
-
-const StHr = styled.hr`
-  height: 1px;
-  border: 0;
-  background: rgba(0, 0, 0, 0.1);
 `;

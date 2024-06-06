@@ -2,15 +2,16 @@
 
 # 프로젝트 소개 
 
-라이브러리
-- yarn
-- yarn add redux react-redux @reduxjs/toolkit
-- yarn add styled-components
-- yarn add swiper
-- yarn add react-icons
-- yarn add react-player
-- yarn react-toastify
-- yarn dev
+
+# 라이브러리
+
+- redux react-redux @reduxjs/toolkit
+- styled-components
+- swiper
+- react-icons
+- react-player
+- react-toastify
+
 
 <br />
 
@@ -18,7 +19,7 @@
 
 | 김성구 | 김지환 | 김형빈 | 염경원 | 주현우 |
 | :---: | :---: | :---: | :---: | :---: |
-| <img src="https://avatars.githubusercontent.com/Kimsounggu" width="200"> | <img src="https://avatars.githubusercontent.com/u/RingKim1" width="200"> | <img src="https://avatars.githubusercontent.com/hb9901" width="200"> | <img src="https://avatars.githubusercontent.com/YCDM03" width="200"> | <img src="https://avatars.githubusercontent.com/HyunwooJu" width="200"> |
+| <img src="https://avatars.githubusercontent.com/Kimsounggu" width="200"> | <img src="https://avatars.githubusercontent.com/RingKim1" width="200"> | <img src="https://avatars.githubusercontent.com/hb9901" width="200"> | <img src="https://avatars.githubusercontent.com/YCDM03" width="200"> | <img src="https://avatars.githubusercontent.com/HyunwooJu" width="200"> |
 | 팀원 | 팀원 | 부리더 | 팀원 | 리더 |
 | [Kimsounggu](https://github.com/Kimsounggu) | [RingKim1](https://github.com/RingKim1) | [hb9901](https://github.com/hb9901)| [YCDM03](https://github.com/YCDM03) | [HyunwooJu](https://github.com/HyunwooJu) |    
 

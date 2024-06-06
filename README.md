@@ -43,8 +43,11 @@
   ![ezgif-5-ef19c5ded4](https://github.com/B03-group/Ballad-Community/assets/164147591/dcf65a12-5ff9-4380-bc16-d603d58f23f2)
 * 게시판 캐러셀<br />
 ### 로그인
+* 로그인<br />
+  ![로그인](https://github.com/B03-group/Ballad-Community/assets/164147591/e9c72157-0ea6-4bb9-9efd-ed64faba024c)
 * 회원가입<br />
-* 프로필<br />
+  ![회원가입](https://github.com/B03-group/Ballad-Community/assets/164147591/f5fd7094-c970-4662-ba4e-e1f06501168e)
+* 프로필수정<br />
 ### 게시판
 * 필터링(최신순, 추천순)<br />
 * 페이지네이션<br />

@@ -62,7 +62,7 @@ const Comments = () => {
             <Comment
               key={comment.comment_id}
               commentId={comment.comment_id}
-              userId={comment.user_id}
+              writerId={comment.user_id}
               writer={comment.writer}
               content={comment.content}
               date={comment.date}

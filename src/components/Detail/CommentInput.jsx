@@ -20,7 +20,7 @@ const CommentInput = ({ setComments }) => {
       writer: user.user_metadata.name,
       content: inputValue,
       user_id: user.user_metadata.sub,
-      page_id: postId,
+      post_id: postId,
       like_num: 0,
       like: false
     };

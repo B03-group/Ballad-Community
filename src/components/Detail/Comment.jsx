@@ -2,9 +2,10 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { getDate } from '../../assets/functions';
 
-const Comment = ({ commentId, userId, writer, date, content, handleUpdateClick, handleDelClick }) => {
+const Comment = ({ commentId, writerId, writer, date, content, handleUpdateClick, handleDelClick }) => {
   const dateStr = getDate(date, 'long');
   const { user } = useSelector((state) => state.auth);
+  const userId = user && user.user_metadata.sub;
 
 
   return (
@@ -19,7 +20,7 @@ const Comment = ({ commentId, userId, writer, date, content, handleUpdateClick, 
         <StContent>{content}</StContent>
       </StBody>
       <StFooter>
-        {user.user_metadata.sub === userId && (
+        {userId === writerId && (
           <>
             <StUpdateBtn onClick={handleUpdateClick(commentId)}>수정</StUpdateBtn>
             <StDelBtn onClick={handleDelClick(commentId)}>삭제</StDelBtn>

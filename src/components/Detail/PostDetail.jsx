@@ -118,11 +118,10 @@ const StWrapper = styled.section``;
 
 const StTitle = styled.h1`
   padding: 15px 10px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
 
-  font-size: 29px;
+  font-size: 25px;
   font-weight: 500;
-  background-color: #f8f8f8;
+  background-color: #c3c3c3;
 `;
 
 const StInfo = styled.div`

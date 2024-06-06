@@ -4,7 +4,6 @@ import { useLoaderData } from 'react-router-dom';
 import styled from 'styled-components';
 import { DelComment, updateCommentsContent } from '../../api/commentApi';
 import { checkInputLengthValidate } from '../../assets/validations';
-import BlackHr from '../common/BlackHr';
 import Comment from './Comment';
 import CommentInput from './CommentInput';
 import CommentUpdate from './CommentUpdate';
@@ -47,7 +46,6 @@ const Comments = () => {
         <StTitle>댓글</StTitle>
         <StCommentsNum>{comments.length}</StCommentsNum>
       </StTitleWrapper>
-      <BlackHr />
       <StCommentsList>
         {comments.map((comment) =>
           updateId === comment.comment_id ? (

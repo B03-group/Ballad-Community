@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { login, signup, logout, updateProfile } from './authActions';
 
 const initialState = {
-  user: null,
+  user: JSON.parse(localStorage.getItem('user')) || null, // 로컬 스토리지에서 사용자 정보를 불러옴
   loading: false,
   error: null,
   message: null
@@ -30,6 +30,7 @@ const authSlice = createSlice({
         state.loading = false;
         state.user = action.payload;
         state.message = '로그인 성공!';
+        localStorage.setItem('user', JSON.stringify(action.payload)); // 로컬 스토리지에 사용자 정보 저장
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
@@ -45,6 +46,7 @@ const authSlice = createSlice({
         state.loading = false;
         state.user = action.payload;
         state.message = '회원가입 성공!';
+        localStorage.setItem('user', JSON.stringify(action.payload)); // 로컬 스토리지에 사용자 정보 저장
       })
       .addCase(signup.rejected, (state, action) => {
         state.loading = false;
@@ -54,6 +56,7 @@ const authSlice = createSlice({
       .addCase(logout.fulfilled, (state) => {
         state.user = null;
         state.message = '로그아웃 되셨습니다!';
+        localStorage.removeItem('user'); // 로컬 스토리지에서 사용자 정보 제거
       })
       .addCase(logout.rejected, (state, action) => {
         state.error = action.payload;
@@ -62,6 +65,7 @@ const authSlice = createSlice({
       .addCase(updateProfile.fulfilled, (state, action) => {
         state.user = action.payload;
         state.message = '프로필 업데이트 성공!';
+        localStorage.setItem('user', JSON.stringify(action.payload)); // 로컬 스토리지에 사용자 정보 저장
       })
       .addCase(updateProfile.rejected, (state, action) => {
         state.error = action.payload;

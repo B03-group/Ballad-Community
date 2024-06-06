@@ -10,7 +10,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading } = useSelector((state) => state.auth);
+  const { loading } = useSelector((state) => state.auth) || {}; // 초기값을 빈 객체로 설정하여 undefined 방지
 
   const handleSubmit = async (e) => {
     e.preventDefault();

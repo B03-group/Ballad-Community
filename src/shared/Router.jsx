@@ -20,10 +20,9 @@ const Router = () => {
             <Route path="/board/:category/:postId" element={<Detail />} />
             <Route path="/write" element={<Write />} />
             <Route path="/update/:postId" element={<Update />} />
-            <Route path="/profile" element={<Profile />} />
-            {/* <Route path="/login" element={<LoginRegister />} /> */}
+            <Route path="/profile" element={<Profile />} /> {/* 프로필 페이지 라우트 추가 */}
             <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+            <Route path="/register" element={<Register />} /> {/* 회원가입 페이지 라우트 추가 */}
           </Route>
         </Routes>
       </BrowserRouter>

@@ -2,19 +2,20 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { PiMicrophoneDuotone } from 'react-icons/pi';
-import { logout } from '../../features/auth/authActions'; // 로그아웃 액션 추가
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../features/auth/authActions';
 
 const Header = () => {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const { user } = useSelector((state) => state.auth);
 
   const handleLogout = async () => {
     await dispatch(logout());
     navigate('/');
   };
-
-  const boardTitles = ['전체글', '공연(정보,후기)', '추천음악', '자유'];
 
   return (
     <StNav>
@@ -25,7 +26,7 @@ const Header = () => {
         </StLogoBox>
       </StLink>
       <StCategory>
-        {boardTitles.map((boardTitle) => (
+        {['전체글', '공연(정보,후기)', '추천음악', '자유'].map((boardTitle) => (
           <StCategoryLink to={`/board/${boardTitle}?page=1`} key={boardTitle}>
             {boardTitle}
           </StCategoryLink>
@@ -68,6 +69,7 @@ const StNav = styled.nav`
 const StLogoBox = styled.div`
   display: flex;
 `;
+
 const StLogo = styled(PiMicrophoneDuotone)`
   width: 50px;
   height: 50px;
@@ -77,16 +79,21 @@ const StLogo = styled(PiMicrophoneDuotone)`
   border-radius: 30px;
   display: inline-block;
 `;
+
 const StH1 = styled.h1`
   font-weight: 700;
   font-size: 20px;
   margin: 15px 10px;
   color: white;
 `;
+
 const StUser = styled.div`
   display: flex;
   align-items: center;
   gap: 20px;
+`;
+const StDiv = styled.div`
+  cursor: pointer;
 `;
 const StDiv = styled.div`
   cursor: pointer;

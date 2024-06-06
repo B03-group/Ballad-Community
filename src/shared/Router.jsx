@@ -32,7 +32,7 @@ const Router = createBrowserRouter([
         element: <Write />
       },
       {
-        path: 'update/postId',
+        path: '/update/:postId',
         element: <Update />
       },
       {

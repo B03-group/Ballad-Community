@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { insertPost, uploadImg } from '../../api/postsApi';
@@ -12,6 +13,9 @@ const WriteForm = () => {
   const contentRef = useRef();
   const ImgInputRef = useRef();
   const navigator = useNavigate();
+  const { user } = useSelector((state) => state.auth);
+  const userId = user && user.user_metadata.sub;
+  const userName = user && user.user_metadata.name;
 
   const handleAddBtnClick = async (e) => {
     e.preventDefault();
@@ -26,7 +30,7 @@ const WriteForm = () => {
     const path = await uploadImg(imgFile);
 
     const uploadImgUrl = `https://hosygkmrpmwxwrqoqlhq.supabase.co/storage/v1/object/public/posts/${path}`;
-    insertPost(category, title, content, uploadImgUrl);
+    insertPost(userId, userName, category, title, content, uploadImgUrl);
     alert('등록이 완료되었습니다!');
     navigator(`/board/${category}?page=1`);
   };
@@ -67,7 +71,7 @@ const WriteForm = () => {
       <StContentWrapper>
         <StLabel>내용</StLabel>
         <StFileInput onChange={handleImgChange} ref={ImgInputRef} type="file" />
-        <StAddImgBtn onClick={handleAddImgBtnClick}>📸이미지</StAddImgBtn>
+        <StAddImgBtn onClick={handleAddImgBtnClick}>이미지</StAddImgBtn>
         <StInputArea>
           <StImgWrapper>
             <img src={imgUrl} />
@@ -76,7 +80,7 @@ const WriteForm = () => {
         </StInputArea>
       </StContentWrapper>
       <StBtnWrapper>
-        <StAddBtn onClick={handleAddBtnClick}>🖱️등록</StAddBtn>
+        <StAddBtn onClick={handleAddBtnClick}>등록</StAddBtn>
       </StBtnWrapper>
     </StFormWrapper>
   );
@@ -143,6 +147,7 @@ const StInputArea = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 15px 10px;
+
   border: 1px solid black;
 `;
 
@@ -159,19 +164,12 @@ const StFileInput = styled.input`
   display: none;
 `;
 
-const StAddImgBtn = styled.button`
-  background-color: black;
-  color: white;
-  font-size: 15px;
-  border-radius: 5px;
-  padding: 5px;
-  font-size: 17px;
-`;
+const StAddImgBtn = styled.button``;
 
 const StContentTextArea = styled.textarea`
   all: unset;
   padding: 15px 10px;
-  font-size: 20px;
+  font-size: 14px;
   width: 100%;
   height: 500px;
   box-sizing: border-box;
@@ -182,10 +180,4 @@ const StBtnWrapper = styled.div`
   justify-content: end;
 `;
 
-const StAddBtn = styled.button`
-  background-color: black;
-  color: white;
-  padding: 7px 15px 7px 15px;
-  border-radius: 5px;
-  font-size: 17px;
-`;
+const StAddBtn = styled.button``;

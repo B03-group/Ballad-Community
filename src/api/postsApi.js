@@ -1,12 +1,11 @@
-import { v4 as uuidv4 } from 'uuid';
 import { supabase } from './api';
 
-export const insertPost = async (category, content, title, imgUrl) => {
+export const insertPost = async (userId, userName, category, title, content, imgUrl) => {
   const newPost = {
-    post_id: uuidv4(),
+    post_id: userId,
     category,
     date: Date.now(),
-    writer: 'fakeUser',
+    writer: userName,
     title,
     content,
     views: 0,

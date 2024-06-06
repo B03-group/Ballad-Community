@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
@@ -8,7 +9,7 @@ import { checkInputLengthValidate } from '../../assets/validations';
 const CommentInput = ({ setComments }) => {
   const isLogIn = true;
   const { postId } = useParams();
-  const fakeUserId = '80257256-087d-4ef3-9d35-d7ae865404fa';
+  const { user } = useSelector((state) => state.auth);
   const inputRef = useRef(null);
 
   const handleAddBtnClick = () => {
@@ -16,9 +17,9 @@ const CommentInput = ({ setComments }) => {
     const newComment = {
       comment_id: uuidv4(),
       date: Date.now(),
-      writer: 'fakeUser',
+      writer: user.user_metadata.name,
       content: inputValue,
-      user_id: fakeUserId,
+      user_id: user.user_metadata.sub,
       page_id: postId,
       like_num: 0,
       like: false

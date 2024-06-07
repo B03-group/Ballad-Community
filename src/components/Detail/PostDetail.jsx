@@ -12,9 +12,12 @@ const PostDetail = () => {
   const { category, postId } = useParams();
   const { postData, likeUsersData } = useLoaderData();
   const userId = user && user.user_metadata.sub;
+
   const isDataHasUser = likeUsersData.findIndex((likeUser) => likeUser.user_id === userId) >= 0;
+
   const [likeNum, setLikeNum] = useState(likeUsersData.length);
   const [isLike, setIsLike] = useState(isDataHasUser);
+
   const post = postData[0];
   const navigate = useNavigate();
 
@@ -23,23 +26,31 @@ const PostDetail = () => {
     const increasePostView = async (increasedViews, postId) => {
       await updatePostViews(increasedViews, postId);
     };
+    const increaseLikeNum = async (postId, userId) => {
 
+      await insertLikeUser(postId, userId);
+    };
+
+    const decreaseLikeNum = async (postId, userId) => {
+      await delLikeUser(postId, userId);
+    };
     return () => {
       increasePostView(increasedViews, postId);
+      if (user && !isDataHasUser && isLike) increaseLikeNum(postId, userId);
+      if (user && isDataHasUser && !isLike) decreaseLikeNum(postId, userId);
     };
     //eslint-disable-next-line
-  }, []);
+  }, [isLike]);
 
   const handleLikeClick = () => {
     if (user) {
-      if (isLike) {
+      if(isLike){
         setIsLike(false);
-        setLikeNum((prevNum) => prevNum - 1);
-        delLikeUser(postId, userId);
-      } else {
+        setLikeNum((prevNum) =>prevNum - 1);
+      }
+      else {
         setIsLike(true);
         setLikeNum((prevNum) => prevNum + 1);
-        insertLikeUser(postId, userId);
       }
     } else {
       navigate('/login');

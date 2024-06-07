@@ -1,16 +1,12 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const StFooter = styled.footer`
-  padding: 2rem 1rem;
-
+  padding: 1.2rem 1rem;
+  margin-top: 20px;
+  background-color: #252525;
+  color: white;
   border-top: 1px solid gray;
   text-align: center;
-
-  p {
-    font-size: 0.9rem;
-    color: #666;
-    margin-bottom: 0.5rem;
-  }
 
   @media (max-width: 768px) {
     padding: 1.5rem 0.5rem;

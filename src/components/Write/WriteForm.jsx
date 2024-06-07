@@ -29,7 +29,7 @@ const WriteForm = () => {
 
     const path = await uploadImg(imgFile);
 
-    const uploadImgUrl = `https://hosygkmrpmwxwrqoqlhq.supabase.co/storage/v1/object/public/posts/${path}`;
+    const uploadImgUrl = imgFile ? `https://hosygkmrpmwxwrqoqlhq.supabase.co/storage/v1/object/public/posts/${path}` : null;
     insertPost(userId, userName, category, title, content, uploadImgUrl);
     alert('등록이 완료되었습니다!');
     navigator(`/board/${category}?page=1`);
@@ -73,9 +73,7 @@ const WriteForm = () => {
         <StFileInput onChange={handleImgChange} ref={ImgInputRef} type="file" />
         <StAddImgBtn onClick={handleAddImgBtnClick}>📸이미지</StAddImgBtn>
         <StInputArea>
-          <StImgWrapper>
-            <img src={imgUrl} />
-          </StImgWrapper>
+          <StImgWrapper>{imgUrl && <img src={imgUrl} />}</StImgWrapper>
           <StContentTextArea ref={contentRef} />
         </StInputArea>
       </StContentWrapper>

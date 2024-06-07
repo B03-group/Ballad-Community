@@ -41,8 +41,10 @@ Bugs에서 제공하는 발라드 차트를 크롤링하여 사이트 내 에서
 ### 메인페이지
 
 - 차트 및 영상슬라이드<br />
-  ![ezgif-5-ef19c5ded4](https://github.com/B03-group/Ballad-Community/assets/164147591/dcf65a12-5ff9-4380-bc16-d603d58f23f2)
+  ![차트 및 영상슬라이드](https://github.com/B03-group/Ballad-Community/assets/164147591/dcf65a12-5ff9-4380-bc16-d603d58f23f2)
 - 게시판 캐러셀<br />
+  ![캐러셀](https://github.com/B03-group/Ballad-Community/assets/164147591/1a5923e8-2322-4d73-abb1-0a4035e77894)
+
 
 ### 로그인
 

@@ -67,7 +67,7 @@ Bugs에서 제공하는 발라드 차트를 크롤링하여 사이트 내 에서
   ![게시글 수정, 삭제](https://github.com/B03-group/Ballad-Community/assets/131237911/99321a67-e825-4307-a823-bb5a6e6e19f2)
 - 추천<br />
   ![좋아요 기능](https://github.com/B03-group/Ballad-Community/assets/131237911/c5fa5c72-f90e-4293-86db-278354ab8196)
-- 댓글<br />
+- 댓글 CRUD<br />
   ![댓글](https://github.com/B03-group/Ballad-Community/assets/131237911/c6621107-4c14-49fa-aeb6-94c9d98970fb)
 
 <br />

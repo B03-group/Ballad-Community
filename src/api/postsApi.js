@@ -21,7 +21,7 @@ export const insertPost = async (userId, userName, category, title, content, img
 
 export const uploadImg = async (imgFile) => {
   const { data, error } = await supabase.storage.from('posts').upload(`post_${Date.now()}.png`, imgFile);
-
+  console.log(data);
   if (!error) return data.path;
   else console.log(error);
 };
